@@ -7,36 +7,11 @@
 
   <style>
     body {
-      <script>
-function comprarWhats(produto, selectId) {
-  const tamanho = document.getElementById(selectId).value;
-
-  if (!tamanho) {
-    alert("Por favor, selecione um tamanho.");
-    return;
-  }
-
-  const mensagem = `Olá! Quero comprar a ${produto} no tamanho ${tamanho}.`;
-  const telefone = "5511988857455";
-  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-
-  window.open(url, "_blank");
-}
-</script>
-
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f4f4;
-      .size-select {
-  margin: 10px 0;
-  padding: 8px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
     }
+
     header {
       background: #111;
       color: #fff;
@@ -45,12 +20,14 @@ function comprarWhats(produto, selectId) {
       font-size: 22px;
       font-weight: bold;
     }
+
     .container {
       padding: 20px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
     }
+
     .card {
       background: #fff;
       border-radius: 8px;
@@ -58,31 +35,48 @@ function comprarWhats(produto, selectId) {
       text-align: center;
       padding: 15px;
     }
+
     .card img {
       width: 100%;
       border-radius: 6px;
     }
+
     .card h3 {
       margin: 10px 0;
       font-size: 18px;
     }
+
     .price {
       color: #2e7d32;
       font-size: 20px;
       font-weight: bold;
     }
+
+    .size-select {
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
     .btn {
-      display: inline-block;
+      width: 100%;
       margin-top: 10px;
-      padding: 10px 15px;
+      padding: 10px;
       background: #111;
       color: #fff;
-      text-decoration: none;
+      border: none;
       border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
     }
+
     .btn:hover {
       background: #333;
     }
+
     footer {
       background: #111;
       color: #aaa;
@@ -101,60 +95,23 @@ function comprarWhats(produto, selectId) {
 
 <div class="container">
 
-<div class="card">
-  <img src="images/flamengo2026home-torcedor.png.webp" alt="Camisa Flamengo 2026 home">
-  <h3>Camisa Flamengo 2026 home</h3>
-  <div class="price">R$ 129,90</div>
-
-  <select class="size-select" id="size-flamengo-home">
-    <option value="">Selecione o tamanho</option>
-    <option value="P">P</option>
-    <option value="M">M</option>
-    <option value="G">G</option>
-    <option value="GG">GG</option>
-  </select>
-
-<button class="btn" onclick="comprarWhats('Camisa Flamengo 2026 home', 'size-flamengo-home')">
-  Comprar no WhatsApp
-</button>
-
-</div>
-
-  
   <div class="card">
-    <img src="images/flamengo2026home-torcedor.png.webp" alt="flamengo2026home-torcedor.png.webp">
+    <img src="images/flamengo2026home-torcedor.png.webp" alt="Camisa Flamengo 2026 home">
     <h3>Camisa Flamengo 2026 home</h3>
     <div class="price">R$ 129,90</div>
-    <a class="btn" href="https://wa.me/5511988857455" target="_blank">Comprar no WhatsApp</a>
-  </div>
 
-  <div class="card">
-    <img src="images/flamengo2026homefeminina.png.webp" alt="flamengo2026homefeminina.png.webp">
-    <h3>Camisa Flamengo 2026 home (feminina)</h3>
-    <div class="price">R$ 129,90</div>
-    <a class="btn" href="https://wa.me/5511988857455" target="_blank">Comprar no WhatsApp</a>
-  </div>
+    <select class="size-select" id="size-flamengo-home">
+      <option value="">Selecione o tamanho</option>
+      <option value="P">P</option>
+      <option value="M">M</option>
+      <option value="G">G</option>
+      <option value="GG">GG</option>
+    </select>
 
- <div class="card">
-    <img src="images/Palmeiras2026home.png.webp" alt="Palmeiras2026home.png.webp">
-    <h3>Camisa Palmeiras 2026 home </h3>
-    <div class="price">R$ 129,90</div>
-    <a class="btn" href="https://wa.me/5511988857455" target="_blank">Comprar no WhatsApp</a>
-  </div>
-
-   <div class="card">
-    <img src="images/Palmeiras2026away.png.webp" alt="Palmeiras2026away.png.webp">
-    <h3>Camisa Palmeiras 2026 away </h3>
-    <div class="price">R$ 129,90</div>
-    <a class="btn" href="https://wa.me/5511988857455" target="_blank">Comprar no WhatsApp</a>
-  </div>
- 
-
-  <div class="card">
-    <img src="images/brasil2026homejogador.png.webp" alt="brasil2026homejogador.png.webp">
-    <h3>Camisa Brasil 2026 home Jogador</h3>
-    <div class="price">R$ 199,90</div>
-    <a class="btn" href="https://wa.me/5511988857455" target="_blank">Comprar no WhatsApp</a>
+    <button class="btn"
+      onclick="comprarWhats('Camisa Flamengo 2026 home', 'size-flamengo-home')">
+      Comprar no WhatsApp
+    </button>
   </div>
 
 </div>
@@ -163,5 +120,16 @@ function comprarWhats(produto, selectId) {
   © 2026 Payt Eric Store • Compra segura via WhatsApp
 </footer>
 
-</body>
-</html>
+<!-- JAVASCRIPT NO LUGAR CERTO -->
+<script>
+function comprarWhats(produto, selectId) {
+  const tamanho = document.getElementById(selectId).value;
+
+  if (!tamanho) {
+    alert("Por favor, selecione um tamanho.");
+    return;
+  }
+
+  const mensagem = `Olá! Quero comprar a ${produto} no tamanho ${tamanho}.`;
+  const telefone = "5511988857455";
+  const url = `https://wa.me/${telefone}

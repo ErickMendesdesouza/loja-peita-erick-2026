@@ -21,6 +21,30 @@
       font-weight: bold;
     }
 
+    /* FILTROS */
+    .filters {
+      display: flex;
+      gap: 10px;
+      padding: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #fff;
+    }
+
+    .filter-btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #ddd;
+      font-size: 14px;
+    }
+
+    .filter-btn.active {
+      background: #111;
+      color: #fff;
+    }
+
     .container {
       padding: 20px;
       display: grid;
@@ -43,7 +67,7 @@
 
     .card h3 {
       margin: 10px 0;
-      font-size: 18px;
+      font-size: 17px;
     }
 
     .price {
@@ -58,19 +82,16 @@
       width: 100%;
       border-radius: 5px;
       border: 1px solid #ccc;
-      font-size: 14px;
     }
 
     .btn {
       width: 100%;
-      margin-top: 10px;
       padding: 10px;
       background: #111;
       color: #fff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 14px;
     }
 
     .btn:hover {
@@ -93,89 +114,96 @@
   Peitas Store ⚽ | Camisas de Time
 </header>
 
+<!-- FILTROS -->
+<div class="filters">
+  <button class="filter-btn active" onclick="filterTeam('all', this)">Todos</button>
+  <button class="filter-btn" onclick="filterTeam('flamengo', this)">Flamengo</button>
+  <button class="filter-btn" onclick="filterTeam('palmeiras', this)">Palmeiras</button>
+  <button class="filter-btn" onclick="filterTeam('brasil', this)">Brasil</button>
+</div>
+
+<!-- CATÁLOGO -->
 <div class="container">
 
-  <!-- Flamengo Home -->
-  <div class="card">
+  <!-- FLAMENGO -->
+  <div class="card" data-team="flamengo">
     <img src="images/flamengo2026home-torcedor.png.webp">
-    <h3>Camisa Flamengo 2026 Home</h3>
+    <h3>Flamengo 2026 Home</h3>
     <div class="price">R$ 129,90</div>
 
-    <select class="size-select" id="fla-home">
-      <option value="">Selecione o tamanho</option>
+    <select class="size-select" id="fla1">
+      <option value="">Tamanho</option>
       <option>P</option><option>M</option><option>G</option><option>GG</option>
     </select>
 
     <button class="btn"
-      onclick="comprarWhats('Camisa Flamengo 2026 Home','R$ 129,90','fla-home')">
+      onclick="comprarWhats('Flamengo 2026 Home','R$ 129,90','fla1')">
       Comprar no WhatsApp
     </button>
   </div>
 
-  <!-- Flamengo Feminina -->
-  <div class="card">
+  <div class="card" data-team="flamengo">
     <img src="images/flamengo2026homefeminina.png.webp">
-    <h3>Camisa Flamengo 2026 Home Feminina</h3>
+    <h3>Flamengo 2026 Feminina</h3>
     <div class="price">R$ 129,90</div>
 
-    <select class="size-select" id="fla-fem">
-      <option value="">Selecione o tamanho</option>
+    <select class="size-select" id="fla2">
+      <option value="">Tamanho</option>
       <option>P</option><option>M</option><option>G</option><option>GG</option>
     </select>
 
     <button class="btn"
-      onclick="comprarWhats('Camisa Flamengo 2026 Home Feminina','R$ 129,90','fla-fem')">
+      onclick="comprarWhats('Flamengo 2026 Feminina','R$ 129,90','fla2')">
       Comprar no WhatsApp
     </button>
   </div>
 
-  <!-- Palmeiras Home -->
-  <div class="card">
+  <!-- PALMEIRAS -->
+  <div class="card" data-team="palmeiras">
     <img src="images/Palmeiras2026home.png.webp">
-    <h3>Camisa Palmeiras 2026 Home</h3>
+    <h3>Palmeiras 2026 Home</h3>
     <div class="price">R$ 129,90</div>
 
-    <select class="size-select" id="pal-home">
-      <option value="">Selecione o tamanho</option>
+    <select class="size-select" id="pal1">
+      <option value="">Tamanho</option>
       <option>P</option><option>M</option><option>G</option><option>GG</option>
     </select>
 
     <button class="btn"
-      onclick="comprarWhats('Camisa Palmeiras 2026 Home','R$ 129,90','pal-home')">
+      onclick="comprarWhats('Palmeiras 2026 Home','R$ 129,90','pal1')">
       Comprar no WhatsApp
     </button>
   </div>
 
-  <!-- Palmeiras Away -->
-  <div class="card">
+  <div class="card" data-team="palmeiras">
     <img src="images/Palmeiras2026away.png.webp">
-    <h3>Camisa Palmeiras 2026 Away</h3>
+    <h3>Palmeiras 2026 Away</h3>
     <div class="price">R$ 129,90</div>
 
-    <select class="size-select" id="pal-away">
-      <option value="">Selecione o tamanho</option>
+    <select class="size-select" id="pal2">
+      <option value="">Tamanho</option>
       <option>P</option><option>M</option><option>G</option><option>GG</option>
     </select>
 
     <button class="btn"
-      onclick="comprarWhats('Camisa Palmeiras 2026 Away','R$ 129,90','pal-away')">
+      onclick="comprarWhats('Palmeiras 2026 Away','R$ 129,90','pal2')">
       Comprar no WhatsApp
     </button>
   </div>
 
-  <!-- Brasil Jogador -->
-  <div class="card">
+  <!-- BRASIL -->
+  <div class="card" data-team="brasil">
     <img src="images/brasil2026homejogador.png.webp">
-    <h3>Camisa Brasil 2026 Home Jogador</h3>
+    <h3>Brasil 2026 Jogador</h3>
     <div class="price">R$ 199,90</div>
 
-    <select class="size-select" id="bra-jog">
-      <option value="">Selecione o tamanho</option>
+    <select class="size-select" id="bra1">
+      <option value="">Tamanho</option>
       <option>P</option><option>M</option><option>G</option><option>GG</option>
     </select>
 
     <button class="btn"
-      onclick="comprarWhats('Camisa Brasil 2026 Home Jogador','R$ 199,90','bra-jog')">
+      onclick="comprarWhats('Brasil 2026 Jogador','R$ 199,90','bra1')">
       Comprar no WhatsApp
     </button>
   </div>
@@ -189,24 +217,35 @@
 <script>
 function comprarWhats(produto, preco, selectId) {
   const tamanho = document.getElementById(selectId).value;
-
   if (!tamanho) {
-    alert("Por favor, selecione um tamanho.");
+    alert("Selecione o tamanho.");
     return;
   }
 
   const telefone = "5511988857455";
-  const mensagem =
+  const msg =
     `Olá! Quero comprar:\n\n` +
     `📦 Produto: ${produto}\n` +
     `📏 Tamanho: ${tamanho}\n` +
     `💰 Preço: ${preco}`;
 
-  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-  window.open(url, "_blank");
+  window.open(
+    `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
+}
+
+function filterTeam(team, btn) {
+  document.querySelectorAll(".filter-btn")
+    .forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.display =
+      team === "all" || card.dataset.team === team ? "block" : "none";
+  });
 }
 </script>
 
 </body>
 </html>
-

@@ -1,173 +1,71 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Payt Eric Store | Camisas Nacional & Internacional</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{margin:0;font-family:Arial;background:#f4f4f4}
-header{background:#111;color:#fff;padding:15px;text-align:center;font-size:22px}
-.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;background:#fff;padding:10px}
-.filters select{padding:6px;border-radius:5px}
-.container{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#fff;padding:15px;border-radius:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card img{width:100%;border-radius:6px}
-.price{color:#2e7d32;font-weight:bold;font-size:18px}
-.size-select{margin:10px 0;padding:8px;width:100%}
-.btn{width:100%;padding:10px;background:#111;color:#fff;border:none;border-radius:5px;cursor:pointer}
-</style>
-</head>
-
-<body>
-
-<header>Peitas Store ⚽ | Camisas Nacional, Internacional & Seleções</header>
-
-<div class="filters">
-  <select id="filterCountry" onchange="render()">
-    <option value="">🌍 País (todos clubes)</option>
-  </select>
-
-  <select id="filterState" onchange="render()">
-    <option value="">🇧🇷 Estado (para clubes)</option>
-  </select>
-
-  <select id="filterSelection" onchange="render()">
-    <option value="">🏆 Seleções Principais (Top 35 FIFA)</option>
-  </select>
-</div>
-
-<div class="container" id="catalog"></div>
-
-<footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
-
-<script>
-const phone = "5511988857455";
-
-/* ===== TIMES CLUBES + SELEÇÕES ===== */
 const teams = [
 
-/* CLUBES DO BRASIL (Séries A, B, C) */
-{team:"Flamengo",state:"RJ",country:"Brasil",type:"club"},
-{team:"Fluminense",state:"RJ",country:"Brasil",type:"club"},
-{team:"Vasco",state:"RJ",country:"Brasil",type:"club"},
-{team:"Botafogo",state:"RJ",country:"Brasil",type:"club"},
-{team:"Palmeiras",state:"SP",country:"Brasil",type:"club"},
-{team:"Corinthians",state:"SP",country:"Brasil",type:"club"},
-{team:"São Paulo",state:"SP",country:"Brasil",type:"club"},
-{team:"Santos",state:"SP",country:"Brasil",type:"club"},
-{team:"Grêmio",state:"RS",country:"Brasil",type:"club"},
-{team:"Internacional",state:"RS",country:"Brasil",type:"club"},
-{team:"Atlético-MG",state:"MG",country:"Brasil",type:"club"},
-{team:"Cruzeiro",state:"MG",country:"Brasil",type:"club"},
-{team:"Bahia",state:"BA",country:"Brasil",type:"club"},
-{team:"Vitória",state:"BA",country:"Brasil",type:"club"},
-{team:"Sport",state:"PE",country:"Brasil",type:"club"},
-{team:"Ceará",state:"CE",country:"Brasil",type:"club"},
-{team:"Fortaleza",state:"CE",country:"Brasil",type:"club"},
-{team:"Goiás",state:"GO",country:"Brasil",type:"club"},
-{team:"Atlético-GO",state:"GO",country:"Brasil",type:"club"},
-{team:"Coritiba",state:"PR",country:"Brasil",type:"club"},
-{team:"Athletico-PR",state:"PR",country:"Brasil",type:"club"},
-{team:"Cuiabá",state:"MT",country:"Brasil",type:"club"},
-{team:"Paysandu",state:"PA",country:"Brasil",type:"club"},
-{team:"Remo",state:"PA",country:"Brasil",type:"club"},
+/* ==== CAMISAS ORIGINAIS EXISTENTES ==== */
+{team:"Flamengo 2026 home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/flamengo_home.png"},
+{team:"Flamengo 2026 away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/flamengo_away.png"},
+{team:"Flamengo 2026 home feminina",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/flamengo_home_feminina.png"},
+{team:"Palmeiras 2026 home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/palmeiras_home.png"},
+{team:"Palmeiras 2026 away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/palmeiras_away.png"},
+{team:"Brasil 2026 home jogador",state:"BR",country:"Brasil",type:"selection",price:"R$199,90",img:"images/brasil_home.png"},
 
-/* CLUBES INTERNACIONAIS (Principal Ligas – HOME kits) */
-{team:"Arsenal",country:"Inglaterra",type:"club"},
-{team:"Barcelona",country:"Espanha",type:"club"},
-{team:"Juventus",country:"Itália",type:"club"},
-{team:"Bayern de Munique",country:"Alemanha",type:"club"},
-{team:"PSG",country:"França",type:"club"},
-{team:"Benfica",country:"Portugal",type:"club"},
-{team:"Ajax",country:"Holanda",type:"club"},
-{team:"Boca Juniors",country:"Argentina",type:"club"},
-{team:"Inter Miami",country:"EUA",type:"club"},
-{team:"Al Nassr",country:"Arábia Saudita",type:"club"},
+/* ==== CLUBES BRASILEIROS ADICIONAIS ==== */
+/* Série A (exemplo simplificado, você pode completar com todos) */
+{team:"Fluminense home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/fluminense_home.png"},
+{team:"Fluminense away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/fluminense_away.png"},
+{team:"Vasco home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/vasco_home.png"},
+{team:"Vasco away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/vasco_away.png"},
+{team:"Botafogo home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/botafogo_home.png"},
+{team:"Botafogo away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/botafogo_away.png"},
+{team:"São Paulo home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/saopaulo_home.png"},
+{team:"São Paulo away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/saopaulo_away.png"},
+{team:"Corinthians home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/corinthians_home.png"},
+{team:"Corinthians away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/corinthians_away.png"},
+{team:"Santos home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/santos_home.png"},
+{team:"Santos away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/santos_away.png"},
 
-/* SELEÇÕES – TOP 35 RANKING FIFA */
-{team:"Spain",country:"Seleção",type:"selection"},
-{team:"Argentina",country:"Seleção",type:"selection"},
-{team:"France",country:"Seleção",type:"selection"},
-{team:"England",country:"Seleção",type:"selection"},
-{team:"Brazil",country:"Seleção",type:"selection"},
-{team:"Portugal",country:"Seleção",type:"selection"},
-{team:"Netherlands",country:"Seleção",type:"selection"},
-{team:"Belgium",country:"Seleção",type:"selection"},
-{team:"Germany",country:"Seleção",type:"selection"},
-{team:"Croatia",country:"Seleção",type:"selection"},
-{team:"Morocco",country:"Seleção",type:"selection"},
-{team:"Italy",country:"Seleção",type:"selection"},
-{team:"Colombia",country:"Seleção",type:"selection"},
-{team:"USA",country:"Seleção",type:"selection"},
-{team:"Mexico",country:"Seleção",type:"selection"},
-{team:"Uruguay",country:"Seleção",type:"selection"},
-{team:"Switzerland",country:"Seleção",type:"selection"},
-{team:"Japan",country:"Seleção",type:"selection"},
-{team:"Senegal",country:"Seleção",type:"selection"},
-{team:"Iran",country:"Seleção",type:"selection"},
-{team:"Denmark",country:"Seleção",type:"selection"},
-{team:"South Korea",country:"Seleção",type:"selection"},
-{team:"Ecuador",country:"Seleção",type:"selection"},
-{team:"Austria",country:"Seleção",type:"selection"},
-{team:"Türkiye",country:"Seleção",type:"selection"},
-{team:"Australia",country:"Seleção",type:"selection"},
-{team:"Canada",country:"Seleção",type:"selection"},
-{team:"Ukraine",country:"Seleção",type:"selection"},
-{team:"Norway",country:"Seleção",type:"selection"},
-{team:"Panama",country:"Seleção",type:"selection"},
-{team:"Poland",country:"Seleção",type:"selection"},
-{team:"Wales",country:"Seleção",type:"selection"},
-{team:"Russia",country:"Seleção",type:"selection"},
-{team:"Egypt",country:"Seleção",type:"selection"},
-{team:"Algeria",country:"Seleção",type:"selection"},
+/* ==== CLUBES INTERNACIONAIS (Top 10 ligas) ==== */
+/* Inglaterra */
+{team:"Arsenal home",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/arsenal_home.png"},
+{team:"Arsenal away",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/arsenal_away.png"},
+{team:"Manchester United home",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/manutd_home.png"},
+{team:"Manchester United away",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/manutd_away.png"},
+{team:"Liverpool home",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/liverpool_home.png"},
+{team:"Liverpool away",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/liverpool_away.png"},
+
+/* Espanha */
+{team:"Barcelona home",country:"Espanha",type:"club",price:"R$299,90",img:"images/barcelona_home.png"},
+{team:"Barcelona away",country:"Espanha",type:"club",price:"R$299,90",img:"images/barcelona_away.png"},
+{team:"Real Madrid home",country:"Espanha",type:"club",price:"R$299,90",img:"images/realmadrid_home.png"},
+{team:"Real Madrid away",country:"Espanha",type:"club",price:"R$299,90",img:"images/realmadrid_away.png"},
+
+/* Itália */
+{team:"Juventus home",country:"Itália",type:"club",price:"R$299,90",img:"images/juventus_home.png"},
+{team:"Juventus away",country:"Itália",type:"club",price:"R$299,90",img:"images/juventus_away.png"},
+{team:"Milan home",country:"Itália",type:"club",price:"R$299,90",img:"images/milan_home.png"},
+{team:"Milan away",country:"Itália",type:"club",price:"R$299,90",img:"images/milan_away.png"},
+
+/* Alemanha */
+{team:"Bayern home",country:"Alemanha",type:"club",price:"R$299,90",img:"images/bayern_home.png"},
+{team:"Bayern away",country:"Alemanha",type:"club",price:"R$299,90",img:"images/bayern_away.png"},
+{team:"Borussia Dortmund home",country:"Alemanha",type:"club",price:"R$299,90",img:"images/dortmund_home.png"},
+{team:"Borussia Dortmund away",country:"Alemanha",type:"club",price:"R$299,90",img:"images/dortmund_away.png"},
+
+/* França */
+{team:"PSG home",country:"França",type:"club",price:"R$299,90",img:"images/psg_home.png"},
+{team:"PSG away",country:"França",type:"club",price:"R$299,90",img:"images/psg_away.png"},
+{team:"Lyon home",country:"França",type:"club",price:"R$299,90",img:"images/lyon_home.png"},
+{team:"Lyon away",country:"França",type:"club",price:"R$299,90",img:"images/lyon_away.png"},
+
+/* ==== SELEÇÕES TOP 35 FIFA ==== */
+{team:"Brazil home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/brazil_home.png"},
+{team:"Brazil away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/brazil_away.png"},
+{team:"Argentina home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/argentina_home.png"},
+{team:"Argentina away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/argentina_away.png"},
+{team:"France home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/france_home.png"},
+{team:"France away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/france_away.png"},
+{team:"Spain home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/spain_home.png"},
+{team:"Spain away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/spain_away.png"},
+{team:"Germany home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/germany_home.png"},
+{team:"Germany away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/germany_away.png"},
+// Continue adicionando até completar as 35 seleções Top FIFA...
 ];
-
-/* ===== FILTROS ===== */
-const countriesClub = [...new Set(teams.filter(t=>t.type==="club").map(t=>t.country))];
-const states = [...new Set(teams.filter(t=>t.state).map(t=>t.state))];
-const selections = [...new Set(teams.filter(t=>t.type==="selection").map(t=>t.team))];
-
-countriesClub.forEach(c=>filterCountry.innerHTML += `<option>${c}</option>`);
-states.forEach(s=>filterState.innerHTML += `<option>${s}</option>`);
-selections.forEach(s=>filterSelection.innerHTML += `<option>${s}</option>`);
-
-/* ===== RENDER ===== */
-function render(){
-  catalog.innerHTML="";
-  const c = filterCountry.value;
-  const s = filterState.value;
-  const sel = filterSelection.value;
-
-  teams.filter(t=>(!c||t.country===c) && (!s||t.state===s) && (!sel||t.team===sel))
-       .forEach((t,i)=>{
-        catalog.innerHTML += `
-          <div class="card">
-            <img src="images/placeholder.png" alt="${t.team}">
-            <h3>${t.team}</h3>
-            <div class="price">R$ 129,90</div>
-            <select class="size-select" id="s${i}">
-              <option value="">Tamanho</option>
-              <option>P</option><option>M</option><option>G</option><option>GG</option>
-            </select>
-            <button class="btn" onclick="buy('${t.team}','R$129,90','s${i}')">
-              Comprar no WhatsApp
-            </button>
-          </div>
-        `;
-       });
-}
-
-/* ===== BUY ===== */
-function buy(team,price,id){
-  const size = document.getElementById(id).value;
-  if(!size){alert("Selecione o tamanho");return;}
-  const msg = `Olá! Quero comprar:\n📦 ${team}\n📏 ${size}\n💰 ${price}`;
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
-}
-
-render();
-</script>
-
-</body>
-</html>

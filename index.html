@@ -1,287 +1,173 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Payt Eric Store | Camisas de Times e Seleções</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-    }
-    header {
-      background: #111;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 10px 20px;
-      background: #eee;
-      align-items: center;
-    }
-    .filters select {
-      padding: 8px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    .container {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      padding: 15px;
-    }
-    .card img {
-      width: 100%;
-      border-radius: 6px;
-    }
-    .card h3 {
-      margin: 10px 0;
-      font-size: 16px;
-    }
-    .price {
-      color: #2e7d32;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 15px;
-      background: #111;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: #333;
-    }
-    .size-select {
-      margin: 10px 0;
-      padding: 8px;
-      width: 100%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    footer {
-      background: #111;
-      color: #aaa;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-    }
-  </style>
-  <script>
-    // Função WhatsApp com tamanho
-    function comprarWhats(produto, selectId) {
-      const tamanho = document.getElementById(selectId).value;
-      if(!tamanho) {
-        alert("Por favor, selecione um tamanho.");
-        return;
-      }
-      const mensagem = `Olá! Quero comprar a ${produto} no tamanho ${tamanho}.`;
-      const telefone = "5511988857455";
-      const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-      window.open(url, "_blank");
-    }
+<meta charset="UTF-8">
+<title>Payt Eric Store | Camisas Nacional & Internacional</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    // Função de filtro
-    function filtrar() {
-      const pais = document.getElementById('filter-pais').value;
-      const estado = document.getElementById('filter-estado').value;
-      const selecao = document.getElementById('filter-selecao').value;
-      const cards = document.getElementsByClassName('card');
-      for (let card of cards) {
-        const cardPais = card.getAttribute('data-pais');
-        const cardEstado = card.getAttribute('data-estado');
-        const cardSelecao = card.getAttribute('data-selecao');
-        let mostrar = true;
-        if (pais && cardPais !== pais) mostrar = false;
-        if (estado && cardEstado !== estado) mostrar = false;
-        if (selecao && cardSelecao !== selecao) mostrar = false;
-        card.style.display = mostrar ? 'block' : 'none';
-      }
-    }
-  </script>
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{background:#111;color:#fff;padding:15px;text-align:center;font-size:22px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;background:#fff;padding:10px}
+.filters select{padding:6px;border-radius:5px}
+.container{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#fff;padding:15px;border-radius:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.card img{width:100%;border-radius:6px}
+.price{color:#2e7d32;font-weight:bold;font-size:18px}
+.size-select{margin:10px 0;padding:8px;width:100%}
+.btn{width:100%;padding:10px;background:#111;color:#fff;border:none;border-radius:5px;cursor:pointer}
+</style>
 </head>
+
 <body>
 
-<header>
-  Payt Eric Store ⚽ | Camisas de Times e Seleções
-</header>
+<header>Peitas Store ⚽ | Camisas Nacional, Internacional & Seleções</header>
 
 <div class="filters">
-  <label>País:
-    <select id="filter-pais" onchange="filtrar()">
-      <option value="">Todos</option>
-      <option value="Brasil">Brasil</option>
-      <option value="Inglaterra">Inglaterra</option>
-      <option value="Espanha">Espanha</option>
-      <option value="Itália">Itália</option>
-      <option value="Alemanha">Alemanha</option>
-      <option value="França">França</option>
-      <option value="Holanda">Holanda</option>
-      <option value="Portugal">Portugal</option>
-      <option value="EUA/Canadá">EUA/Canadá</option>
-      <option value="Arábia Saudita">Arábia Saudita</option>
-      <option value="Japão">Japão</option>
-    </select>
-  </label>
-  <label>Estado (Brasil):
-    <select id="filter-estado" onchange="filtrar()">
-      <option value="">Todos</option>
-      <option value="SP">São Paulo</option>
-      <option value="RJ">Rio de Janeiro</option>
-      <option value="MG">Minas Gerais</option>
-      <option value="RS">Rio Grande do Sul</option>
-      <option value="PR">Paraná</option>
-      <!-- Adicione outros estados conforme necessário -->
-    </select>
-  </label>
-  <label>Seleção:
-    <select id="filter-selecao" onchange="filtrar()">
-      <option value="">Todas</option>
-      <option value="Argentina">Argentina</option>
-      <option value="Espanha">Espanha</option>
-      <option value="França">França</option>
-      <option value="Inglaterra">Inglaterra</option>
-      <option value="Brasil">Brasil</option>
-      <option value="Portugal">Portugal</option>
-      <option value="Países Baixos">Países Baixos</option>
-      <option value="Bélgica">Bélgica</option>
-      <option value="Alemanha">Alemanha</option>
-      <option value="Croácia">Croácia</option>
-      <option value="Marrocos">Marrocos</option>
-      <option value="Itália">Itália</option>
-      <option value="Colômbia">Colômbia</option>
-      <option value="EUA">Estados Unidos</option>
-      <option value="México">México</option>
-      <option value="Uruguai">Uruguai</option>
-      <option value="Suíça">Suíça</option>
-      <option value="Japão">Japão</option>
-      <option value="Senegal">Senegal</option>
-      <option value="Irã">Irã</option>
-      <option value="Dinamarca">Dinamarca</option>
-      <option value="Coreia do Sul">Coreia do Sul</option>
-      <!-- Complete até as top 35 -->
-    </select>
-  </label>
+  <select id="filterCountry" onchange="render()">
+    <option value="">🌍 País (todos clubes)</option>
+  </select>
+
+  <select id="filterState" onchange="render()">
+    <option value="">🇧🇷 Estado (para clubes)</option>
+  </select>
+
+  <select id="filterSelection" onchange="render()">
+    <option value="">🏆 Seleções Principais (Top 35 FIFA)</option>
+  </select>
 </div>
 
-<div class="container">
+<div class="container" id="catalog"></div>
 
-  <!-- Exemplo: Camisa Brasileira Flamengo -->
-  <div class="card" data-pais="Brasil" data-estado="RJ" data-selecao="">
-    <img src="images/flamengo_2026_home.png" alt="Flamengo 2026 Home">
-    <h3>Flamengo 2026 Home</h3>
-    <div class="price">R$ 139,90</div>
-    <select class="size-select" id="size-flamengo-home">
-      <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
-    <button class="btn" onclick="comprarWhats('Flamengo 2026 Home', 'size-flamengo-home')">Comprar no WhatsApp</button>
-  </div>
+<footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
 
-  <div class="card" data-pais="Brasil" data-estado="RJ" data-selecao="">
-    <img src="images/flamengo_2026_away.png" alt="Flamengo 2026 Away">
-    <h3>Flamengo 2026 Away</h3>
-    <div class="price">R$ 139,90</div>
-    <select class="size-select" id="size-flamengo-away">
-      <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
-    <button class="btn" onclick="comprarWhats('Flamengo 2026 Away', 'size-flamengo-away')">Comprar no WhatsApp</button>
-  </div>
+<script>
+const phone = "5511988857455";
 
-  <!-- Aqui você adicionaria todas as outras camisas brasileiras (Palmeiras, Brasil, etc.) seguindo o mesmo padrão -->
+/* ===== TIMES CLUBES + SELEÇÕES ===== */
+const teams = [
 
-  <!-- Exemplos de clubes internacionais -->
-  <div class="card" data-pais="Inglaterra" data-estado="" data-selecao="">
-    <img src="images/arsenal_2026_home.png" alt="Arsenal 2026 Home">
-    <h3>Arsenal 2026 Home</h3>
-    <div class="price">R$ 139,90</div>
-    <select class="size-select" id="size-arsenal-home">
-      <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
-    <button class="btn" onclick="comprarWhats('Arsenal 2026 Home', 'size-arsenal-home')">Comprar no WhatsApp</button>
-  </div>
+/* CLUBES DO BRASIL (Séries A, B, C) */
+{team:"Flamengo",state:"RJ",country:"Brasil",type:"club"},
+{team:"Fluminense",state:"RJ",country:"Brasil",type:"club"},
+{team:"Vasco",state:"RJ",country:"Brasil",type:"club"},
+{team:"Botafogo",state:"RJ",country:"Brasil",type:"club"},
+{team:"Palmeiras",state:"SP",country:"Brasil",type:"club"},
+{team:"Corinthians",state:"SP",country:"Brasil",type:"club"},
+{team:"São Paulo",state:"SP",country:"Brasil",type:"club"},
+{team:"Santos",state:"SP",country:"Brasil",type:"club"},
+{team:"Grêmio",state:"RS",country:"Brasil",type:"club"},
+{team:"Internacional",state:"RS",country:"Brasil",type:"club"},
+{team:"Atlético-MG",state:"MG",country:"Brasil",type:"club"},
+{team:"Cruzeiro",state:"MG",country:"Brasil",type:"club"},
+{team:"Bahia",state:"BA",country:"Brasil",type:"club"},
+{team:"Vitória",state:"BA",country:"Brasil",type:"club"},
+{team:"Sport",state:"PE",country:"Brasil",type:"club"},
+{team:"Ceará",state:"CE",country:"Brasil",type:"club"},
+{team:"Fortaleza",state:"CE",country:"Brasil",type:"club"},
+{team:"Goiás",state:"GO",country:"Brasil",type:"club"},
+{team:"Atlético-GO",state:"GO",country:"Brasil",type:"club"},
+{team:"Coritiba",state:"PR",country:"Brasil",type:"club"},
+{team:"Athletico-PR",state:"PR",country:"Brasil",type:"club"},
+{team:"Cuiabá",state:"MT",country:"Brasil",type:"club"},
+{team:"Paysandu",state:"PA",country:"Brasil",type:"club"},
+{team:"Remo",state:"PA",country:"Brasil",type:"club"},
 
-  <div class="card" data-pais="Inglaterra" data-estado="" data-selecao="">
-    <img src="images/arsenal_2026_away.png" alt="Arsenal 2026 Away">
-    <h3>Arsenal 2026 Away</h3>
-    <div class="price">R$ 139,90</div>
-    <select class="size-select" id="size-arsenal-away">
-      <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
-    <button class="btn" onclick="comprarWhats('Arsenal 2026 Away', 'size-arsenal-away')">Comprar no WhatsApp</button>
-  </div>
+/* CLUBES INTERNACIONAIS (Principal Ligas – HOME kits) */
+{team:"Arsenal",country:"Inglaterra",type:"club"},
+{team:"Barcelona",country:"Espanha",type:"club"},
+{team:"Juventus",country:"Itália",type:"club"},
+{team:"Bayern de Munique",country:"Alemanha",type:"club"},
+{team:"PSG",country:"França",type:"club"},
+{team:"Benfica",country:"Portugal",type:"club"},
+{team:"Ajax",country:"Holanda",type:"club"},
+{team:"Boca Juniors",country:"Argentina",type:"club"},
+{team:"Inter Miami",country:"EUA",type:"club"},
+{team:"Al Nassr",country:"Arábia Saudita",type:"club"},
 
-  <!-- Seleção exemplo -->
-  <div class="card" data-pais="" data-estado="" data-selecao="Argentina">
-    <img src="images/argentina_2026_home.png" alt="Argentina 2026 Home">
-    <h3>Argentina 2026 Home</h3>
-    <div class="price">R$ 149,90</div>
-    <select class="size-select" id="size-argentina-home">
-      <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
-    <button class="btn" onclick="comprarWhats('Argentina 2026 Home', 'size-argentina-home')">Comprar no WhatsApp</button>
-  </div>
+/* SELEÇÕES – TOP 35 RANKING FIFA */
+{team:"Spain",country:"Seleção",type:"selection"},
+{team:"Argentina",country:"Seleção",type:"selection"},
+{team:"France",country:"Seleção",type:"selection"},
+{team:"England",country:"Seleção",type:"selection"},
+{team:"Brazil",country:"Seleção",type:"selection"},
+{team:"Portugal",country:"Seleção",type:"selection"},
+{team:"Netherlands",country:"Seleção",type:"selection"},
+{team:"Belgium",country:"Seleção",type:"selection"},
+{team:"Germany",country:"Seleção",type:"selection"},
+{team:"Croatia",country:"Seleção",type:"selection"},
+{team:"Morocco",country:"Seleção",type:"selection"},
+{team:"Italy",country:"Seleção",type:"selection"},
+{team:"Colombia",country:"Seleção",type:"selection"},
+{team:"USA",country:"Seleção",type:"selection"},
+{team:"Mexico",country:"Seleção",type:"selection"},
+{team:"Uruguay",country:"Seleção",type:"selection"},
+{team:"Switzerland",country:"Seleção",type:"selection"},
+{team:"Japan",country:"Seleção",type:"selection"},
+{team:"Senegal",country:"Seleção",type:"selection"},
+{team:"Iran",country:"Seleção",type:"selection"},
+{team:"Denmark",country:"Seleção",type:"selection"},
+{team:"South Korea",country:"Seleção",type:"selection"},
+{team:"Ecuador",country:"Seleção",type:"selection"},
+{team:"Austria",country:"Seleção",type:"selection"},
+{team:"Türkiye",country:"Seleção",type:"selection"},
+{team:"Australia",country:"Seleção",type:"selection"},
+{team:"Canada",country:"Seleção",type:"selection"},
+{team:"Ukraine",country:"Seleção",type:"selection"},
+{team:"Norway",country:"Seleção",type:"selection"},
+{team:"Panama",country:"Seleção",type:"selection"},
+{team:"Poland",country:"Seleção",type:"selection"},
+{team:"Wales",country:"Seleção",type:"selection"},
+{team:"Russia",country:"Seleção",type:"selection"},
+{team:"Egypt",country:"Seleção",type:"selection"},
+{team:"Algeria",country:"Seleção",type:"selection"},
+];
 
-  <div class="card" data-pais="" data-estado="" data-selecao="Argentina">
-    <img src="images/argentina_2026_away.png" alt="Argentina 2026 Away">
-    <h3>Argentina 2026 Away</h3>
-    <div class="price">R$ 149,90</div>
-    <select class="size-select" id="size-argentina-away">
-      <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
-    <button class="btn" onclick="comprarWhats('Argentina 2026 Away', 'size-argentina-away')">Comprar no WhatsApp</button>
-  </div>
+/* ===== FILTROS ===== */
+const countriesClub = [...new Set(teams.filter(t=>t.type==="club").map(t=>t.country))];
+const states = [...new Set(teams.filter(t=>t.state).map(t=>t.state))];
+const selections = [...new Set(teams.filter(t=>t.type==="selection").map(t=>t.team))];
 
-  <!-- Continue adicionando todas as outras camisas de clubes internacionais e seleções seguindo o mesmo padrão -->
-</div>
+countriesClub.forEach(c=>filterCountry.innerHTML += `<option>${c}</option>`);
+states.forEach(s=>filterState.innerHTML += `<option>${s}</option>`);
+selections.forEach(s=>filterSelection.innerHTML += `<option>${s}</option>`);
 
-<footer>
-  © 2026 Payt Eric Store • Compra segura via WhatsApp
-</footer>
+/* ===== RENDER ===== */
+function render(){
+  catalog.innerHTML="";
+  const c = filterCountry.value;
+  const s = filterState.value;
+  const sel = filterSelection.value;
+
+  teams.filter(t=>(!c||t.country===c) && (!s||t.state===s) && (!sel||t.team===sel))
+       .forEach((t,i)=>{
+        catalog.innerHTML += `
+          <div class="card">
+            <img src="images/placeholder.png" alt="${t.team}">
+            <h3>${t.team}</h3>
+            <div class="price">R$ 129,90</div>
+            <select class="size-select" id="s${i}">
+              <option value="">Tamanho</option>
+              <option>P</option><option>M</option><option>G</option><option>GG</option>
+            </select>
+            <button class="btn" onclick="buy('${t.team}','R$129,90','s${i}')">
+              Comprar no WhatsApp
+            </button>
+          </div>
+        `;
+       });
+}
+
+/* ===== BUY ===== */
+function buy(team,price,id){
+  const size = document.getElementById(id).value;
+  if(!size){alert("Selecione o tamanho");return;}
+  const msg = `Olá! Quero comprar:\n📦 ${team}\n📏 ${size}\n💰 ${price}`;
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
+}
+
+render();
+</script>
 
 </body>
 </html>
-

@@ -21,15 +21,19 @@ header{background:#111;color:#fff;padding:15px;text-align:center;font-size:22px}
 
 <body>
 
-<header>Peitas Store ⚽ | Camisas Nacional & Internacional</header>
+<header>Peitas Store ⚽ | Camisas Nacional, Internacional & Seleções</header>
 
 <div class="filters">
   <select id="filterCountry" onchange="render()">
-    <option value="">🌍 País (todos)</option>
+    <option value="">🌍 País (todos clubes)</option>
   </select>
 
   <select id="filterState" onchange="render()">
-    <option value="">🇧🇷 Estado (todos)</option>
+    <option value="">🇧🇷 Estado (para clubes)</option>
+  </select>
+
+  <select id="filterSelection" onchange="render()">
+    <option value="">🏆 Seleções Principais (Top 35 FIFA)</option>
   </select>
 </div>
 
@@ -40,173 +44,125 @@ header{background:#111;color:#fff;padding:15px;text-align:center;font-size:22px}
 <script>
 const phone = "5511988857455";
 
-/* ===== TIMES ===== */
-
-/* BRASIL: Série A, B, C (Copa do Brasil incluída) */
+/* ===== TIMES CLUBES + SELEÇÕES ===== */
 const teams = [
-{team:"Flamengo",state:"RJ",country:"Brasil"},
-{team:"Fluminense",state:"RJ",country:"Brasil"},
-{team:"Vasco",state:"RJ",country:"Brasil"},
-{team:"Botafogo",state:"RJ",country:"Brasil"},
-{team:"Palmeiras",state:"SP",country:"Brasil"},
-{team:"Corinthians",state:"SP",country:"Brasil"},
-{team:"São Paulo",state:"SP",country:"Brasil"},
-{team:"Santos",state:"SP",country:"Brasil"},
-{team:"Grêmio",state:"RS",country:"Brasil"},
-{team:"Internacional",state:"RS",country:"Brasil"},
-{team:"Atlético-MG",state:"MG",country:"Brasil"},
-{team:"Cruzeiro",state:"MG",country:"Brasil"},
-{team:"Bahia",state:"BA",country:"Brasil"},
-{team:"Vitória",state:"BA",country:"Brasil"},
-{team:"Sport",state:"PE",country:"Brasil"},
-{team:"Ceará",state:"CE",country:"Brasil"},
-{team:"Fortaleza",state:"CE",country:"Brasil"},
-{team:"Goiás",state:"GO",country:"Brasil"},
-{team:"Atlético-GO",state:"GO",country:"Brasil"},
-{team:"Coritiba",state:"PR",country:"Brasil"},
-{team:"Athletico-PR",state:"PR",country:"Brasil"},
-{team:"Cuiabá",state:"MT",country:"Brasil"},
-{team:"Paysandu",state:"PA",country:"Brasil"},
-{team:"Remo",state:"PA",country:"Brasil"},
 
-/* INTERNACIONAL: TOP 10 LIGAS - Home Kits apenas */
+/* CLUBES DO BRASIL (Séries A, B, C) */
+{team:"Flamengo",state:"RJ",country:"Brasil",type:"club"},
+{team:"Fluminense",state:"RJ",country:"Brasil",type:"club"},
+{team:"Vasco",state:"RJ",country:"Brasil",type:"club"},
+{team:"Botafogo",state:"RJ",country:"Brasil",type:"club"},
+{team:"Palmeiras",state:"SP",country:"Brasil",type:"club"},
+{team:"Corinthians",state:"SP",country:"Brasil",type:"club"},
+{team:"São Paulo",state:"SP",country:"Brasil",type:"club"},
+{team:"Santos",state:"SP",country:"Brasil",type:"club"},
+{team:"Grêmio",state:"RS",country:"Brasil",type:"club"},
+{team:"Internacional",state:"RS",country:"Brasil",type:"club"},
+{team:"Atlético-MG",state:"MG",country:"Brasil",type:"club"},
+{team:"Cruzeiro",state:"MG",country:"Brasil",type:"club"},
+{team:"Bahia",state:"BA",country:"Brasil",type:"club"},
+{team:"Vitória",state:"BA",country:"Brasil",type:"club"},
+{team:"Sport",state:"PE",country:"Brasil",type:"club"},
+{team:"Ceará",state:"CE",country:"Brasil",type:"club"},
+{team:"Fortaleza",state:"CE",country:"Brasil",type:"club"},
+{team:"Goiás",state:"GO",country:"Brasil",type:"club"},
+{team:"Atlético-GO",state:"GO",country:"Brasil",type:"club"},
+{team:"Coritiba",state:"PR",country:"Brasil",type:"club"},
+{team:"Athletico-PR",state:"PR",country:"Brasil",type:"club"},
+{team:"Cuiabá",state:"MT",country:"Brasil",type:"club"},
+{team:"Paysandu",state:"PA",country:"Brasil",type:"club"},
+{team:"Remo",state:"PA",country:"Brasil",type:"club"},
 
-/* Inglaterra - Premier League */
-{team:"Arsenal",country:"Inglaterra"},
-{team:"Aston Villa",country:"Inglaterra"},
-{team:"Bournemouth",country:"Inglaterra"},
-{team:"Brentford",country:"Inglaterra"},
-{team:"Brighton & Hove Albion",country:"Inglaterra"},
-{team:"Burnley",country:"Inglaterra"},
-{team:"Chelsea",country:"Inglaterra"},
-{team:"Crystal Palace",country:"Inglaterra"},
-{team:"Everton",country:"Inglaterra"},
-{team:"Fulham",country:"Inglaterra"},
-{team:"Leeds United",country:"Inglaterra"},
-{team:"Liverpool",country:"Inglaterra"},
-{team:"Manchester City",country:"Inglaterra"},
-{team:"Manchester United",country:"Inglaterra"},
-{team:"Newcastle United",country:"Inglaterra"},
-{team:"Nottingham Forest",country:"Inglaterra"},
-{team:"Sunderland",country:"Inglaterra"},
-{team:"Tottenham Hotspur",country:"Inglaterra"},
-{team:"West Ham United",country:"Inglaterra"},
-{team:"Wolverhampton Wanderers",country:"Inglaterra"},
+/* CLUBES INTERNACIONAIS (Principal Ligas – HOME kits) */
+{team:"Arsenal",country:"Inglaterra",type:"club"},
+{team:"Barcelona",country:"Espanha",type:"club"},
+{team:"Juventus",country:"Itália",type:"club"},
+{team:"Bayern de Munique",country:"Alemanha",type:"club"},
+{team:"PSG",country:"França",type:"club"},
+{team:"Benfica",country:"Portugal",type:"club"},
+{team:"Ajax",country:"Holanda",type:"club"},
+{team:"Boca Juniors",country:"Argentina",type:"club"},
+{team:"Inter Miami",country:"EUA",type:"club"},
+{team:"Al Nassr",country:"Arábia Saudita",type:"club"},
 
-/* Espanha - La Liga */
-{team:"Barcelona",country:"Espanha"},
-{team:"Real Madrid",country:"Espanha"},
-{team:"Atlético de Madrid",country:"Espanha"},
-{team:"Sevilla",country:"Espanha"},
-{team:"Villarreal",country:"Espanha"},
-{team:"Real Betis",country:"Espanha"},
-{team:"Celta de Vigo",country:"Espanha"},
-{team:"Osasuna",country:"Espanha"},
-{team:"Valencia",country:"Espanha"},
-{team:"Espanyol",country:"Espanha"},
-{team:"Alavés",country:"Espanha"},
-{team:"Rayo Vallecano",country:"Espanha"},
-{team:"Getafe",country:"Espanha"},
-{team:"Elche",country:"Espanha"},
-
-/* Itália - Serie A */
-{team:"Juventus",country:"Itália"},
-{team:"Milan",country:"Itália"},
-{team:"Inter de Milão",country:"Itália"},
-{team:"Napoli",country:"Itália"},
-{team:"Roma",country:"Itália"},
-{team:"Lazio",country:"Itália"},
-{team:"Fiorentina",country:"Itália"},
-{team:"Atalanta",country:"Itália"},
-
-/* Alemanha - Bundesliga */
-{team:"Bayern de Munique",country:"Alemanha"},
-{team:"Borussia Dortmund",country:"Alemanha"},
-{team:"RB Leipzig",country:"Alemanha"},
-{team:"Bayer Leverkusen",country:"Alemanha"},
-{team:"Schalke 04",country:"Alemanha"},
-
-/* França - Ligue 1 */
-{team:"PSG",country:"França"},
-{team:"Marseille",country:"França"},
-{team:"Monaco",country:"França"},
-{team:"Lyon",country:"França"},
-{team:"Lille",country:"França"},
-
-/* Portugal - Primeira Liga */
-{team:"Benfica",country:"Portugal"},
-{team:"Porto",country:"Portugal"},
-{team:"Sporting",country:"Portugal"},
-
-/* Holanda - Eredivisie */
-{team:"Ajax",country:"Holanda"},
-{team:"PSV",country:"Holanda"},
-{team:"Feyenoord",country:"Holanda"},
-
-/* Argentina - Liga Profesional */
-{team:"Boca Juniors",country:"Argentina"},
-{team:"River Plate",country:"Argentina"},
-{team:"Racing Club",country:"Argentina"},
-{team:"Independiente",country:"Argentina"},
-{team:"San Lorenzo",country:"Argentina"},
-
-/* EUA - MLS */
-{team:"Inter Miami",country:"EUA"},
-{team:"LA Galaxy",country:"EUA"},
-{team:"New York Red Bulls",country:"EUA"},
-{team:"Atlanta United",country:"EUA"},
-{team:"Seattle Sounders",country:"EUA"},
-
-/* Arábia Saudita */
-{team:"Al Nassr",country:"Arábia Saudita"},
-{team:"Al Hilal",country:"Arábia Saudita"},
-{team:"Al Ahli",country:"Arábia Saudita"},
-{team:"Al Ittihad",country:"Arábia Saudita"}
+/* SELEÇÕES – TOP 35 RANKING FIFA */
+{team:"Spain",country:"Seleção",type:"selection"},
+{team:"Argentina",country:"Seleção",type:"selection"},
+{team:"France",country:"Seleção",type:"selection"},
+{team:"England",country:"Seleção",type:"selection"},
+{team:"Brazil",country:"Seleção",type:"selection"},
+{team:"Portugal",country:"Seleção",type:"selection"},
+{team:"Netherlands",country:"Seleção",type:"selection"},
+{team:"Belgium",country:"Seleção",type:"selection"},
+{team:"Germany",country:"Seleção",type:"selection"},
+{team:"Croatia",country:"Seleção",type:"selection"},
+{team:"Morocco",country:"Seleção",type:"selection"},
+{team:"Italy",country:"Seleção",type:"selection"},
+{team:"Colombia",country:"Seleção",type:"selection"},
+{team:"USA",country:"Seleção",type:"selection"},
+{team:"Mexico",country:"Seleção",type:"selection"},
+{team:"Uruguay",country:"Seleção",type:"selection"},
+{team:"Switzerland",country:"Seleção",type:"selection"},
+{team:"Japan",country:"Seleção",type:"selection"},
+{team:"Senegal",country:"Seleção",type:"selection"},
+{team:"Iran",country:"Seleção",type:"selection"},
+{team:"Denmark",country:"Seleção",type:"selection"},
+{team:"South Korea",country:"Seleção",type:"selection"},
+{team:"Ecuador",country:"Seleção",type:"selection"},
+{team:"Austria",country:"Seleção",type:"selection"},
+{team:"Türkiye",country:"Seleção",type:"selection"},
+{team:"Australia",country:"Seleção",type:"selection"},
+{team:"Canada",country:"Seleção",type:"selection"},
+{team:"Ukraine",country:"Seleção",type:"selection"},
+{team:"Norway",country:"Seleção",type:"selection"},
+{team:"Panama",country:"Seleção",type:"selection"},
+{team:"Poland",country:"Seleção",type:"selection"},
+{team:"Wales",country:"Seleção",type:"selection"},
+{team:"Russia",country:"Seleção",type:"selection"},
+{team:"Egypt",country:"Seleção",type:"selection"},
+{team:"Algeria",country:"Seleção",type:"selection"},
 ];
 
 /* ===== FILTROS ===== */
-const countries = [...new Set(teams.map(t=>t.country))];
+const countriesClub = [...new Set(teams.filter(t=>t.type==="club").map(t=>t.country))];
 const states = [...new Set(teams.filter(t=>t.state).map(t=>t.state))];
+const selections = [...new Set(teams.filter(t=>t.type==="selection").map(t=>t.team))];
 
-countries.forEach(c=>filterCountry.innerHTML+=`<option>${c}</option>`);
-states.forEach(s=>filterState.innerHTML+=`<option>${s}</option>`);
+countriesClub.forEach(c=>filterCountry.innerHTML += `<option>${c}</option>`);
+states.forEach(s=>filterState.innerHTML += `<option>${s}</option>`);
+selections.forEach(s=>filterSelection.innerHTML += `<option>${s}</option>`);
 
 /* ===== RENDER ===== */
 function render(){
   catalog.innerHTML="";
   const c = filterCountry.value;
   const s = filterState.value;
+  const sel = filterSelection.value;
 
-  teams.filter(t=>(!c||t.country===c)&&(!s||t.state===s))
+  teams.filter(t=>(!c||t.country===c) && (!s||t.state===s) && (!sel||t.team===sel))
        .forEach((t,i)=>{
-    catalog.innerHTML+=`
-      <div class="card">
-        <img src="images/placeholder.png" alt="${t.team}">
-        <h3>${t.team}</h3>
-        <div class="price">R$ 129,90</div>
-
-        <select class="size-select" id="s${i}">
-          <option value="">Tamanho</option>
-          <option>P</option>
-          <option>M</option>
-          <option>G</option>
-          <option>GG</option>
-        </select>
-
-        <button class="btn"
-          onclick="buy('${t.team}','R$129,90','s${i}')">
-          Comprar no WhatsApp
-        </button>
-      </div>
-    `;
-  });
+        catalog.innerHTML += `
+          <div class="card">
+            <img src="images/placeholder.png" alt="${t.team}">
+            <h3>${t.team}</h3>
+            <div class="price">R$ 129,90</div>
+            <select class="size-select" id="s${i}">
+              <option value="">Tamanho</option>
+              <option>P</option><option>M</option><option>G</option><option>GG</option>
+            </select>
+            <button class="btn" onclick="buy('${t.team}','R$129,90','s${i}')">
+              Comprar no WhatsApp
+            </button>
+          </div>
+        `;
+       });
 }
 
 /* ===== BUY ===== */
 function buy(team,price,id){
-  const size=document.getElementById(id).value;
+  const size = document.getElementById(id).value;
   if(!size){alert("Selecione o tamanho");return;}
-  const msg=`Olá! Quero comprar:\n📦 ${team}\n📏 ${size}\n💰 ${price}`;
+  const msg = `Olá! Quero comprar:\n📦 ${team}\n📏 ${size}\n💰 ${price}`;
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 

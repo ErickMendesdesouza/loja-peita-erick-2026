@@ -2,170 +2,161 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Payt Eric Store | Camisas Nacional & Internacional</title>
+<title>Peitas Store ⚽ | Camisas 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4}
-header{background:#111;color:#fff;padding:15px;text-align:center;font-size:22px;font-weight:bold}
-.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;background:#fff;padding:10px}
-.filters select{padding:6px;border-radius:5px}
-.container{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#fff;padding:15px;border-radius:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card img{width:100%;border-radius:6px}
-.price{color:#2e7d32;font-weight:bold;font-size:18px}
-.size-select{margin:10px 0;padding:8px;width:100%}
-.btn{width:100%;padding:10px;background:#111;color:#fff;border:none;border-radius:5px;cursor:pointer}
-footer{background:#111;color:#aaa;text-align:center;padding:15px;font-size:14px}
+body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; }
+header { background:#111; color:#fff; padding:15px; text-align:center; font-size:22px; }
+.filters { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; background:#fff; padding:10px; }
+.filters select { padding:8px; border-radius:5px; }
+.container { padding:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+.card { background:#fff; padding:15px; border-radius:8px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.card img { width:100%; border-radius:6px; }
+.price { color:#2e7d32; font-weight:bold; font-size:18px; margin:10px 0; }
+.size-select { margin:10px 0; padding:8px; width:100%; }
+.btn { width:100%; padding:10px; background:#111; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+footer { background:#111; color:#aaa; text-align:center; padding:15px; font-size:14px; }
 </style>
-</head>
 
+</head>
 <body>
 
-<header>Peitas Store ⚽ | Camisas Nacional, Internacional & Seleções</header>
+<header>Peitas Store ⚽ | Camisas 2026 – Clubes & Seleções</header>
 
 <div class="filters">
   <select id="filterCountry" onchange="render()">
-    <option value="">🌍 País (Clubes Internacionais)</option>
+    <option value="">🌍 País (Clubes)</option>
   </select>
-
   <select id="filterState" onchange="render()">
-    <option value="">🇧🇷 Estado (Clubes Brasileiros)</option>
+    <option value="">🇧🇷 Estado (Clubes BR)</option>
   </select>
-
   <select id="filterSelection" onchange="render()">
-    <option value="">🏆 Seleções Top FIFA</option>
+    <option value="">🏆 Seleção (Top FIFA)</option>
   </select>
 </div>
 
 <div class="container" id="catalog"></div>
 
-<footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
+<footer>© 2026 Peitas Store • Compra segura via WhatsApp</footer>
 
 <script>
 const phone = "5511988857455";
 
-/* ===== LISTA COMPLETA DE CAMISAS ===== */
+/* ===== LISTA DE TIMES COM HOME E AWAY ===== */
 const teams = [
 
-/* ===== CLUBES BRASILEIROS - Séries A, B, C ===== */
-/* RJ */
-{team:"Flamengo home",state:"RJ",country:"Brasil",type:"club",img:"images/flamengo_home.png"},
-{team:"Flamengo away",state:"RJ",country:"Brasil",type:"club",img:"images/flamengo_away.png"},
-{team:"Fluminense home",state:"RJ",country:"Brasil",type:"club",img:"images/fluminense_home.png"},
-{team:"Fluminense away",state:"RJ",country:"Brasil",type:"club",img:"images/fluminense_away.png"},
-{team:"Vasco home",state:"RJ",country:"Brasil",type:"club",img:"images/vasco_home.png"},
-{team:"Vasco away",state:"RJ",country:"Brasil",type:"club",img:"images/vasco_away.png"},
-{team:"Botafogo home",state:"RJ",country:"Brasil",type:"club",img:"images/botafogo_home.png"},
-{team:"Botafogo away",state:"RJ",country:"Brasil",type:"club",img:"images/botafogo_away.png"},
+/* ===== CLUBES BRASILEIROS – Séries A/B/C ===== */
+{team:"Flamengo 2026 home",state:"RJ",country:"Brasil",type:"club",img:"images/flamengo_2026_home.png"},
+{team:"Flamengo 2026 away",state:"RJ",country:"Brasil",type:"club",img:"images/flamengo_2026_away.png"},
+{team:"Palmeiras 2026 home",state:"SP",country:"Brasil",type:"club",img:"images/palmeiras_2026_home.png"},
+{team:"Palmeiras 2026 away",state:"SP",country:"Brasil",type:"club",img:"images/palmeiras_2026_away.png"},
+{team:"Fluminense 2026 home",state:"RJ",country:"Brasil",type:"club",img:"images/fluminense_2026_home.png"},
+{team:"Fluminense 2026 away",state:"RJ",country:"Brasil",type:"club",img:"images/fluminense_2026_away.png"},
+{team:"Corinthians 2026 home",state:"SP",country:"Brasil",type:"club",img:"images/corinthians_2026_home.png"},
+{team:"Corinthians 2026 away",state:"SP",country:"Brasil",type:"club",img:"images/corinthians_2026_away.png"},
+/* Adicione mais clubes brasileiros aqui seguindo o mesmo padrão */
 
-/* SP */
-{team:"Palmeiras home",state:"SP",country:"Brasil",type:"club",img:"images/palmeiras_home.png"},
-{team:"Palmeiras away",state:"SP",country:"Brasil",type:"club",img:"images/palmeiras_away.png"},
-{team:"São Paulo home",state:"SP",country:"Brasil",type:"club",img:"images/saopaulo_home.png"},
-{team:"São Paulo away",state:"SP",country:"Brasil",type:"club",img:"images/saopaulo_away.png"},
-{team:"Corinthians home",state:"SP",country:"Brasil",type:"club",img:"images/corinthians_home.png"},
-{team:"Corinthians away",state:"SP",country:"Brasil",type:"club",img:"images/corinthians_away.png"},
-{team:"Santos home",state:"SP",country:"Brasil",type:"club",img:"images/santos_home.png"},
-{team:"Santos away",state:"SP",country:"Brasil",type:"club",img:"images/santos_away.png"},
+/* ===== CLUBES INTERNACIONAIS – Principais Ligas 2025–26 ===== */
+/* Premier League (Inglaterra) */
+{team:"Arsenal 2026 home",country:"Inglaterra",type:"club",img:"images/arsenal_2026_home.png"},
+{team:"Arsenal 2026 away",country:"Inglaterra",type:"club",img:"images/arsenal_2026_away.png"},
+{team:"Manchester City 2026 home",country:"Inglaterra",type:"club",img:"images/mancity_2026_home.png"},
+{team:"Manchester City 2026 away",country:"Inglaterra",type:"club",img:"images/mancity_2026_away.png"},
+{team:"Liverpool 2026 home",country:"Inglaterra",type:"club",img:"images/liverpool_2026_home.png"},
+{team:"Liverpool 2026 away",country:"Inglaterra",type:"club",img:"images/liverpool_2026_away.png"},
+/* La Liga (Espanha) – Exemplos principais */ 
+{team:"Barcelona 2026 home",country:"Espanha",type:"club",img:"images/barcelona_2026_home.png"},
+{team:"Barcelona 2026 away",country:"Espanha",type:"club",img:"images/barcelona_2026_away.png"},
+{team:"Real Madrid 2026 home",country:"Espanha",type:"club",img:"images/realmadrid_2026_home.png"},
+{team:"Real Madrid 2026 away",country:"Espanha",type:"club",img:"images/realmadrid_2026_away.png"},
+/* Serie A (Itália) */
+{team:"Juventus 2026 home",country:"Itália",type:"club",img:"images/juventus_2026_home.png"},
+{team:"Juventus 2026 away",country:"Itália",type:"club",img:"images/juventus_2026_away.png"},
+{team:"Milan 2026 home",country:"Itália",type:"club",img:"images/milan_2026_home.png"},
+{team:"Milan 2026 away",country:"Itália",type:"club",img:"images/milan_2026_away.png"},
+/* Bundesliga (Alemanha) */
+{team:"Bayern 2026 home",country:"Alemanha",type:"club",img:"images/bayern_2026_home.png"},
+{team:"Bayern 2026 away",country:"Alemanha",type:"club",img:"images/bayern_2026_away.png"},
+/* Ligue 1 (França) */
+{team:"PSG 2026 home",country:"França",type:"club",img:"images/psg_2026_home.png"},
+{team:"PSG 2026 away",country:"França",type:"club",img:"images/psg_2026_away.png"},
+/* Eredivisie (Holanda) */
+{team:"Ajax 2026 home",country:"Holanda",type:"club",img:"images/ajax_2026_home.png"},
+{team:"Ajax 2026 away",country:"Holanda",type:"club",img:"images/ajax_2026_away.png"},
+{team:"PSV 2026 home",country:"Holanda",type:"club",img:"images/psv_2026_home.png"},
+{team:"PSV 2026 away",country:"Holanda",type:"club",img:"images/psv_2026_away.png"},
+/* MLS (EUA) */
+{team:"LA Galaxy 2026 home",country:"EUA",type:"club",img:"images/lagalaxy_2026_home.png"},
+{team:"LA Galaxy 2026 away",country:"EUA",type:"club",img:"images/lagalaxy_2026_away.png"},
+/* Argentina – Liga Profesional */
+{team:"Boca Juniors 2026 home",country:"Argentina",type:"club",img:"images/bocajuniors_2026_home.png"},
+{team:"Boca Juniors 2026 away",country:"Argentina",type:"club",img:"images/bocajuniors_2026_away.png"},
+/* Adicione outros clubes nacionais / ligas conforme precisar */
 
-/* MG */
-{team:"Atlético MG home",state:"MG",country:"Brasil",type:"club",img:"images/atleticomg_home.png"},
-{team:"Atlético MG away",state:"MG",country:"Brasil",type:"club",img:"images/atleticomg_away.png"},
-{team:"Cruzeiro home",state:"MG",country:"Brasil",type:"club",img:"images/cruzeiro_home.png"},
-{team:"Cruzeiro away",state:"MG",country:"Brasil",type:"club",img:"images/cruzeiro_away.png"},
-
-/* ===== CLUBES INTERNACIONAIS ===== */
-/* Inglaterra */
-{team:"Arsenal home",country:"Inglaterra",type:"club",img:"images/arsenal_home.png"},
-{team:"Arsenal away",country:"Inglaterra",type:"club",img:"images/arsenal_away.png"},
-{team:"Manchester United home",country:"Inglaterra",type:"club",img:"images/manutd_home.png"},
-{team:"Manchester United away",country:"Inglaterra",type:"club",img:"images/manutd_away.png"},
-
-/* Espanha */
-{team:"Barcelona home",country:"Espanha",type:"club",img:"images/barcelona_home.png"},
-{team:"Barcelona away",country:"Espanha",type:"club",img:"images/barcelona_away.png"},
-{team:"Real Madrid home",country:"Espanha",type:"club",img:"images/realmadrid_home.png"},
-{team:"Real Madrid away",country:"Espanha",type:"club",img:"images/realmadrid_away.png"},
-
-/* Itália */
-{team:"Juventus home",country:"Itália",type:"club",img:"images/juventus_home.png"},
-{team:"Juventus away",country:"Itália",type:"club",img:"images/juventus_away.png"},
-{team:"Milan home",country:"Itália",type:"club",img:"images/milan_home.png"},
-{team:"Milan away",country:"Itália",type:"club",img:"images/milan_away.png"},
-
-/* França */
-{team:"PSG home",country:"França",type:"club",img:"images/psg_home.png"},
-{team:"PSG away",country:"França",type:"club",img:"images/psg_away.png"},
-{team:"Lyon home",country:"França",type:"club",img:"images/lyon_home.png"},
-{team:"Lyon away",country:"França",type:"club",img:"images/lyon_away.png"},
-
-/* ===== SELEÇÕES TOP FIFA ===== */
-{team:"Brazil home",country:"Seleção",type:"selection",img:"images/brazil_home.png"},
-{team:"Brazil away",country:"Seleção",type:"selection",img:"images/brazil_away.png"},
-{team:"Argentina home",country:"Seleção",type:"selection",img:"images/argentina_home.png"},
-{team:"Argentina away",country:"Seleção",type:"selection",img:"images/argentina_away.png"},
-{team:"France home",country:"Seleção",type:"selection",img:"images/france_home.png"},
-{team:"France away",country:"Seleção",type:"selection",img:"images/france_away.png"},
-{team:"Spain home",country:"Seleção",type:"selection",img:"images/spain_home.png"},
-{team:"Spain away",country:"Seleção",type:"selection",img:"images/spain_away.png"},
-{team:"Germany home",country:"Seleção",type:"selection",img:"images/germany_home.png"},
-{team:"Germany away",country:"Seleção",type:"selection",img:"images/germany_away.png"},
-// Continue para as demais seleções até completar as top 35
-
+/* ===== SELEÇÕES – Top 35 FIFA ===== */
+{team:"Brazil 2026 home",country:"Seleção",type:"selection",img:"images/brazil_2026_home.png"},
+{team:"Brazil 2026 away",country:"Seleção",type:"selection",img:"images/brazil_2026_away.png"},
+{team:"Argentina 2026 home",country:"Seleção",type:"selection",img:"images/argentina_2026_home.png"},
+{team:"Argentina 2026 away",country:"Seleção",type:"selection",img:"images/argentina_2026_away.png"},
+{team:"Spain 2026 home",country:"Seleção",type:"selection",img:"images/spain_2026_home.png"},
+{team:"Spain 2026 away",country:"Seleção",type:"selection",img:"images/spain_2026_away.png"},
+{team:"France 2026 home",country:"Seleção",type:"selection",img:"images/france_2026_home.png"},
+{team:"France 2026 away",country:"Seleção",type:"selection",img:"images/france_2026_away.png"},
+/* Continue até incluir todas as Top 35 seleções conforme ranking FIFA */ 
 ];
 
-/* ===== DEFINIR PREÇOS AUTOMÁTICOS ===== */
-teams.forEach(t=>{
-  t.price = t.type==="club" ? "R$139,90" : "R$149,90";
+/* ===== PREÇOS AUTOMÁTICOS ===== */
+teams.forEach(t => {
+  t.price = t.type === "club" ? "R$139,90" : "R$149,90";
 });
 
 /* ===== FILTROS ===== */
-const countriesClub = [...new Set(teams.filter(t=>t.type==="club" && t.country!=="Brasil").map(t=>t.country))];
+const countriesClub = [...new Set(teams.filter(t=>t.type==="club" && t.country !== "Brasil").map(t=>t.country))];
 const states = [...new Set(teams.filter(t=>t.state).map(t=>t.state))];
 const selections = [...new Set(teams.filter(t=>t.type==="selection").map(t=>t.team))];
 
-countriesClub.forEach(c=>filterCountry.innerHTML += `<option>${c}</option>`);
-states.forEach(s=>filterState.innerHTML += `<option>${s}</option>`);
-selections.forEach(s=>filterSelection.innerHTML += `<option>${s}</option>`);
+countriesClub.forEach(c => filterCountry.innerHTML += `<option>${c}</option>`);
+states.forEach(s => filterState.innerHTML += `<option>${s}</option>`);
+selections.forEach(s => filterSelection.innerHTML += `<option>${s}</option>`);
 
 /* ===== RENDER ===== */
 function render(){
-  catalog.innerHTML="";
+  catalog.innerHTML = "";
   const c = filterCountry.value;
   const s = filterState.value;
   const sel = filterSelection.value;
 
-  teams.filter(t=>(!c||t.country===c) && (!s||t.state===s) && (!sel||t.team===sel))
-       .forEach((t,i)=>{
-        catalog.innerHTML += `
-          <div class="card">
-            <img src="${t.img}" alt="${t.team}">
-            <h3>${t.team}</h3>
-            <div class="price">${t.price}</div>
-            <select class="size-select" id="s${i}">
-              <option value="">Tamanho</option>
-              <option>P</option><option>M</option><option>G</option><option>GG</option>
-            </select>
-            <button class="btn" onclick="buy('${t.team}','${t.price}','s${i}')">
-              Comprar no WhatsApp
-            </button>
-          </div>
-        `;
-       });
+  teams.filter(t =>
+      (!c || t.country === c) &&
+      (!s || t.state === s) &&
+      (!sel || t.team === sel)
+    ).forEach((t,i) => {
+      catalog.innerHTML += `
+      <div class="card">
+        <img src="${t.img}" alt="${t.team}">
+        <h3>${t.team}</h3>
+        <div class="price">${t.price}</div>
+        <select class="size-select" id="size${i}">
+          <option value="">Tamanho</option>
+          <option>P</option><option>M</option><option>G</option><option>GG</option>
+        </select>
+        <button class="btn" onclick="buy('${t.team}','${t.price}','size${i}')">
+          Comprar no WhatsApp
+        </button>
+      </div>`;
+    });
 }
 
 /* ===== BUY ===== */
-function buy(team,price,id){
+function buy(team, price, id){
   const size = document.getElementById(id).value;
-  if(!size){alert("Selecione o tamanho");return;}
-  const msg = `Olá! Quero comprar:\n📦 ${team}\n📏 ${size}\n💰 ${price}`;
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
+  if(!size){ alert("Por favor selecione o tamanho."); return; }
+  const mensagem = `Olá! Quero comprar a camisa ${team} tamanho ${size} por ${price}.`;
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(mensagem)}`, "_blank");
 }
 
 render();
 </script>
-
 </body>
 </html>
-

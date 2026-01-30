@@ -95,21 +95,87 @@
 
 <div class="container">
 
+  <!-- Flamengo Home -->
   <div class="card">
-    <img src="images/flamengo2026home-torcedor.png.webp" alt="Camisa Flamengo 2026 home">
-    <h3>Camisa Flamengo 2026 home</h3>
+    <img src="images/flamengo2026home-torcedor.png.webp">
+    <h3>Camisa Flamengo 2026 Home</h3>
     <div class="price">R$ 129,90</div>
 
-    <select class="size-select" id="size-flamengo-home">
+    <select class="size-select" id="fla-home">
       <option value="">Selecione o tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
+      <option>P</option><option>M</option><option>G</option><option>GG</option>
     </select>
 
     <button class="btn"
-      onclick="comprarWhats('Camisa Flamengo 2026 home', 'size-flamengo-home')">
+      onclick="comprarWhats('Camisa Flamengo 2026 Home','R$ 129,90','fla-home')">
+      Comprar no WhatsApp
+    </button>
+  </div>
+
+  <!-- Flamengo Feminina -->
+  <div class="card">
+    <img src="images/flamengo2026homefeminina.png.webp">
+    <h3>Camisa Flamengo 2026 Home Feminina</h3>
+    <div class="price">R$ 129,90</div>
+
+    <select class="size-select" id="fla-fem">
+      <option value="">Selecione o tamanho</option>
+      <option>P</option><option>M</option><option>G</option><option>GG</option>
+    </select>
+
+    <button class="btn"
+      onclick="comprarWhats('Camisa Flamengo 2026 Home Feminina','R$ 129,90','fla-fem')">
+      Comprar no WhatsApp
+    </button>
+  </div>
+
+  <!-- Palmeiras Home -->
+  <div class="card">
+    <img src="images/Palmeiras2026home.png.webp">
+    <h3>Camisa Palmeiras 2026 Home</h3>
+    <div class="price">R$ 129,90</div>
+
+    <select class="size-select" id="pal-home">
+      <option value="">Selecione o tamanho</option>
+      <option>P</option><option>M</option><option>G</option><option>GG</option>
+    </select>
+
+    <button class="btn"
+      onclick="comprarWhats('Camisa Palmeiras 2026 Home','R$ 129,90','pal-home')">
+      Comprar no WhatsApp
+    </button>
+  </div>
+
+  <!-- Palmeiras Away -->
+  <div class="card">
+    <img src="images/Palmeiras2026away.png.webp">
+    <h3>Camisa Palmeiras 2026 Away</h3>
+    <div class="price">R$ 129,90</div>
+
+    <select class="size-select" id="pal-away">
+      <option value="">Selecione o tamanho</option>
+      <option>P</option><option>M</option><option>G</option><option>GG</option>
+    </select>
+
+    <button class="btn"
+      onclick="comprarWhats('Camisa Palmeiras 2026 Away','R$ 129,90','pal-away')">
+      Comprar no WhatsApp
+    </button>
+  </div>
+
+  <!-- Brasil Jogador -->
+  <div class="card">
+    <img src="images/brasil2026homejogador.png.webp">
+    <h3>Camisa Brasil 2026 Home Jogador</h3>
+    <div class="price">R$ 199,90</div>
+
+    <select class="size-select" id="bra-jog">
+      <option value="">Selecione o tamanho</option>
+      <option>P</option><option>M</option><option>G</option><option>GG</option>
+    </select>
+
+    <button class="btn"
+      onclick="comprarWhats('Camisa Brasil 2026 Home Jogador','R$ 199,90','bra-jog')">
       Comprar no WhatsApp
     </button>
   </div>
@@ -120,9 +186,8 @@
   © 2026 Payt Eric Store • Compra segura via WhatsApp
 </footer>
 
-<!-- JAVASCRIPT NO LUGAR CERTO -->
 <script>
-function comprarWhats(produto, selectId) {
+function comprarWhats(produto, preco, selectId) {
   const tamanho = document.getElementById(selectId).value;
 
   if (!tamanho) {
@@ -130,6 +195,18 @@ function comprarWhats(produto, selectId) {
     return;
   }
 
-  const mensagem = `Olá! Quero comprar a ${produto} no tamanho ${tamanho}.`;
   const telefone = "5511988857455";
-  const url = `https://wa.me/${telefone}
+  const mensagem =
+    `Olá! Quero comprar:\n\n` +
+    `📦 Produto: ${produto}\n` +
+    `📏 Tamanho: ${tamanho}\n` +
+    `💰 Preço: ${preco}`;
+
+  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
+

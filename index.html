@@ -7,9 +7,35 @@
 
   <style>
     body {
+      <script>
+function comprarWhats(produto, selectId) {
+  const tamanho = document.getElementById(selectId).value;
+
+  if (!tamanho) {
+    alert("Por favor, selecione um tamanho.");
+    return;
+  }
+
+  const mensagem = `Olá! Quero comprar a ${produto} no tamanho ${tamanho}.`;
+  const telefone = "5511988857455";
+  const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+
+  window.open(url, "_blank");
+}
+</script>
+
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f4f4;
+      .size-select {
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
     }
     header {
       background: #111;

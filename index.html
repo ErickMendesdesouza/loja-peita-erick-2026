@@ -26,15 +26,15 @@ footer{background:#111;color:#aaa;text-align:center;padding:15px;font-size:14px}
 
 <div class="filters">
   <select id="filterCountry" onchange="render()">
-    <option value="">🌍 País (todos clubes)</option>
+    <option value="">🌍 País (Clubes Internacionais)</option>
   </select>
 
   <select id="filterState" onchange="render()">
-    <option value="">🇧🇷 Estado (para clubes)</option>
+    <option value="">🇧🇷 Estado (Clubes Brasileiros)</option>
   </select>
 
   <select id="filterSelection" onchange="render()">
-    <option value="">🏆 Seleções Principais (Top 35 FIFA)</option>
+    <option value="">🏆 Seleções Top FIFA</option>
   </select>
 </div>
 
@@ -45,59 +45,83 @@ footer{background:#111;color:#aaa;text-align:center;padding:15px;font-size:14px}
 <script>
 const phone = "5511988857455";
 
-/* ===== TODAS AS CAMISAS ===== */
+/* ===== LISTA COMPLETA DE CAMISAS ===== */
 const teams = [
 
-/* CAMISAS EXISTENTES DO SITE - HOME E AWAY */
-{team:"Flamengo 2026 home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/flamengo2026home.png"},
-{team:"Flamengo 2026 away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/flamengo2026away.png"},
-{team:"Flamengo 2026 home feminina",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/flamengo2026homefeminina.png"},
-{team:"Palmeiras 2026 home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/palmeiras2026home.png"},
-{team:"Palmeiras 2026 away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/palmeiras2026away.png"},
-{team:"Brasil 2026 home jogador",state:"BR",country:"Brasil",type:"selection",price:"R$199,90",img:"images/brasil2026homejogador.png"},
+/* ===== CLUBES BRASILEIROS - Séries A, B, C ===== */
+/* RJ */
+{team:"Flamengo home",state:"RJ",country:"Brasil",type:"club",img:"images/flamengo_home.png"},
+{team:"Flamengo away",state:"RJ",country:"Brasil",type:"club",img:"images/flamengo_away.png"},
+{team:"Fluminense home",state:"RJ",country:"Brasil",type:"club",img:"images/fluminense_home.png"},
+{team:"Fluminense away",state:"RJ",country:"Brasil",type:"club",img:"images/fluminense_away.png"},
+{team:"Vasco home",state:"RJ",country:"Brasil",type:"club",img:"images/vasco_home.png"},
+{team:"Vasco away",state:"RJ",country:"Brasil",type:"club",img:"images/vasco_away.png"},
+{team:"Botafogo home",state:"RJ",country:"Brasil",type:"club",img:"images/botafogo_home.png"},
+{team:"Botafogo away",state:"RJ",country:"Brasil",type:"club",img:"images/botafogo_away.png"},
 
-/* CLUBES BRASILEIROS ADICIONAIS - HOME/AWAY */
-{team:"Fluminense home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/fluminense_home.png"},
-{team:"Fluminense away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/fluminense_away.png"},
-{team:"Vasco home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/vasco_home.png"},
-{team:"Vasco away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/vasco_away.png"},
-{team:"Botafogo home",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/botafogo_home.png"},
-{team:"Botafogo away",state:"RJ",country:"Brasil",type:"club",price:"R$129,90",img:"images/botafogo_away.png"},
-{team:"São Paulo home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/saopaulo_home.png"},
-{team:"São Paulo away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/saopaulo_away.png"},
-{team:"Corinthians home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/corinthians_home.png"},
-{team:"Corinthians away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/corinthians_away.png"},
-{team:"Santos home",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/santos_home.png"},
-{team:"Santos away",state:"SP",country:"Brasil",type:"club",price:"R$129,90",img:"images/santos_away.png"},
+/* SP */
+{team:"Palmeiras home",state:"SP",country:"Brasil",type:"club",img:"images/palmeiras_home.png"},
+{team:"Palmeiras away",state:"SP",country:"Brasil",type:"club",img:"images/palmeiras_away.png"},
+{team:"São Paulo home",state:"SP",country:"Brasil",type:"club",img:"images/saopaulo_home.png"},
+{team:"São Paulo away",state:"SP",country:"Brasil",type:"club",img:"images/saopaulo_away.png"},
+{team:"Corinthians home",state:"SP",country:"Brasil",type:"club",img:"images/corinthians_home.png"},
+{team:"Corinthians away",state:"SP",country:"Brasil",type:"club",img:"images/corinthians_away.png"},
+{team:"Santos home",state:"SP",country:"Brasil",type:"club",img:"images/santos_home.png"},
+{team:"Santos away",state:"SP",country:"Brasil",type:"club",img:"images/santos_away.png"},
 
-/* CLUBES INTERNACIONAIS - HOME/AWAY */
-{team:"Arsenal home",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/arsenal_home.png"},
-{team:"Arsenal away",country:"Inglaterra",type:"club",price:"R$299,90",img:"images/arsenal_away.png"},
-{team:"Barcelona home",country:"Espanha",type:"club",price:"R$299,90",img:"images/barcelona_home.png"},
-{team:"Barcelona away",country:"Espanha",type:"club",price:"R$299,90",img:"images/barcelona_away.png"},
-{team:"Juventus home",country:"Itália",type:"club",price:"R$299,90",img:"images/juventus_home.png"},
-{team:"Juventus away",country:"Itália",type:"club",price:"R$299,90",img:"images/juventus_away.png"},
-{team:"Bayern home",country:"Alemanha",type:"club",price:"R$299,90",img:"images/bayern_home.png"},
-{team:"Bayern away",country:"Alemanha",type:"club",price:"R$299,90",img:"images/bayern_away.png"},
-{team:"PSG home",country:"França",type:"club",price:"R$299,90",img:"images/psg_home.png"},
-{team:"PSG away",country:"França",type:"club",price:"R$299,90",img:"images/psg_away.png"},
+/* MG */
+{team:"Atlético MG home",state:"MG",country:"Brasil",type:"club",img:"images/atleticomg_home.png"},
+{team:"Atlético MG away",state:"MG",country:"Brasil",type:"club",img:"images/atleticomg_away.png"},
+{team:"Cruzeiro home",state:"MG",country:"Brasil",type:"club",img:"images/cruzeiro_home.png"},
+{team:"Cruzeiro away",state:"MG",country:"Brasil",type:"club",img:"images/cruzeiro_away.png"},
 
-/* SELEÇÕES - HOME/AWAY */
-{team:"Spain home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/spain_home.png"},
-{team:"Spain away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/spain_away.png"},
-{team:"Argentina home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/argentina_home.png"},
-{team:"Argentina away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/argentina_away.png"},
-{team:"France home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/france_home.png"},
-{team:"France away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/france_away.png"},
-{team:"Brazil home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/brazil_home.png"},
-{team:"Brazil away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/brazil_away.png"},
-{team:"Germany home",country:"Seleção",type:"selection",price:"R$199,90",img:"images/germany_home.png"},
-{team:"Germany away",country:"Seleção",type:"selection",price:"R$199,90",img:"images/germany_away.png"},
-// Continue adicionando todas as seleções Top 35 com home e away...
+/* ===== CLUBES INTERNACIONAIS ===== */
+/* Inglaterra */
+{team:"Arsenal home",country:"Inglaterra",type:"club",img:"images/arsenal_home.png"},
+{team:"Arsenal away",country:"Inglaterra",type:"club",img:"images/arsenal_away.png"},
+{team:"Manchester United home",country:"Inglaterra",type:"club",img:"images/manutd_home.png"},
+{team:"Manchester United away",country:"Inglaterra",type:"club",img:"images/manutd_away.png"},
+
+/* Espanha */
+{team:"Barcelona home",country:"Espanha",type:"club",img:"images/barcelona_home.png"},
+{team:"Barcelona away",country:"Espanha",type:"club",img:"images/barcelona_away.png"},
+{team:"Real Madrid home",country:"Espanha",type:"club",img:"images/realmadrid_home.png"},
+{team:"Real Madrid away",country:"Espanha",type:"club",img:"images/realmadrid_away.png"},
+
+/* Itália */
+{team:"Juventus home",country:"Itália",type:"club",img:"images/juventus_home.png"},
+{team:"Juventus away",country:"Itália",type:"club",img:"images/juventus_away.png"},
+{team:"Milan home",country:"Itália",type:"club",img:"images/milan_home.png"},
+{team:"Milan away",country:"Itália",type:"club",img:"images/milan_away.png"},
+
+/* França */
+{team:"PSG home",country:"França",type:"club",img:"images/psg_home.png"},
+{team:"PSG away",country:"França",type:"club",img:"images/psg_away.png"},
+{team:"Lyon home",country:"França",type:"club",img:"images/lyon_home.png"},
+{team:"Lyon away",country:"França",type:"club",img:"images/lyon_away.png"},
+
+/* ===== SELEÇÕES TOP FIFA ===== */
+{team:"Brazil home",country:"Seleção",type:"selection",img:"images/brazil_home.png"},
+{team:"Brazil away",country:"Seleção",type:"selection",img:"images/brazil_away.png"},
+{team:"Argentina home",country:"Seleção",type:"selection",img:"images/argentina_home.png"},
+{team:"Argentina away",country:"Seleção",type:"selection",img:"images/argentina_away.png"},
+{team:"France home",country:"Seleção",type:"selection",img:"images/france_home.png"},
+{team:"France away",country:"Seleção",type:"selection",img:"images/france_away.png"},
+{team:"Spain home",country:"Seleção",type:"selection",img:"images/spain_home.png"},
+{team:"Spain away",country:"Seleção",type:"selection",img:"images/spain_away.png"},
+{team:"Germany home",country:"Seleção",type:"selection",img:"images/germany_home.png"},
+{team:"Germany away",country:"Seleção",type:"selection",img:"images/germany_away.png"},
+// Continue para as demais seleções até completar as top 35
+
 ];
 
+/* ===== DEFINIR PREÇOS AUTOMÁTICOS ===== */
+teams.forEach(t=>{
+  t.price = t.type==="club" ? "R$139,90" : "R$149,90";
+});
+
 /* ===== FILTROS ===== */
-const countriesClub = [...new Set(teams.filter(t=>t.type==="club").map(t=>t.country))];
+const countriesClub = [...new Set(teams.filter(t=>t.type==="club" && t.country!=="Brasil").map(t=>t.country))];
 const states = [...new Set(teams.filter(t=>t.state).map(t=>t.state))];
 const selections = [...new Set(teams.filter(t=>t.type==="selection").map(t=>t.team))];
 
@@ -144,3 +168,4 @@ render();
 
 </body>
 </html>
+

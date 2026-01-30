@@ -1,251 +1,163 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Payt Eric Store | Camisas de Time</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Payt Eric Store | Catálogo Completo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-    }
-
-    header {
-      background: #111;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    /* FILTROS */
-    .filters {
-      display: flex;
-      gap: 10px;
-      padding: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: #fff;
-    }
-
-    .filter-btn {
-      padding: 8px 14px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      background: #ddd;
-      font-size: 14px;
-    }
-
-    .filter-btn.active {
-      background: #111;
-      color: #fff;
-    }
-
-    .container {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      padding: 15px;
-    }
-
-    .card img {
-      width: 100%;
-      border-radius: 6px;
-    }
-
-    .card h3 {
-      margin: 10px 0;
-      font-size: 17px;
-    }
-
-    .price {
-      color: #2e7d32;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .size-select {
-      margin: 10px 0;
-      padding: 8px;
-      width: 100%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 10px;
-      background: #111;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: #333;
-    }
-
-    footer {
-      background: #111;
-      color: #aaa;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-    }
-  </style>
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{background:#111;color:#fff;padding:15px;text-align:center;font-size:22px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;background:#fff;padding:10px}
+.filters select{padding:6px;border-radius:5px}
+.container{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#fff;padding:15px;border-radius:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.card img{width:100%;border-radius:6px}
+.price{color:#2e7d32;font-weight:bold;font-size:18px}
+.size-select{margin:10px 0;padding:8px;width:100%}
+.btn{width:100%;padding:10px;background:#111;color:#fff;border:none;border-radius:5px;cursor:pointer}
+footer{background:#111;color:#aaa;text-align:center;padding:15px}
+</style>
 </head>
 
 <body>
 
-<header>
-  Peitas Store ⚽ | Camisas de Time
-</header>
+<header>Peitas Store ⚽ | Catálogo Nacional & Internacional</header>
 
 <!-- FILTROS -->
 <div class="filters">
-  <button class="filter-btn active" onclick="filterTeam('all', this)">Todos</button>
-  <button class="filter-btn" onclick="filterTeam('flamengo', this)">Flamengo</button>
-  <button class="filter-btn" onclick="filterTeam('palmeiras', this)">Palmeiras</button>
-  <button class="filter-btn" onclick="filterTeam('brasil', this)">Brasil</button>
+  <select id="filterCountry" onchange="render()">
+    <option value="">🌍 País (todos)</option>
+  </select>
+
+  <select id="filterState" onchange="render()">
+    <option value="">🇧🇷 Estado (todos)</option>
+  </select>
 </div>
 
-<!-- CATÁLOGO -->
-<div class="container">
+<div class="container" id="catalog"></div>
 
-  <!-- FLAMENGO -->
-  <div class="card" data-team="flamengo">
-    <img src="images/flamengo2026home-torcedor.png.webp">
-    <h3>Flamengo 2026 Home</h3>
-    <div class="price">R$ 129,90</div>
-
-    <select class="size-select" id="fla1">
-      <option value="">Tamanho</option>
-      <option>P</option><option>M</option><option>G</option><option>GG</option>
-    </select>
-
-    <button class="btn"
-      onclick="comprarWhats('Flamengo 2026 Home','R$ 129,90','fla1')">
-      Comprar no WhatsApp
-    </button>
-  </div>
-
-  <div class="card" data-team="flamengo">
-    <img src="images/flamengo2026homefeminina.png.webp">
-    <h3>Flamengo 2026 Feminina</h3>
-    <div class="price">R$ 129,90</div>
-
-    <select class="size-select" id="fla2">
-      <option value="">Tamanho</option>
-      <option>P</option><option>M</option><option>G</option><option>GG</option>
-    </select>
-
-    <button class="btn"
-      onclick="comprarWhats('Flamengo 2026 Feminina','R$ 129,90','fla2')">
-      Comprar no WhatsApp
-    </button>
-  </div>
-
-  <!-- PALMEIRAS -->
-  <div class="card" data-team="palmeiras">
-    <img src="images/Palmeiras2026home.png.webp">
-    <h3>Palmeiras 2026 Home</h3>
-    <div class="price">R$ 129,90</div>
-
-    <select class="size-select" id="pal1">
-      <option value="">Tamanho</option>
-      <option>P</option><option>M</option><option>G</option><option>GG</option>
-    </select>
-
-    <button class="btn"
-      onclick="comprarWhats('Palmeiras 2026 Home','R$ 129,90','pal1')">
-      Comprar no WhatsApp
-    </button>
-  </div>
-
-  <div class="card" data-team="palmeiras">
-    <img src="images/Palmeiras2026away.png.webp">
-    <h3>Palmeiras 2026 Away</h3>
-    <div class="price">R$ 129,90</div>
-
-    <select class="size-select" id="pal2">
-      <option value="">Tamanho</option>
-      <option>P</option><option>M</option><option>G</option><option>GG</option>
-    </select>
-
-    <button class="btn"
-      onclick="comprarWhats('Palmeiras 2026 Away','R$ 129,90','pal2')">
-      Comprar no WhatsApp
-    </button>
-  </div>
-
-  <!-- BRASIL -->
-  <div class="card" data-team="brasil">
-    <img src="images/brasil2026homejogador.png.webp">
-    <h3>Brasil 2026 Jogador</h3>
-    <div class="price">R$ 199,90</div>
-
-    <select class="size-select" id="bra1">
-      <option value="">Tamanho</option>
-      <option>P</option><option>M</option><option>G</option><option>GG</option>
-    </select>
-
-    <button class="btn"
-      onclick="comprarWhats('Brasil 2026 Jogador','R$ 199,90','bra1')">
-      Comprar no WhatsApp
-    </button>
-  </div>
-
-</div>
-
-<footer>
-  © 2026 Payt Eric Store • Compra segura via WhatsApp
-</footer>
+<footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
 
 <script>
-function comprarWhats(produto, preco, selectId) {
-  const tamanho = document.getElementById(selectId).value;
-  if (!tamanho) {
-    alert("Selecione o tamanho.");
-    return;
-  }
+const phone = "5511988857455";
 
-  const telefone = "5511988857455";
-  const msg =
-    `Olá! Quero comprar:\n\n` +
-    `📦 Produto: ${produto}\n` +
-    `📏 Tamanho: ${tamanho}\n` +
-    `💰 Preço: ${preco}`;
+/* ====== TIMES ====== */
+const teams = [
 
-  window.open(
-    `https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,
-    "_blank"
-  );
+/* 🇧🇷 BRASIL – SÉRIE A, B e C (Copa do Brasil inclusa) */
+{team:"Flamengo",state:"RJ",country:"Brasil"},
+{team:"Fluminense",state:"RJ",country:"Brasil"},
+{team:"Vasco",state:"RJ",country:"Brasil"},
+{team:"Botafogo",state:"RJ",country:"Brasil"},
+
+{team:"Palmeiras",state:"SP",country:"Brasil"},
+{team:"Corinthians",state:"SP",country:"Brasil"},
+{team:"São Paulo",state:"SP",country:"Brasil"},
+{team:"Santos",state:"SP",country:"Brasil"},
+
+{team:"Grêmio",state:"RS",country:"Brasil"},
+{team:"Internacional",state:"RS",country:"Brasil"},
+
+{team:"Atlético-MG",state:"MG",country:"Brasil"},
+{team:"Cruzeiro",state:"MG",country:"Brasil"},
+
+{team:"Bahia",state:"BA",country:"Brasil"},
+{team:"Vitória",state:"BA",country:"Brasil"},
+
+{team:"Sport",state:"PE",country:"Brasil"},
+{team:"Ceará",state:"CE",country:"Brasil"},
+{team:"Fortaleza",state:"CE",country:"Brasil"},
+{team:"Goiás",state:"GO",country:"Brasil"},
+{team:"Atlético-GO",state:"GO",country:"Brasil"},
+{team:"Coritiba",state:"PR",country:"Brasil"},
+{team:"Athletico-PR",state:"PR",country:"Brasil"},
+{team:"Cuiabá",state:"MT",country:"Brasil"},
+{team:"Paysandu",state:"PA",country:"Brasil"},
+{team:"Remo",state:"PA",country:"Brasil"},
+
+/* 🌍 INTERNACIONAL – TOP 10 LIGAS */
+{team:"Manchester United",country:"Inglaterra"},
+{team:"Manchester City",country:"Inglaterra"},
+{team:"Liverpool",country:"Inglaterra"},
+{team:"Arsenal",country:"Inglaterra"},
+
+{team:"Real Madrid",country:"Espanha"},
+{team:"Barcelona",country:"Espanha"},
+{team:"Atlético Madrid",country:"Espanha"},
+
+{team:"Juventus",country:"Itália"},
+{team:"Milan",country:"Itália"},
+{team:"Inter de Milão",country:"Itália"},
+
+{team:"Bayern de Munique",country:"Alemanha"},
+{team:"Borussia Dortmund",country:"Alemanha"},
+
+{team:"PSG",country:"França"},
+{team:"Marseille",country:"França"},
+
+{team:"Benfica",country:"Portugal"},
+{team:"Porto",country:"Portugal"},
+{team:"Sporting",country:"Portugal"},
+
+{team:"Ajax",country:"Holanda"},
+{team:"PSV",country:"Holanda"},
+
+{team:"Boca Juniors",country:"Argentina"},
+{team:"River Plate",country:"Argentina"},
+
+{team:"Inter Miami",country:"EUA"},
+{team:"LA Galaxy",country:"EUA"},
+
+{team:"Al Nassr",country:"Arábia Saudita"},
+{team:"Al Hilal",country:"Arábia Saudita"}
+];
+
+/* ====== FILTROS ====== */
+const countries = [...new Set(teams.map(t=>t.country))];
+const states = [...new Set(teams.filter(t=>t.state).map(t=>t.state))];
+
+countries.forEach(c=>filterCountry.innerHTML+=`<option>${c}</option>`);
+states.forEach(s=>filterState.innerHTML+=`<option>${s}</option>`);
+
+/* ====== RENDER ====== */
+function render(){
+  catalog.innerHTML="";
+  const c = filterCountry.value;
+  const s = filterState.value;
+
+  teams
+    .filter(t=>(!c||t.country===c)&&(!s||t.state===s))
+    .forEach((t,i)=>{
+      catalog.innerHTML+=`
+      <div class="card">
+        <img src="images/placeholder.png">
+        <h3>${t.team}</h3>
+        <div class="price">R$ 129,90</div>
+
+        <select class="size-select" id="s${i}">
+          <option value="">Tamanho</option>
+          <option>P</option><option>M</option><option>G</option><option>GG</option>
+        </select>
+
+        <button class="btn"
+          onclick="buy('${t.team}','R$129,90','s${i}')">
+          Comprar no WhatsApp
+        </button>
+      </div>`;
+    });
 }
 
-function filterTeam(team, btn) {
-  document.querySelectorAll(".filter-btn")
-    .forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-
-  document.querySelectorAll(".card").forEach(card => {
-    card.style.display =
-      team === "all" || card.dataset.team === team ? "block" : "none";
-  });
+function buy(team,price,id){
+  const size=document.getElementById(id).value;
+  if(!size){alert("Selecione o tamanho");return;}
+  const msg=`Olá! Quero comprar:\n📦 ${team}\n📏 ${size}\n💰 ${price}`;
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
 }
+
+render();
 </script>
 
 </body>
 </html>
+

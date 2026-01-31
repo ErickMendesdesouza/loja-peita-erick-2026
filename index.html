@@ -83,12 +83,11 @@ footer {
 
 <div class="container">
 
-<!-- 🔥 MODELO PADRÃO (serve para TODAS) -->
-<div class="card" data-produto="Camisa Flamengo 2026 Home" data-preco="139.90">
+<!-- Flamengo Home -->
+<div class="card" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
   <img src="images/flamengo2026home-torcedor.png.webp">
   <h3>Camisa Flamengo 2026 Home</h3>
-
-  <div class="price">R$ 139,90</div>
+  <div class="price">R$ 129,90</div>
 
   <select class="select size">
     <option value="">Selecione o tamanho</option>
@@ -96,7 +95,7 @@ footer {
   </select>
 
   <select class="select custom">
-    <option value="">Deseja personalizar?</option>
+    <option value="">Customizar?</option>
     <option value="Sim">Sim (+R$20,00)</option>
     <option value="Não">Não</option>
   </select>
@@ -109,12 +108,11 @@ footer {
   <button class="btn comprar">Comprar no WhatsApp</button>
 </div>
 
-<!-- EXEMPLO OUTRA CAMISA -->
-<div class="card" data-produto="Camisa Palmeiras 2026 Away" data-preco="139.90">
-  <img src="images/Palmeiras2026away.png.webp">
-  <h3>Camisa Palmeiras 2026 Away</h3>
-
-  <div class="price">R$ 139,90</div>
+<!-- Flamengo Home Feminina -->
+<div class="card" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
+  <img src="images/flamengo2026homefeminina.png.webp">
+  <h3>Camisa Flamengo 2026 Home Feminina</h3>
+  <div class="price">R$ 129,90</div>
 
   <select class="select size">
     <option value="">Selecione o tamanho</option>
@@ -122,7 +120,82 @@ footer {
   </select>
 
   <select class="select custom">
-    <option value="">Deseja personalizar?</option>
+    <option value="">Customizar?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
+
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
+
+<!-- Palmeiras Home -->
+<div class="card" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
+  <img src="images/Palmeiras2026home.png.webp">
+  <h3>Camisa Palmeiras 2026 Home</h3>
+  <div class="price">R$ 129,90</div>
+
+  <select class="select size">
+    <option value="">Selecione o tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+
+  <select class="select custom">
+    <option value="">Customizar?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
+
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
+
+<!-- Palmeiras Away -->
+<div class="card" data-produto="Camisa Palmeiras 2026 Away" data-preco="129.90">
+  <img src="images/Palmeiras2026away.png.webp">
+  <h3>Camisa Palmeiras 2026 Away</h3>
+  <div class="price">R$ 129,90</div>
+
+  <select class="select size">
+    <option value="">Selecione o tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+
+  <select class="select custom">
+    <option value="">Customizar?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
+
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
+
+<!-- Brasil Home Jogador -->
+<div class="card" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
+  <img src="images/brasil2026homejogador.png.webp">
+  <h3>Camisa Brasil 2026 Home Jogador</h3>
+  <div class="price">R$ 199,90</div>
+
+  <select class="select size">
+    <option value="">Selecione o tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+
+  <select class="select custom">
+    <option value="">Customizar?</option>
     <option value="Sim">Sim (+R$20,00)</option>
     <option value="Não">Não</option>
   </select>
@@ -146,59 +219,5 @@ document.querySelectorAll(".card").forEach(card => {
   const customSelect = card.querySelector(".custom");
   const customFields = card.querySelector(".custom-fields");
   const priceEl = card.querySelector(".price");
-  const basePrice = parseFloat(card.dataset.preco);
+  const basePrice
 
-  customSelect.addEventListener("change", () => {
-    if (customSelect.value === "Sim") {
-      customFields.style.display = "block";
-      priceEl.innerText = `R$ ${(basePrice + 20).toFixed(2).replace('.', ',')}`;
-    } else {
-      customFields.style.display = "none";
-      priceEl.innerText = `R$ ${basePrice.toFixed(2).replace('.', ',')}`;
-    }
-  });
-
-  card.querySelector(".comprar").addEventListener("click", () => {
-    const size = card.querySelector(".size").value;
-    const custom = customSelect.value;
-
-    if (!size || !custom) {
-      alert("Selecione tamanho e personalização.");
-      return;
-    }
-
-    let msg =
-`Olá! Quero comprar:
-
-📦 Produto: ${card.dataset.produto}
-📏 Tamanho: ${size}`;
-
-    let finalPrice = basePrice;
-
-    if (custom === "Sim") {
-      const nome = card.querySelector(".nome").value;
-      const numero = card.querySelector(".numero").value;
-      if (!nome || !numero) {
-        alert("Preencha nome e número.");
-        return;
-      }
-      finalPrice += 20;
-      msg += `
-🎨 Personalização: Sim
-🔤 Nome: ${nome}
-🔢 Número: ${numero}`;
-    } else {
-      msg += `
-🎨 Personalização: Não`;
-    }
-
-    msg += `
-💰 Preço final: R$ ${finalPrice.toFixed(2).replace('.', ',')}`;
-
-    window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`, "_blank");
-  });
-});
-</script>
-
-</body>
-</html>

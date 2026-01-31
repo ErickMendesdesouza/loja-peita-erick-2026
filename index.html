@@ -99,7 +99,6 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/flamengo2026homefeminina.png.webp" alt="Frente">
-    <img class="slide-img" src="images/flamengo2026homefeminina_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -125,7 +124,6 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Palmeiras2026home.png.webp" alt="Frente">
-    <img class="slide-img" src="images/Palmeiras2026home_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -151,7 +149,6 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Away" data-preco="129.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Palmeiras2026away.png.webp" alt="Frente">
-    <img class="slide-img" src="images/Palmeiras2026away_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -177,7 +174,6 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/brasil2026homejogador.png.webp" alt="Frente">
-    <img class="slide-img" src="images/brasil2026homejogador_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -342,20 +338,30 @@ document.getElementById("cart-buy").addEventListener("click",()=>{
   window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
 });
 
-// SLIDER
+// SLIDER - corrigido para cada card ter seu índice próprio
 document.querySelectorAll(".image-slider").forEach(slider=>{
   const images = slider.querySelectorAll(".slide-img");
   const left = slider.querySelector(".arrow.left");
   const right = slider.querySelector(".arrow.right");
   let current = 0;
+
   function showImage(index){
     images.forEach(img=>img.classList.remove("active"));
     images[index].classList.add("active");
   }
-  left.addEventListener("click",e=>{ e.stopPropagation(); current=(current-1+images.length)%images.length; showImage(current);});
-  right.addEventListener("click",e=>{ e.stopPropagation(); current=(current+1)%images.length; showImage(current);});
-});
 
+  left.addEventListener("click", e=>{
+    e.stopPropagation();
+    current = (current-1 + images.length)%images.length;
+    showImage(current);
+  });
+
+  right.addEventListener("click", e=>{
+    e.stopPropagation();
+    current = (current+1)%images.length;
+    showImage(current);
+  });
+});
 </script>
 
 </body>

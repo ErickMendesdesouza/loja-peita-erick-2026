@@ -90,7 +90,7 @@ footer {
   <div class="price">R$ 129,90</div>
 
   <select class="select size">
-    <option value="">Selecione o tamanho</option>
+    <option value="">Selecionar tamanho</option>
     <option>P</option><option>M</option><option>G</option><option>GG</option>
   </select>
 
@@ -115,7 +115,7 @@ footer {
   <div class="price">R$ 129,90</div>
 
   <select class="select size">
-    <option value="">Selecione o tamanho</option>
+    <option value="">Selecionar tamanho</option>
     <option>P</option><option>M</option><option>G</option><option>GG</option>
   </select>
 
@@ -140,7 +140,7 @@ footer {
   <div class="price">R$ 129,90</div>
 
   <select class="select size">
-    <option value="">Selecione o tamanho</option>
+    <option value="">Selecionar tamanho</option>
     <option>P</option><option>M</option><option>G</option><option>GG</option>
   </select>
 
@@ -165,7 +165,7 @@ footer {
   <div class="price">R$ 129,90</div>
 
   <select class="select size">
-    <option value="">Selecione o tamanho</option>
+    <option value="">Selecionar tamanho</option>
     <option>P</option><option>M</option><option>G</option><option>GG</option>
   </select>
 
@@ -183,14 +183,14 @@ footer {
   <button class="btn comprar">Comprar no WhatsApp</button>
 </div>
 
-<!-- Brasil Home Jogador -->
+<!-- Brasil Jogador -->
 <div class="card" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
   <img src="images/brasil2026homejogador.png.webp">
   <h3>Camisa Brasil 2026 Home Jogador</h3>
   <div class="price">R$ 199,90</div>
 
   <select class="select size">
-    <option value="">Selecione o tamanho</option>
+    <option value="">Selecionar tamanho</option>
     <option>P</option><option>M</option><option>G</option><option>GG</option>
   </select>
 
@@ -219,5 +219,62 @@ document.querySelectorAll(".card").forEach(card => {
   const customSelect = card.querySelector(".custom");
   const customFields = card.querySelector(".custom-fields");
   const priceEl = card.querySelector(".price");
-  const basePrice
+  const basePrice = parseFloat(card.dataset.preco);
+
+  customSelect.addEventListener("change", () => {
+    if (customSelect.value === "Sim") {
+      customFields.style.display = "block";
+      priceEl.innerText = `R$ ${(basePrice + 20).toFixed(2).replace('.', ',')}`;
+    } else {
+      customFields.style.display = "none";
+      priceEl.innerText = `R$ ${basePrice.toFixed(2).replace('.', ',')}`;
+    }
+  });
+
+  card.querySelector(".comprar").addEventListener("click", () => {
+    const size = card.querySelector(".size").value;
+    const custom = customSelect.value;
+
+    if (!size || !custom) {
+      alert("Selecione o tamanho e a personalização.");
+      return;
+    }
+
+    let mensagem =
+`Olá! Quero comprar:
+
+📦 Produto: ${card.dataset.produto}
+📏 Tamanho: ${size}`;
+
+    let precoFinal = basePrice;
+
+    if (custom === "Sim") {
+      const nome = card.querySelector(".nome").value;
+      const numero = card.querySelector(".numero").value;
+
+      if (!nome || !numero) {
+        alert("Preencha nome e número.");
+        return;
+      }
+
+      precoFinal += 20;
+      mensagem += `
+🎨 Personalização: Sim
+🔤 Nome: ${nome}
+🔢 Número: ${numero}`;
+    } else {
+      mensagem += `
+🎨 Personalização: Não`;
+    }
+
+    mensagem += `
+💰 Preço final: R$ ${precoFinal.toFixed(2).replace('.', ',')}`;
+
+    window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`, "_blank");
+  });
+});
+</script>
+
+</body>
+</html>
 

@@ -6,132 +6,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-}
-header {
-  background: #111;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-}
-.filters {
-  display: flex;
-  gap: 10px;
-  padding: 15px;
-  background: #fff;
-}
-.filters select {
-  padding: 8px;
-  border-radius: 5px;
-}
-.container {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-.card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
-  text-align: center;
-  padding: 15px;
-}
-.card img {
-  width: 100%;
-  border-radius: 6px;
-}
-.card h3 {
-  font-size: 16px;
-}
-.price {
-  color: #2e7d32;
-  font-size: 20px;
-  font-weight: bold;
-}
-.select, .input {
-  width: 100%;
-  margin: 6px 0;
-  padding: 8px;
-}
-.custom-fields {
-  display: none;
-}
-.btn {
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  background: #111;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-.link {
-  font-size: 13px;
-  color: #0066cc;
-  cursor: pointer;
-  display: block;
-  margin-top: 5px;
-}
-footer {
-  background: #111;
-  color: #aaa;
-  text-align: center;
-  padding: 15px;
-}
+body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4;}
+header { background:#111; color:#fff; padding:15px; text-align:center; font-size:22px; font-weight:bold;}
+.filters { display:flex; gap:10px; padding:15px; background:#fff;}
+.filters select { padding:8px; border-radius:5px;}
+.container { padding:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
+.card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); text-align:center; padding:15px; position:relative;}
+.card img { width:100%; border-radius:6px;}
+.card h3 { font-size:16px;}
+.price { color:#2e7d32; font-size:20px; font-weight:bold;}
+.select, .input { width:100%; margin:6px 0; padding:8px;}
+.custom-fields { display:none;}
+.btn, .btn-add { width:100%; padding:10px; margin-top:8px; background:#111; color:#fff; border:none; cursor:pointer;}
+.link { font-size:13px; color:#0066cc; cursor:pointer; display:block; margin-top:5px;}
+footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 
 /* Slider */
-.image-slider {
-  position: relative;
-}
-.slide-img {
-  display: none;
-  width: 100%;
-  border-radius: 6px;
-}
-.slide-img.active {
-  display: block;
-}
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #111;
-  background: rgba(255,255,255,.7);
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-}
-.arrow.left { left: 5px; }
-.arrow.right { right: 5px; }
+.image-slider { position:relative;}
+.slide-img { display:none; width:100%; border-radius:6px;}
+.slide-img.active { display:block;}
+.arrow { position:absolute; top:50%; transform:translateY(-50%); color:#111; background:rgba(255,255,255,.7); border-radius:50%; width:24px; height:24px; line-height:24px; text-align:center; cursor:pointer; user-select:none;}
+.arrow.left { left:5px; }
+.arrow.right { right:5px; }
 
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-}
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  max-width: 400px;
-  margin: 10% auto;
-  border-radius: 8px;
-}
-.close {
-  float: right;
-  cursor: pointer;
-}
+/* Modal */
+.modal, .cart-popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1000;}
+.modal-content, .cart-content { background:#fff; padding:20px; max-width:500px; margin:10% auto; border-radius:8px; max-height:80vh; overflow-y:auto;}
+.close { float:right; cursor:pointer; font-size:18px; }
+
+/* Carrinho visual moderno */
+.cart-item { border-bottom:1px solid #ccc; padding:10px; display:flex; align-items:center; position:relative;}
+.cart-item:last-child { border-bottom:none; }
+.cart-item img { width:60px; height:60px; object-fit:cover; border-radius:6px; margin-right:10px;}
+.cart-item-details { flex:1;}
+.cart-item-details strong { display:block; margin-bottom:4px;}
+.cart-item-details small { color:#555;}
+.cart-item .remove { position:absolute; right:0; top:10px; cursor:pointer; color:red; font-weight:bold;}
+.cart-total { font-weight:bold; margin-top:10px; font-size:18px;}
+.quantity-input { width:40px; padding:4px; text-align:center; margin-top:4px;}
 </style>
 </head>
 
@@ -155,11 +67,13 @@ footer {
 
 <div class="container">
 
+<!-- Camisas -->
+
 <!-- Flamengo Home -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
   <div class="image-slider">
-    <img class="slide-img active" src="images/flamengo2026home-torcedor.png.webp">
-    <img class="slide-img" src="images/flamengo2026home_back.png.webp">
+    <img class="slide-img active" src="images/flamengo2026home-torcedor.png.webp" alt="Frente">
+    <img class="slide-img" src="images/flamengo2026home_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -178,14 +92,14 @@ footer {
     <input class="input nome" placeholder="Nome na camisa">
     <input class="input numero" placeholder="Número">
   </div>
-  <button class="btn comprar">Comprar no WhatsApp</button>
+  <button class="btn-add">Adicionar ao carrinho</button>
 </div>
 
 <!-- Flamengo Feminina -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
   <div class="image-slider">
-    <img class="slide-img active" src="images/flamengo2026homefeminina.png.webp">
-    <img class="slide-img" src="images/flamengo2026homefemininaback.png.webp">
+    <img class="slide-img active" src="images/flamengo2026homefeminina.png.webp" alt="Frente">
+    <img class="slide-img" src="images/flamengo2026homefeminina_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -204,14 +118,14 @@ footer {
     <input class="input nome" placeholder="Nome na camisa">
     <input class="input numero" placeholder="Número">
   </div>
-  <button class="btn comprar">Comprar no WhatsApp</button>
+  <button class="btn-add">Adicionar ao carrinho</button>
 </div>
 
 <!-- Palmeiras Home -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
   <div class="image-slider">
-    <img class="slide-img active" src="images/Palmeiras2026home.png.webp">
-    <img class="slide-img" src="images/Palmeiras2026homeback.png">
+    <img class="slide-img active" src="images/Palmeiras2026home.png.webp" alt="Frente">
+    <img class="slide-img" src="images/Palmeiras2026home_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -230,14 +144,14 @@ footer {
     <input class="input nome" placeholder="Nome na camisa">
     <input class="input numero" placeholder="Número">
   </div>
-  <button class="btn comprar">Comprar no WhatsApp</button>
+  <button class="btn-add">Adicionar ao carrinho</button>
 </div>
 
 <!-- Palmeiras Away -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Away" data-preco="129.90">
   <div class="image-slider">
-    <img class="slide-img active" src="images/Palmeiras2026away.png.webp">
-    <img class="slide-img" src="images/Palmeiras2026awayback.png">
+    <img class="slide-img active" src="images/Palmeiras2026away.png.webp" alt="Frente">
+    <img class="slide-img" src="images/Palmeiras2026away_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -256,16 +170,14 @@ footer {
     <input class="input nome" placeholder="Nome na camisa">
     <input class="input numero" placeholder="Número">
   </div>
-  <button class="btn comprar">Comprar no WhatsApp</button>
+  <button class="btn-add">Adicionar ao carrinho</button>
 </div>
 
-<!-- Brasil Jogador -->
+<!-- Brasil Home -->
 <div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
   <div class="image-slider">
-    <img class="slide-img active" src="images/brasil2026homejogador.png.webp">
-    <img class="slide-img" src="images/brasil2026homejogadorback.png">
-    <img class="slide-img" src="images/brasil2026homejogadorlogo.png">
-    <img class="slide-img" src="images/brasil2026homejogadormarca.png">
+    <img class="slide-img active" src="images/brasil2026homejogador.png.webp" alt="Frente">
+    <img class="slide-img" src="images/brasil2026homejogador_back.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -284,7 +196,7 @@ footer {
     <input class="input nome" placeholder="Nome na camisa">
     <input class="input numero" placeholder="Número">
   </div>
-  <button class="btn comprar">Comprar no WhatsApp</button>
+  <button class="btn-add">Adicionar ao carrinho</button>
 </div>
 
 </div>
@@ -303,18 +215,71 @@ footer {
   </div>
 </div>
 
+<!-- CARRINHO -->
+<div class="cart-popup" id="cart">
+  <div class="cart-content">
+    <span class="close" onclick="fecharCarrinho()">✖</span>
+    <h3>Carrinho de Compras</h3>
+    <div id="cart-items"></div>
+    <div class="cart-total" id="cart-total"></div>
+    <button class="btn" id="cart-buy">Comprar no WhatsApp</button>
+  </div>
+</div>
+
 <script>
 const telefone = "5511988857455";
 const modal = document.getElementById("modal");
+const cartPopup = document.getElementById("cart");
+let cart = [];
 
+// MODAL
 function abrirModal(){ modal.style.display="block"; }
 function fecharModal(){ modal.style.display="none"; }
 
-/* Filtros */
+// CARRINHO
+function abrirCarrinho(){ cartPopup.style.display="block"; }
+function fecharCarrinho(){ cartPopup.style.display="none"; }
+
+function atualizarCarrinho() {
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  cartItems.innerHTML = "";
+  let total = 0;
+  cart.forEach((item,index)=>{
+    total += parseFloat(item.preco)*item.quantidade;
+    const div = document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`
+      <img src="${item.imagem}" alt="${item.produto}">
+      <div class="cart-item-details">
+        <strong>${item.produto}</strong>
+        <small>Tamanho: ${item.tamanho}</small><br>
+        ${item.custom==="Sim"?`<small>Personalizada: Sim</small><br><small>Nome: ${item.nome}</small><br><small>Número: ${item.numero}</small>`:"<small>Personalizada: Não</small>"}<br>
+        <small>Preço unitário: R$ ${parseFloat(item.preco).toFixed(2).replace(".",",")}</small><br>
+        <input type="number" min="1" value="${item.quantidade}" class="quantity-input" onchange="alterarQuantidade(${index},this.value)">
+      </div>
+      <span class="remove" onclick="removerItem(${index})">✖</span>
+    `;
+    cartItems.appendChild(div);
+  });
+  cartTotal.innerText="Total: R$ "+total.toFixed(2).replace(".",",");
+}
+
+function removerItem(index){
+  cart.splice(index,1);
+  atualizarCarrinho();
+}
+
+function alterarQuantidade(index,value){
+  cart[index].quantidade = parseInt(value);
+  atualizarCarrinho();
+}
+
+// FILTROS
 document.querySelectorAll(".filters select").forEach(f=>{
   f.addEventListener("change",()=>{
-    const tipo = document.getElementById("filter-type").value;
-    const pais = document.getElementById("filter-country").value;
+    const tipo=document.getElementById("filter-type").value;
+    const pais=document.getElementById("filter-country").value;
     document.querySelectorAll(".card").forEach(c=>{
       const okTipo = !tipo || c.dataset.tipo===tipo;
       const okPais = !pais || c.dataset.pais===pais;
@@ -323,70 +288,74 @@ document.querySelectorAll(".filters select").forEach(f=>{
   });
 });
 
-/* Compra e Customização */
+// CARDS - customização e adicionar ao carrinho
 document.querySelectorAll(".card").forEach(card=>{
   const custom = card.querySelector(".custom");
   const fields = card.querySelector(".custom-fields");
-  const price = card.querySelector(".price");
+  const priceEl = card.querySelector(".price");
   const base = parseFloat(card.dataset.preco);
 
   custom.addEventListener("change",()=>{
     fields.style.display = custom.value==="Sim"?"block":"none";
-    price.innerText = "R$ " + (custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
+    priceEl.innerText = "R$ "+(custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
   });
 
-  card.querySelector(".comprar").addEventListener("click",()=>{
-    const size = card.querySelector(".size").value;
-    if(!size || !custom.value){ alert("Preencha todas as opções"); return; }
-
-    let msg = `Olá! Quero comprar:\n\n📦 ${card.dataset.produto}\n📏 Tamanho: ${size}`;
-    let total = base;
-
+  card.querySelector(".btn-add").addEventListener("click",()=>{
+    const tamanho = card.querySelector(".size").value;
+    if(!tamanho || !custom.value){ alert("Preencha todas as opções"); return; }
+    let precoTotal = base;
+    let nome = "", numero = "";
     if(custom.value==="Sim"){
-      const nome = card.querySelector(".nome").value;
-      const numero = card.querySelector(".numero").value;
-      if(!nome||!numero){ alert("Preencha nome e número"); return; }
-      total+=20;
-      msg+=`\n🎨 Personalizada\n🔤 ${nome}\n🔢 ${numero}`;
+      nome = card.querySelector(".nome").value;
+      numero = card.querySelector(".numero").value;
+      if(!nome || !numero){ alert("Preencha nome e número"); return; }
+      precoTotal += 20;
     }
-
-    msg+=`\n💰 Total: R$ ${total.toFixed(2).replace(".",",")}`;
-    window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
+    cart.push({
+      produto: card.dataset.produto,
+      tamanho: tamanho,
+      custom: custom.value,
+      nome: nome,
+      numero: numero,
+      preco: precoTotal,
+      quantidade: 1,
+      imagem: card.querySelector(".slide-img.active").src
+    });
+    atualizarCarrinho();
+    abrirCarrinho();
   });
 });
 
-/* Slider */
-document.querySelectorAll(".image-slider").forEach(slider => {
+// Botão comprar no WhatsApp do carrinho
+document.getElementById("cart-buy").addEventListener("click",()=>{
+  if(cart.length===0){ alert("O carrinho está vazio"); return; }
+  let msg="Olá! Quero comprar:\n\n";
+  let total=0;
+  cart.forEach(item=>{
+    msg+=`📦 ${item.produto}\n📏 Tamanho: ${item.tamanho}\nQuantidade: ${item.quantidade}\n`;
+    if(item.custom==="Sim") msg+=`🎨 Personalizada: Sim\n🔤 ${item.nome}\n🔢 ${item.numero}\n`;
+    else msg+="Personalizada: Não\n";
+    total += parseFloat(item.preco)*item.quantidade;
+    msg+=`💰 Preço unitário: R$ ${parseFloat(item.preco).toFixed(2).replace(".",",")}\n\n`;
+  });
+  msg+=`💵 Total Geral: R$ ${total.toFixed(2).replace(".",",")}`;
+  window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
+});
+
+// SLIDER
+document.querySelectorAll(".image-slider").forEach(slider=>{
   const images = slider.querySelectorAll(".slide-img");
   const left = slider.querySelector(".arrow.left");
   const right = slider.querySelector(".arrow.right");
   let current = 0;
-
-  function showImage(index) {
-    images.forEach(img => img.classList.remove("active"));
+  function showImage(index){
+    images.forEach(img=>img.classList.remove("active"));
     images[index].classList.add("active");
   }
-
-  // Hover → troca para próxima imagem
-  slider.addEventListener("mouseenter", () => {
-    current = (current + 1) % images.length;
-    showImage(current);
-  });
-
-  // Seta esquerda
-  left.addEventListener("click", e => {
-    e.stopPropagation();
-    current = (current - 1 + images.length) % images.length;
-    showImage(current);
-  });
-
-  // Seta direita
-  right.addEventListener("click", e => {
-    e.stopPropagation();
-    current = (current + 1) % images.length;
-    showImage(current);
-  });
+  left.addEventListener("click",e=>{ e.stopPropagation(); current=(current-1+images.length)%images.length; showImage(current);});
+  right.addEventListener("click",e=>{ e.stopPropagation(); current=(current+1)%images.length; showImage(current);});
 });
+
 </script>
 
 </body>

@@ -44,6 +44,23 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 .cart-item .remove { position:absolute; right:0; top:10px; cursor:pointer; color:red; font-weight:bold;}
 .cart-total { font-weight:bold; margin-top:10px; font-size:18px;}
 .quantity-input { width:40px; padding:4px; text-align:center; margin-top:4px;}
+
+/* Botão Visualizar medidas */
+.btn-measures {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.btn-measures:hover {
+  background: #004999;
+}
 </style>
 </head>
 
@@ -93,6 +110,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
     <input class="input numero" placeholder="Número">
   </div>
   <button class="btn-add">Adicionar ao carrinho</button>
+  <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
 
 <!-- Flamengo Feminina -->
@@ -119,6 +137,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
     <input class="input numero" placeholder="Número">
   </div>
   <button class="btn-add">Adicionar ao carrinho</button>
+  <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
 
 <!-- Palmeiras Home -->
@@ -145,6 +164,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
     <input class="input numero" placeholder="Número">
   </div>
   <button class="btn-add">Adicionar ao carrinho</button>
+  <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
 
 <!-- Palmeiras Away -->
@@ -171,6 +191,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
     <input class="input numero" placeholder="Número">
   </div>
   <button class="btn-add">Adicionar ao carrinho</button>
+  <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
 
 <!-- Brasil Home -->
@@ -199,6 +220,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
     <input class="input numero" placeholder="Número">
   </div>
   <button class="btn-add">Adicionar ao carrinho</button>
+  <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
 
 </div>
@@ -210,10 +232,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="modal-content">
     <span class="close" onclick="fecharModal()">✖</span>
     <h3>Tabela de Medidas</h3>
-    <p>P: 48cm largura / 68cm altura</p>
-    <p>M: 50cm largura / 70cm altura</p>
-    <p>G: 52cm largura / 72cm altura</p>
-    <p>GG: 54cm largura / 74cm altura</p>
+    <img src="images/tabela-medidas.png" alt="Tabela de Medidas" style="width:100%; border-radius:8px; margin-top:10px;">
   </div>
 </div>
 
@@ -338,34 +357,25 @@ document.getElementById("cart-buy").addEventListener("click",()=>{
     if(item.custom==="Sim") msg+=`🎨 Personalizada: Sim\n🔤 ${item.nome}\n🔢 ${item.numero}\n`;
     else msg+="Personalizada: Não\n";
     total += parseFloat(item.preco)*item.quantidade;
-    msg+=`💰 Preço unitário: R$ ${parseFloat(item.preco).toFixed(2).replace(".",",")}\n\n`;
+    msg+="\n";
   });
-  msg+=`💵 Total Geral: R$ ${total.toFixed(2).replace(".",",")}`;
+  msg+=`Total: R$ ${total.toFixed(2).replace(".",",")}`;
   window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
 });
 
-// SLIDER - corrigido para cada card ter seu índice próprio
+// SLIDER de imagens
 document.querySelectorAll(".image-slider").forEach(slider=>{
-  const images = slider.querySelectorAll(".slide-img");
-  const left = slider.querySelector(".arrow.left");
-  const right = slider.querySelector(".arrow.right");
-  let current = 0;
-
-  function showImage(index){
-    images.forEach(img=>img.classList.remove("active"));
-    images[index].classList.add("active");
-  }
-
-  left.addEventListener("click", e=>{
-    e.stopPropagation();
-    current = (current-1 + images.length)%images.length;
-    showImage(current);
+  const imgs = slider.querySelectorAll(".slide-img");
+  let index=0;
+  slider.querySelector(".arrow.left").addEventListener("click",()=>{
+    imgs[index].classList.remove("active");
+    index = (index-1+imgs.length)%imgs.length;
+    imgs[index].classList.add("active");
   });
-
-  right.addEventListener("click", e=>{
-    e.stopPropagation();
-    current = (current+1)%images.length;
-    showImage(current);
+  slider.querySelector(".arrow.right").addEventListener("click",()=>{
+    imgs[index].classList.remove("active");
+    index = (index+1)%imgs.length;
+    imgs[index].classList.add("active");
   });
 });
 </script>

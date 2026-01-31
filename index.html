@@ -42,6 +42,10 @@ header {
   text-align: center;
   padding: 15px;
 }
+.card img {
+  width: 100%;
+  border-radius: 6px;
+}
 .card h3 {
   font-size: 16px;
 }
@@ -81,35 +85,34 @@ footer {
   padding: 15px;
 }
 
-/* ===== SLIDER ===== */
+/* Slider */
 .image-slider {
   position: relative;
 }
-
 .slide-img {
   display: none;
   width: 100%;
   border-radius: 6px;
 }
-
 .slide-img.active {
   display: block;
 }
-
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  padding: 6px 10px;
-  cursor: pointer;
+  color: #111;
+  background: rgba(255,255,255,.7);
   border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
   user-select: none;
 }
-
-.arrow.left { left: 8px; }
-.arrow.right { right: 8px; }
+.arrow.left { left: 5px; }
+.arrow.right { right: 5px; }
 
 /* MODAL */
 .modal {
@@ -154,33 +157,131 @@ footer {
 
 <!-- Flamengo Home -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
-
   <div class="image-slider">
     <img class="slide-img active" src="images/flamengo2026home-torcedor.png.webp">
     <img class="slide-img" src="images/flamengo2026home_back.png.webp">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
-
   <h3>Camisa Flamengo 2026 Home</h3>
   <div class="price">R$ 129,90</div>
-
   <select class="select size">
     <option value="">Selecionar tamanho</option>
     <option>P</option><option>M</option><option>G</option><option>GG</option>
   </select>
-
   <select class="select custom">
     <option value="">Deseja personalizar a camisa?</option>
     <option value="Sim">Sim (+R$20,00)</option>
     <option value="Não">Não</option>
   </select>
-
   <div class="custom-fields">
     <input class="input nome" placeholder="Nome na camisa">
     <input class="input numero" placeholder="Número">
   </div>
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
 
+<!-- Flamengo Feminina -->
+<div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
+  <div class="image-slider">
+    <img class="slide-img active" src="images/flamengo2026homefeminina.png.webp">
+    <img class="slide-img" src="images/flamengo2026homefeminina_back.png.webp">
+    <div class="arrow left">&#10094;</div>
+    <div class="arrow right">&#10095;</div>
+  </div>
+  <h3>Camisa Flamengo 2026 Home Feminina</h3>
+  <div class="price">R$ 129,90</div>
+  <select class="select size">
+    <option value="">Selecionar tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+  <select class="select custom">
+    <option value="">Deseja personalizar a camisa?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
+
+<!-- Palmeiras Home -->
+<div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
+  <div class="image-slider">
+    <img class="slide-img active" src="images/Palmeiras2026home.png.webp">
+    <img class="slide-img" src="images/Palmeiras2026home_back.png.webp">
+    <div class="arrow left">&#10094;</div>
+    <div class="arrow right">&#10095;</div>
+  </div>
+  <h3>Camisa Palmeiras 2026 Home</h3>
+  <div class="price">R$ 129,90</div>
+  <select class="select size">
+    <option value="">Selecionar tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+  <select class="select custom">
+    <option value="">Deseja personalizar a camisa?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
+
+<!-- Palmeiras Away -->
+<div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Away" data-preco="129.90">
+  <div class="image-slider">
+    <img class="slide-img active" src="images/Palmeiras2026away.png.webp">
+    <img class="slide-img" src="images/Palmeiras2026away_back.png.webp">
+    <div class="arrow left">&#10094;</div>
+    <div class="arrow right">&#10095;</div>
+  </div>
+  <h3>Camisa Palmeiras 2026 Away</h3>
+  <div class="price">R$ 129,90</div>
+  <select class="select size">
+    <option value="">Selecionar tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+  <select class="select custom">
+    <option value="">Deseja personalizar a camisa?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
+  <button class="btn comprar">Comprar no WhatsApp</button>
+</div>
+
+<!-- Brasil Jogador -->
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
+  <div class="image-slider">
+    <img class="slide-img active" src="images/brasil2026homejogador.png.webp">
+    <img class="slide-img" src="images/brasil2026homejogador_back.png.webp">
+    <div class="arrow left">&#10094;</div>
+    <div class="arrow right">&#10095;</div>
+  </div>
+  <h3>Camisa Brasil 2026 Home Jogador</h3>
+  <div class="price">R$ 199,90</div>
+  <select class="select size">
+    <option value="">Selecionar tamanho</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option>
+  </select>
+  <select class="select custom">
+    <option value="">Deseja personalizar a camisa?</option>
+    <option value="Sim">Sim (+R$20,00)</option>
+    <option value="Não">Não</option>
+  </select>
+  <div class="custom-fields">
+    <input class="input nome" placeholder="Nome na camisa">
+    <input class="input numero" placeholder="Número">
+  </div>
   <button class="btn comprar">Comprar no WhatsApp</button>
 </div>
 
@@ -193,10 +294,10 @@ footer {
   <div class="modal-content">
     <span class="close" onclick="fecharModal()">✖</span>
     <h3>Tabela de Medidas</h3>
-    <p>P: 48cm / 68cm</p>
-    <p>M: 50cm / 70cm</p>
-    <p>G: 52cm / 72cm</p>
-    <p>GG: 54cm / 74cm</p>
+    <p>P: 48cm largura / 68cm altura</p>
+    <p>M: 50cm largura / 70cm altura</p>
+    <p>G: 52cm largura / 72cm altura</p>
+    <p>GG: 54cm largura / 74cm altura</p>
   </div>
 </div>
 
@@ -207,50 +308,84 @@ const modal = document.getElementById("modal");
 function abrirModal(){ modal.style.display="block"; }
 function fecharModal(){ modal.style.display="none"; }
 
-/* SLIDER */
-document.querySelectorAll(".image-slider").forEach(slider=>{
-  const imgs = slider.querySelectorAll(".slide-img");
-  const left = slider.querySelector(".left");
-  const right = slider.querySelector(".right");
-  let index = 0;
-
-  function show(i){
-    imgs.forEach(img=>img.classList.remove("active"));
-    imgs[i].classList.add("active");
-  }
-
-  slider.addEventListener("mouseenter",()=>{
-    index = (index+1)%imgs.length;
-    show(index);
+/* Filtros */
+document.querySelectorAll(".filters select").forEach(f=>{
+  f.addEventListener("change",()=>{
+    const tipo = document.getElementById("filter-type").value;
+    const pais = document.getElementById("filter-country").value;
+    document.querySelectorAll(".card").forEach(c=>{
+      const okTipo = !tipo || c.dataset.tipo===tipo;
+      const okPais = !pais || c.dataset.pais===pais;
+      c.style.display = okTipo && okPais ? "block" : "none";
+    });
   });
-
-  left.onclick = e=>{
-    e.stopPropagation();
-    index = (index-1+imgs.length)%imgs.length;
-    show(index);
-  };
-
-  right.onclick = e=>{
-    e.stopPropagation();
-    index = (index+1)%imgs.length;
-    show(index);
-  };
 });
 
-/* COMPRA + CUSTOMIZAÇÃO */
+/* Compra e Customização */
 document.querySelectorAll(".card").forEach(card=>{
   const custom = card.querySelector(".custom");
   const fields = card.querySelector(".custom-fields");
   const price = card.querySelector(".price");
   const base = parseFloat(card.dataset.preco);
 
-  custom.onchange = ()=>{
-    const total = custom.value==="Sim"?base+20:base;
+  custom.addEventListener("change",()=>{
     fields.style.display = custom.value==="Sim"?"block":"none";
-    price.innerText = "R$ " + total.toFixed(2).replace(".",",");
-  };
+    price.innerText = "R$ " + (custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
+  });
 
-  card.querySelector(".comprar").onclick = ()=>{
-    const size = card.querySelector(".size
+  card.querySelector(".comprar").addEventListener("click",()=>{
+    const size = card.querySelector(".size").value;
+    if(!size || !custom.value){ alert("Preencha todas as opções"); return; }
 
+    let msg = `Olá! Quero comprar:\n\n📦 ${card.dataset.produto}\n📏 Tamanho: ${size}`;
+    let total = base;
 
+    if(custom.value==="Sim"){
+      const nome = card.querySelector(".nome").value;
+      const numero = card.querySelector(".numero").value;
+      if(!nome||!numero){ alert("Preencha nome e número"); return; }
+      total+=20;
+      msg+=`\n🎨 Personalizada\n🔤 ${nome}\n🔢 ${numero}`;
+    }
+
+    msg+=`\n💰 Total: R$ ${total.toFixed(2).replace(".",",")}`;
+    window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
+  });
+});
+
+/* Slider */
+document.querySelectorAll(".image-slider").forEach(slider => {
+  const images = slider.querySelectorAll(".slide-img");
+  const left = slider.querySelector(".arrow.left");
+  const right = slider.querySelector(".arrow.right");
+  let current = 0;
+
+  function showImage(index) {
+    images.forEach(img => img.classList.remove("active"));
+    images[index].classList.add("active");
+  }
+
+  // Hover → troca para próxima imagem
+  slider.addEventListener("mouseenter", () => {
+    current = (current + 1) % images.length;
+    showImage(current);
+  });
+
+  // Seta esquerda
+  left.addEventListener("click", e => {
+    e.stopPropagation();
+    current = (current - 1 + images.length) % images.length;
+    showImage(current);
+  });
+
+  // Seta direita
+  right.addEventListener("click", e => {
+    e.stopPropagation();
+    current = (current + 1) % images.length;
+    showImage(current);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -127,11 +127,18 @@ footer {
 <div class="container">
 
 <!-- Flamengo Home -->
-<div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
-  <img src="images/flamengo2026home-torcedor.png.webp">
+<div class="card" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
+
+  <div class="image-slider">
+    <img class="slide-img" src="images/flamengo2026home-torcedor.png.webp" alt="Frente">
+    <img class="slide-img" src="images/flamengo2026home_back.png.webp" alt="Costas">
+    
+    <div class="arrow left">&lt;</div>
+    <div class="arrow right">&gt;</div>
+  </div>
+
   <h3>Camisa Flamengo 2026 Home</h3>
   <div class="price">R$ 129,90</div>
-  <span class="link" onclick="abrirModal()">Ver tabela de medidas</span>
 
   <select class="select size">
     <option value="">Selecionar tamanho</option>
@@ -151,7 +158,7 @@ footer {
 
   <button class="btn comprar">Comprar no WhatsApp</button>
 </div>
-
+  
 <!-- Flamengo Feminina -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
   <img src="images/flamengo2026homefeminina.png.webp">

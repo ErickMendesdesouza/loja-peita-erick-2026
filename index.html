@@ -98,7 +98,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="price">R$ 129,90</div>
   <select class="select size">
     <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option><option>2XG</option>
   </select>
   <select class="select custom">
     <option value="">Deseja personalizar a camisa?</option>
@@ -117,7 +117,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/flamengo2026homefeminina.png.webp" alt="Frente">
-      <img class="slide-img" src="images/flamengo2026homefemininaback.png.webp" alt="Costas">
+    <img class="slide-img" src="images/flamengo2026homefemininaback.png.webp" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -125,7 +125,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="price">R$ 129,90</div>
   <select class="select size">
     <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option><option>2XG</option>
   </select>
   <select class="select custom">
     <option value="">Deseja personalizar a camisa?</option>
@@ -144,7 +144,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Palmeiras2026home.png.webp" alt="Frente">
-       <img class="slide-img" src="images/Palmeiras2026homeback.png" alt="Costas">
+    <img class="slide-img" src="images/Palmeiras2026homeback.png" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -152,7 +152,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="price">R$ 129,90</div>
   <select class="select size">
     <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option><option>2XG</option>
   </select>
   <select class="select custom">
     <option value="">Deseja personalizar a camisa?</option>
@@ -171,7 +171,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Away" data-preco="129.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Palmeiras2026away.png.webp" alt="Frente">
-     <img class="slide-img" src="images/Palmeiras2026awayback.png" alt="Costas">
+    <img class="slide-img" src="images/Palmeiras2026awayback.png" alt="Costas">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -179,7 +179,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="price">R$ 129,90</div>
   <select class="select size">
     <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option><option>2XG</option>
   </select>
   <select class="select custom">
     <option value="">Deseja personalizar a camisa?</option>
@@ -199,8 +199,8 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="image-slider">
     <img class="slide-img active" src="images/brasil2026homejogador.png.webp" alt="Frente">
     <img class="slide-img" src="images/brasil2026homejogadorback.png" alt="Costas">
-    <img class="slide-img" src="images/brasil2026homejogadorlogo.png" alt="Costas">
-    <img class="slide-img" src="images/brasil2026homejogadormarca.png" alt="Costas">
+    <img class="slide-img" src="images/brasil2026homejogadorlogo.png" alt="Logo">
+    <img class="slide-img" src="images/brasil2026homejogadormarca.png" alt="Marca">
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
@@ -208,7 +208,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <div class="price">R$ 199,90</div>
   <select class="select size">
     <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
+    <option>P</option><option>M</option><option>G</option><option>GG</option><option>2XG</option>
   </select>
   <select class="select custom">
     <option value="">Deseja personalizar a camisa?</option>
@@ -299,14 +299,43 @@ function alterarQuantidade(index,value){
 // FILTROS
 document.querySelectorAll(".filters select").forEach(f=>{
   f.addEventListener("change",()=>{
-    const tipo=document.getElementById("filter-type").value;
-    const pais=document.getElementById("filter-country").value;
-    document.querySelectorAll(".card").forEach(c=>{
-      const okTipo = !tipo || c.dataset.tipo===tipo;
-      const okPais = !pais || c.dataset.pais===pais;
-      c.style.display = okTipo && okPais ? "block" : "none";
-    });
+    filtrarCards();
   });
+});
+
+function filtrarCards(){
+  const tipo = document.getElementById("filter-type").value;
+  const pais = document.getElementById("filter-country").value;
+  document.querySelectorAll(".card").forEach(card=>{
+    let show = true;
+    if(tipo && card.dataset.tipo!==tipo) show = false;
+    if(pais && card.dataset.pais!==pais) show = false;
+    card.style.display = show ? "block" : "none";
+  });
+}
+
+// SLIDER DE IMAGENS
+document.querySelectorAll(".card").forEach(card=>{
+  const slides = card.querySelectorAll(".slide-img");
+  const left = card.querySelector(".arrow.left");
+  const right = card.querySelector(".arrow.right");
+  let current = 0;
+
+  function showSlide(i){
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[i].classList.add("active");
+  }
+
+  if(left && right){
+    left.addEventListener("click", ()=>{
+      current = (current-1+slides.length) % slides.length;
+      showSlide(current);
+    });
+    right.addEventListener("click", ()=>{
+      current = (current+1) % slides.length;
+      showSlide(current);
+    });
+  }
 });
 
 // CARDS - customização e adicionar ao carrinho
@@ -325,58 +354,46 @@ document.querySelectorAll(".card").forEach(card=>{
     const tamanho = card.querySelector(".size").value;
     if(!tamanho || !custom.value){ alert("Preencha todas as opções"); return; }
     let precoTotal = base;
+
+    // Adiciona R$6,50 para tamanho 2XG
+    if(tamanho === "2XG") precoTotal += 6.50;
+
     let nome = "", numero = "";
+
     if(custom.value==="Sim"){
       nome = card.querySelector(".nome").value;
       numero = card.querySelector(".numero").value;
-      if(!nome || !numero){ alert("Preencha nome e número"); return; }
+      if(!nome || !numero){ alert("Preencha nome e número para personalização"); return; }
       precoTotal += 20;
     }
-    cart.push({
-      produto: card.dataset.produto,
-      tamanho: tamanho,
-      custom: custom.value,
-      nome: nome,
-      numero: numero,
-      preco: precoTotal,
-      quantidade: 1,
-      imagem: card.querySelector(".slide-img.active").src
-    });
+
+    const produto = card.dataset.produto;
+    const imagem = card.querySelector(".slide-img.active").src;
+
+    cart.push({produto, tamanho, custom: custom.value, nome, numero, preco: precoTotal, quantidade:1, imagem});
     atualizarCarrinho();
     abrirCarrinho();
   });
 });
 
-// Botão comprar no WhatsApp do carrinho
+// BOTÃO COMPRAR WHATSAPP
 document.getElementById("cart-buy").addEventListener("click",()=>{
-  if(cart.length===0){ alert("O carrinho está vazio"); return; }
-  let msg="Olá! Quero comprar:\n\n";
-  let total=0;
+  if(cart.length === 0){
+    alert("Seu carrinho está vazio.");
+    return;
+  }
+  let msg = "Olá! Gostaria de comprar:%0A";
   cart.forEach(item=>{
-    msg+=`📦 ${item.produto}\n📏 Tamanho: ${item.tamanho}\nQuantidade: ${item.quantidade}\n`;
-    if(item.custom==="Sim") msg+=`🎨 Personalizada: Sim\n🔤 ${item.nome}\n🔢 ${item.numero}\n`;
-    else msg+="Personalizada: Não\n";
-    total += parseFloat(item.preco)*item.quantidade;
-    msg+="\n";
+    msg += `- ${item.produto} | Tamanho: ${item.tamanho} | Personalizada: ${item.custom}`;
+    if(item.custom === "Sim"){
+      msg += ` | Nome: ${item.nome} | Número: ${item.numero}`;
+    }
+    msg += ` | Quantidade: ${item.quantidade} | Preço unitário: R$${item.preco.toFixed(2).replace(".",",")}%0A`;
   });
-  msg+=`Total: R$ ${total.toFixed(2).replace(".",",")}`;
-  window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`,"_blank");
-});
-
-// SLIDER de imagens
-document.querySelectorAll(".image-slider").forEach(slider=>{
-  const imgs = slider.querySelectorAll(".slide-img");
-  let index=0;
-  slider.querySelector(".arrow.left").addEventListener("click",()=>{
-    imgs[index].classList.remove("active");
-    index = (index-1+imgs.length)%imgs.length;
-    imgs[index].classList.add("active");
-  });
-  slider.querySelector(".arrow.right").addEventListener("click",()=>{
-    imgs[index].classList.remove("active");
-    index = (index+1)%imgs.length;
-    imgs[index].classList.add("active");
-  });
+  let total = cart.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+  msg += `%0ATotal: R$${total.toFixed(2).replace(".",",")}`;
+  const url = `https://wa.me/${telefone}?text=${msg}`;
+  window.open(url, "_blank");
 });
 </script>
 

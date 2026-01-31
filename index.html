@@ -19,6 +19,16 @@ header {
   font-size: 22px;
   font-weight: bold;
 }
+.filters {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: #fff;
+}
+.filters select {
+  padding: 8px;
+  border-radius: 5px;
+}
 .container {
   padding: 20px;
   display: grid;
@@ -37,8 +47,7 @@ header {
   border-radius: 6px;
 }
 .card h3 {
-  margin: 10px 0;
-  font-size: 17px;
+  font-size: 16px;
 }
 .price {
   color: #2e7d32;
@@ -46,11 +55,9 @@ header {
   font-weight: bold;
 }
 .select, .input {
-  margin: 8px 0;
-  padding: 8px;
   width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  margin: 6px 0;
+  padding: 8px;
 }
 .custom-fields {
   display: none;
@@ -58,21 +65,43 @@ header {
 .btn {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 8px;
   background: #111;
   color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
-.btn:hover {
-  background: #333;
+.link {
+  font-size: 13px;
+  color: #0066cc;
+  cursor: pointer;
+  display: block;
+  margin-top: 5px;
 }
 footer {
   background: #111;
   color: #aaa;
   text-align: center;
   padding: 15px;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  max-width: 400px;
+  margin: 10% auto;
+  border-radius: 8px;
+}
+.close {
+  float: right;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -81,38 +110,29 @@ footer {
 
 <header>Peitas Store ⚽ | Camisas de Time</header>
 
+<!-- FILTROS -->
+<div class="filters">
+  <select id="filter-type">
+    <option value="">Todos</option>
+    <option value="clube">Clubes</option>
+    <option value="selecao">Seleções</option>
+  </select>
+
+  <select id="filter-country">
+    <option value="">Todos os países</option>
+    <option value="Brasil">Brasil</option>
+  </select>
+</div>
+
 <div class="container">
 
-<!-- Flamengo Home -->
-<div class="card" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
+<!-- Flamengo -->
+<div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Flamengo 2026 Home" data-preco="129.90">
   <img src="images/flamengo2026home-torcedor.png.webp">
   <h3>Camisa Flamengo 2026 Home</h3>
   <div class="price">R$ 129,90</div>
 
-  <select class="select size">
-    <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
-  </select>
-
-  <select class="select custom">
-    <option value="">Customizar?</option>
-    <option value="Sim">Sim (+R$20,00)</option>
-    <option value="Não">Não</option>
-  </select>
-
-  <div class="custom-fields">
-    <input class="input nome" placeholder="Nome na camisa">
-    <input class="input numero" placeholder="Número">
-  </div>
-
-  <button class="btn comprar">Comprar no WhatsApp</button>
-</div>
-
-<!-- Flamengo Home Feminina -->
-<div class="card" data-produto="Camisa Flamengo 2026 Home Feminina" data-preco="129.90">
-  <img src="images/flamengo2026homefeminina.png.webp">
-  <h3>Camisa Flamengo 2026 Home Feminina</h3>
-  <div class="price">R$ 129,90</div>
+  <span class="link" onclick="abrirModal()">Ver tabela de medidas</span>
 
   <select class="select size">
     <option value="">Selecionar tamanho</option>
@@ -120,82 +140,7 @@ footer {
   </select>
 
   <select class="select custom">
-    <option value="">Customizar?</option>
-    <option value="Sim">Sim (+R$20,00)</option>
-    <option value="Não">Não</option>
-  </select>
-
-  <div class="custom-fields">
-    <input class="input nome" placeholder="Nome na camisa">
-    <input class="input numero" placeholder="Número">
-  </div>
-
-  <button class="btn comprar">Comprar no WhatsApp</button>
-</div>
-
-<!-- Palmeiras Home -->
-<div class="card" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
-  <img src="images/Palmeiras2026home.png.webp">
-  <h3>Camisa Palmeiras 2026 Home</h3>
-  <div class="price">R$ 129,90</div>
-
-  <select class="select size">
-    <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
-  </select>
-
-  <select class="select custom">
-    <option value="">Customizar?</option>
-    <option value="Sim">Sim (+R$20,00)</option>
-    <option value="Não">Não</option>
-  </select>
-
-  <div class="custom-fields">
-    <input class="input nome" placeholder="Nome na camisa">
-    <input class="input numero" placeholder="Número">
-  </div>
-
-  <button class="btn comprar">Comprar no WhatsApp</button>
-</div>
-
-<!-- Palmeiras Away -->
-<div class="card" data-produto="Camisa Palmeiras 2026 Away" data-preco="129.90">
-  <img src="images/Palmeiras2026away.png.webp">
-  <h3>Camisa Palmeiras 2026 Away</h3>
-  <div class="price">R$ 129,90</div>
-
-  <select class="select size">
-    <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
-  </select>
-
-  <select class="select custom">
-    <option value="">Customizar?</option>
-    <option value="Sim">Sim (+R$20,00)</option>
-    <option value="Não">Não</option>
-  </select>
-
-  <div class="custom-fields">
-    <input class="input nome" placeholder="Nome na camisa">
-    <input class="input numero" placeholder="Número">
-  </div>
-
-  <button class="btn comprar">Comprar no WhatsApp</button>
-</div>
-
-<!-- Brasil Jogador -->
-<div class="card" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
-  <img src="images/brasil2026homejogador.png.webp">
-  <h3>Camisa Brasil 2026 Home Jogador</h3>
-  <div class="price">R$ 199,90</div>
-
-  <select class="select size">
-    <option value="">Selecionar tamanho</option>
-    <option>P</option><option>M</option><option>G</option><option>GG</option>
-  </select>
-
-  <select class="select custom">
-    <option value="">Customizar?</option>
+    <option value="">Deseja personalizar a camisa?</option>
     <option value="Sim">Sim (+R$20,00)</option>
     <option value="Não">Não</option>
   </select>
@@ -212,65 +157,68 @@ footer {
 
 <footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
 
+<!-- MODAL TABELA -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="fecharModal()">✖</span>
+    <h3>Tabela de Medidas</h3>
+    <p>P: 48cm largura / 68cm altura</p>
+    <p>M: 50cm largura / 70cm altura</p>
+    <p>G: 52cm largura / 72cm altura</p>
+    <p>GG: 54cm largura / 74cm altura</p>
+  </div>
+</div>
+
 <script>
 const telefone = "5511988857455";
 
-document.querySelectorAll(".card").forEach(card => {
-  const customSelect = card.querySelector(".custom");
-  const customFields = card.querySelector(".custom-fields");
-  const priceEl = card.querySelector(".price");
-  const basePrice = parseFloat(card.dataset.preco);
+/* MODAL */
+function abrirModal(){ document.getElementById("modal").style.display="block";}
+function fecharModal(){ document.getElementById("modal").style.display="none";}
 
-  customSelect.addEventListener("change", () => {
-    if (customSelect.value === "Sim") {
-      customFields.style.display = "block";
-      priceEl.innerText = `R$ ${(basePrice + 20).toFixed(2).replace('.', ',')}`;
-    } else {
-      customFields.style.display = "none";
-      priceEl.innerText = `R$ ${basePrice.toFixed(2).replace('.', ',')}`;
-    }
+/* FILTROS */
+document.querySelectorAll(".filters select").forEach(f => {
+  f.addEventListener("change", () => {
+    const tipo = document.getElementById("filter-type").value;
+    const pais = document.getElementById("filter-country").value;
+
+    document.querySelectorAll(".card").forEach(card => {
+      const okTipo = !tipo || card.dataset.tipo === tipo;
+      const okPais = !pais || card.dataset.pais === pais;
+      card.style.display = okTipo && okPais ? "block" : "none";
+    });
+  });
+});
+
+/* COMPRA */
+document.querySelectorAll(".card").forEach(card => {
+  const custom = card.querySelector(".custom");
+  const fields = card.querySelector(".custom-fields");
+  const priceEl = card.querySelector(".price");
+  const base = parseFloat(card.dataset.preco);
+
+  custom.addEventListener("change",()=>{
+    fields.style.display = custom.value==="Sim"?"block":"none";
+    priceEl.innerText = "R$ " + (custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
   });
 
-  card.querySelector(".comprar").addEventListener("click", () => {
+  card.querySelector(".comprar").addEventListener("click",()=>{
     const size = card.querySelector(".size").value;
-    const custom = customSelect.value;
+    if(!size || !custom.value){ alert("Preencha as opções"); return; }
 
-    if (!size || !custom) {
-      alert("Selecione o tamanho e a personalização.");
-      return;
-    }
+    let msg = `Olá! Quero comprar:\n\n📦 ${card.dataset.produto}\n📏 Tamanho: ${size}`;
+    let total = base;
 
-    let mensagem =
-`Olá! Quero comprar:
-
-📦 Produto: ${card.dataset.produto}
-📏 Tamanho: ${size}`;
-
-    let precoFinal = basePrice;
-
-    if (custom === "Sim") {
+    if(custom.value==="Sim"){
       const nome = card.querySelector(".nome").value;
       const numero = card.querySelector(".numero").value;
-
-      if (!nome || !numero) {
-        alert("Preencha nome e número.");
-        return;
-      }
-
-      precoFinal += 20;
-      mensagem += `
-🎨 Personalização: Sim
-🔤 Nome: ${nome}
-🔢 Número: ${numero}`;
-    } else {
-      mensagem += `
-🎨 Personalização: Não`;
+      if(!nome||!numero){ alert("Preencha nome e número"); return; }
+      total+=20;
+      msg+=`\n🎨 Personalizada\n🔤 ${nome}\n🔢 ${numero}`;
     }
 
-    mensagem += `
-💰 Preço final: R$ ${precoFinal.toFixed(2).replace('.', ',')}`;
-
-    window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`, "_blank");
+    msg+=`\n💰 Total: R$ ${total.toFixed(2).replace(".",",")}`;
+    window.open(`https://wa.me/${telefone}?text=${encodeURIComponent(msg)}`);
   });
 });
 </script>

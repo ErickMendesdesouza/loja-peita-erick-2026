@@ -89,20 +89,20 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 <div class="filters">
  
 
-   <select id="filter-type">
+   <select id="filter-brazilianteams">
     <option value="">Clubes Brasileiros</option>
      <option>Clubes Brasileiros</option>
     </select>
 
-   <select id="filter-type">
+   <select id="filter-internationalteams">
     <option value="">Clubes Internacionais</option>
     </select>
 
-   <select id="filter-type">
+   <select id="filter-Selections">
     <option value="">Seleções</option>
     </select>
 
-  <select id="filter-type">
+  <select id="filter-Feminine">
     <option value="">Feminina</option>
     </select>
     
@@ -1286,8 +1286,10 @@ document.querySelectorAll(".filters select").forEach(f=>{
 });
 
 function filtrarCards(){
-  const tipo = document.getElementById("filter-type").value;
-  const pais = document.getElementById("filter-country").value;
+  const tipo = document.getElementById("filter-brazilianteams").value;
+  const pais = document.getElementById("filter-internationalteams").value;
+  const pais = document.getElementById("filter-Selections").value;
+    const pais = document.getElementById("filter-Feminine").value;
   document.querySelectorAll(".card").forEach(card=>{
     let show = true;
     if(tipo && card.dataset.tipo!==tipo) show = false;

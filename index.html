@@ -1,205 +1,450 @@
+<!-- =================================================== -->
+<!-- INÍCIO DO CÓDIGO DO SITE - PARTE SUPERIOR -->
+<!-- =================================================== -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Peitas Store | Camisas de Time</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4}
-header,footer{background:#111;color:#fff;text-align:center;padding:15px}
-.filters{display:flex;gap:10px;padding:15px;background:#fff}
-.filters select,input{padding:8px;border-radius:5px}
-.container{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding:15px;text-align:center}
-.card img{width:100%;border-radius:6px}
-.price{color:#2e7d32;font-size:20px;font-weight:bold}
-.btn,.btn-add,.btn-measures{width:100%;padding:10px;margin-top:6px;border:none;cursor:pointer;border-radius:5px}
-.btn,.btn-add{background:#111;color:#fff}
-.btn-measures{background:#0066cc;color:#fff}
-.custom-fields{display:none}
-.image-slider{position:relative}
-.slide-img{display:none}
-.slide-img.active{display:block}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);background:#fff;padding:4px;border-radius:50%;cursor:pointer}
-.arrow.left{left:5px}
-.arrow.right{right:5px}
-.modal,.cart-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6)}
-.modal-content,.cart-content{background:#fff;margin:10% auto;padding:20px;border-radius:8px;max-width:500px}
-.cart-item{display:flex;border-bottom:1px solid #ccc;padding:10px}
-.cart-item img{width:60px;margin-right:10px;border-radius:6px}
-.remove{color:red;cursor:pointer;font-weight:bold}
-</style>
+    <meta charset="UTF-8">
+    <title>Loja de Camisas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>Peitas Store ⚽ | Camisas de Time</header>
+<header>
+    <h1>Loja de Camisas</h1>
+    <input type="text" id="busca" placeholder="Busque por seleção ou clube...">
+</header>
 
-<div style="background:#fff;padding:15px;text-align:center">
-<input id="search" placeholder="🔍 Buscar camisa..." style="width:90%;max-width:500px">
-</div>
-
-<div class="filters">
-<select id="filter-type">
-<option value="">Todos</option>
-<option value="clube">Clubes</option>
-<option value="selecao">Seleções</option>
-</select>
-
-<select id="filter-country">
-<option value="">Todos os países</option>
-<option value="Brasil">Brasil</option>
-</select>
-</div>
-
-<div class="container" id="products"></div>
-
-<footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
-
-<!-- MODAL MEDIDAS -->
-<div class="modal" id="modal">
-<div class="modal-content">
-<span onclick="modal.style.display='none'" style="cursor:pointer">✖</span>
-<h3>Tabela de Medidas</h3>
-<img src="images/TABELADEMEDIDASTORCEDOR.png.webp" style="width:100%">
-</div>
-</div>
-
-<!-- CARRINHO -->
-<div class="cart-popup" id="cart">
-<div class="cart-content">
-<span onclick="cartBox.style.display='none'" style="cursor:pointer">✖</span>
-<h3>Carrinho</h3>
-<div id="cart-items"></div>
-<strong id="cart-total"></strong>
-<button class="btn" onclick="comprar()">Comprar no WhatsApp</button>
-</div>
-</div>
+<main>
+    <section id="produtos-container"></section>
+</main>
 
 <script>
-const telefone="5511988857455";
-const modal=document.getElementById("modal");
-const cartBox=document.getElementById("cart");
-const cart=[];
-const produtos=[
+    // Função para renderizar produtos
+    function mostrarProdutos(produtosFiltrados) {
+        const container = document.getElementById("produtos-container");
+        container.innerHTML = ""; // limpa antes de adicionar
+
+        produtosFiltrados.forEach((produto, index) => {
+            const card = document.createElement("div");
+            card.classList.add("produto");
+
+            card.innerHTML = `
+                <h3>${produto.nome}</h3>
+                <p>R$ ${produto.preco.toFixed(2)}</p>
+                <div class="imagens-produto">
+                    ${produto.imagens.map(img => `<img src="${img}" alt="${produto.nome}">`).join('')}
+                </div>
+                <button onclick="adicionarAoCarrinho(${index})">Adicionar ao carrinho</button>
+            `;
+
+            container.appendChild(card);
+        });
+    }
+
+    // Função de busca
+    document.getElementById("busca").addEventListener("input", function() {
+        const termo = this.value.toLowerCase();
+        const filtrados = produtos.filter(p => 
+            p.nome.toLowerCase().includes(termo) || 
+            (p.pais && p.pais.toLowerCase().includes(termo))
+        );
+        mostrarProdutos(filtrados);
+    });
+
+    // Inicializa mostrando todos os produtos
+    mostrarProdutos(produtos);
+
+    // Carrinho simples
+    let carrinho = [];
+
+    function adicionarAoCarrinho(index) {
+        carrinho.push(produtos[index]);
+
+const produtos = [
+
+/* ===================== SELEÇÕES ===================== */
+
 {
-nome:"Camisa Flamengo 2025 Home",
-preco:129.90,
-tipo:"clube",
-pais:"Brasil",
-imagens:["images/flamengo1.png","images/flamengo2.png"]
+  nome: "Camisa Brasil 2026 Home Jogador",
+  preco: 199.90,
+  tipo: "selecao",
+  pais: "Brasil",
+  imagens: [
+    "images/brasil2026homejogador.png.webp",
+    "images/brasil2026homejogadorback.png",
+    "images/brasil2026homejogadorlogo.png",
+    "images/brasil2026homejogadormarca.png"
+  ]
 },
+
 {
-nome:"Camisa Brasil 2024",
-preco:139.90,
-tipo:"selecao",
-pais:"Brasil",
-imagens:["images/brasil1.png","images/brasil2.png"]
+  nome: "Camisa Alemanha 2026 Home",
+  preco: 199.90,
+  tipo: "selecao",
+  pais: "Alemanha",
+  imagens: [
+    "images/Alemanha2026Home.png",
+    "images/Alemanha2026Homeback.png",
+    "images/Alemanha2026Homelogo.png",
+    "images/Alemanha2026Homemarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Alemanha 2026 Home Feminina",
+  preco: 199.90,
+  tipo: "selecao",
+  pais: "Alemanha",
+  imagens: [
+    "images/Alemanha2026HomeFeminina.png",
+    "images/Alemanha2026HomeFemininaback.png",
+    "images/Alemanha2026HomeFemininalogo.png",
+    "images/Alemanha2026HomeFemininamarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Alemanha 2026 Away",
+  preco: 199.90,
+  tipo: "selecao",
+  pais: "Alemanha",
+  imagens: [
+    "images/Alemanha2026Away.png",
+    "images/Alemanha2026Awayback.png",
+    "images/Alemanha2026Awaylogo.png",
+    "images/Alemanha2026Awaymarca.png"
+  ]
+},
+
+/* ===================== FLAMENGO ===================== */
+
+{
+  nome: "Camisa Flamengo 2026 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/flamengo2026home-torcedor.png.webp",
+    "images/flamengo2026home_back.png.webp"
+  ]
+},
+
+{
+  nome: "Camisa Flamengo 2026 Home Feminina",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/flamengo2026homefeminina.png.webp",
+    "images/flamengo2026homefemininaback.png.webp"
+  ]
+},
+
+{
+  nome: "Camisa Flamengo 2025 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/flamengo2025home.png.webp",
+    "images/flamengo2025home_back.png.webp"
+  ]
+},
+
+{
+  nome: "Camisa Flamengo 2025 Home Feminina",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Flamengo2025HomeFeminina.png",
+    "images/Flamengo2025HomeFemininaback.png",
+    "images/Flamengo2025HomeFemininalogo.png",
+    "images/Flamengo2025HomeFemininamarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Flamengo 2025 Away",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Flamengo2025away.png.png",
+    "images/Flamengo2025awayback.png",
+    "images/Flamengo2025awaylogo.png",
+    "images/Flamengo2025awaymarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Flamengo 2025 Away Feminina",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Flamengo2025AwayFeminina.png",
+    "images/Flamengo2025AwayFemininaback.png",
+    "images/Flamengo2025AwayFemininalogo.png",
+    "images/Flamengo2025AwayFemininamarca.png"
+  ]
+},
+
+/* ===================== PALMEIRAS ===================== */
+
+{
+  nome: "Camisa Palmeiras 2026 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2026home.png.webp",
+    "images/Palmeiras2026homeback.png"
+  ]
+},
+
+{
+  nome: "Camisa Palmeiras 2026 Away",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2026away.png.webp",
+    "images/Palmeiras2026awayback.png"
+  ]
+},
+
+{
+  nome: "Camisa Palmeiras 2025 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2025home.png.webp",
+    "images/Palmeiras2025homeback.png.webp",
+    "images/Palmeiras2025homelogo.png.jpg",
+    "images/Palmeiras2025homemarca.png.jpg"
+  ]
+},
+
+{
+  nome: "Camisa Palmeiras 2025 Away",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2025away.png.webp",
+    "images/Palmeiras2025awayback.png.webp",
+    "images/Palmeiras2025awaylogo.png.jpg",
+    "images/Palmeiras2025awaymarca.png.jpg"
+  ]
+},
+
+{
+  nome: "Camisa Palmeiras 2025 Third Copa do Mundo de Clubes",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2025ThirdCopadoMundodeClubes.png",
+    "images/Palmeiras2025ThirdCopadoMundodeClubesback.png"
+  ]
+},
+
+{
+  nome: "Camisa Palmeiras 2025 Avanti",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2025Avanti.png",
+    "images/Palmeiras2025Avantiback.png",
+    "images/Palmeiras2025Avantilogo.png",
+    "images/Palmeiras2025Avantimarca.png",
+    "images/Palmeiras2025Avantidetalhe.png"
+  ]
+},
+
+{
+  nome: "Camisa Palmeiras 2025 Avanti Feminina",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Palmeiras2025AvantiFeminina.png",
+    "images/Palmeiras2025AvantiFemininaback.png",
+    "images/Palmeiras2025AvantilogoFeminina.png",
+    "images/Palmeiras2025AvantimarcaFeminina.png"
+  ]
+},
+
+/* ===================== CORINTHIANS ===================== */
+
+{
+  nome: "Camisa Corinthians 2025 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Corinthians2025home.png",
+    "images/Corinthians2025homeback.png",
+    "images/Corinthians2025homelogo.png"
+  ]
+},
+
+{
+  nome: "Camisa Corinthians 2025 Away",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Corinthians2025Away.png",
+    "images/Corinthians2025Awayback.png",
+    "images/Corinthians2025Awaylogo.png"
+  ]
+},
+
+{
+  nome: "Camisa Corinthians 2025 Third",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Corinthians2025third.png",
+    "images/Corinthians2025thirdback.png",
+    "images/Corinthians2025thirdlogo.png",
+    "images/Corinthians2025thirdmarca.png"
+  ]
+},
+
+/* ===================== SÃO PAULO ===================== */
+
+{
+  nome: "Camisa São Paulo 2025 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/SãoPaulo2025home.png",
+    "images/SãoPaulo2025homeback.png",
+    "images/SãoPaulo2025homelogo.png",
+    "images/SãoPaulo2025homemarca.png"
+  ]
+},
+
+{
+  nome: "Camisa São Paulo 2025 Away",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/SãoPaulo2025away.png",
+    "images/SãoPaulo2025awayback.png",
+    "images/SãoPaulo2025awaylogo.png",
+    "images/SãoPaulo2025awaymarca.png"
+  ]
+},
+
+{
+  nome: "Camisa São Paulo 2025 Third",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/São Paulo2025Third.png",
+    "images/São Paulo2025Thirdback.png",
+    "images/São Paulo2025Thirdlogo.png",
+    "images/São Paulo2025Thirdmarca.png",
+    "images/São Paulo2025Thirddetalhe1.png",
+    "images/São Paulo2025Thirddetalhe2.png"
+  ]
+},
+
+/* ===================== SANTOS ===================== */
+
+{
+  nome: "Camisa Santos 2024 Charlie Brown Jr.",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.)pendurada.png",
+    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.).png",
+    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.)back.png",
+    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.)logoemarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Santos 2025 Home",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Santos2025home.png",
+    "images/Santos2025homeback.png",
+    "images/Santos2025homelogo.png",
+    "images/Santos2025homemarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Santos 2025 Away",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Santos2025away.png",
+    "images/Santos2025awayback.png",
+    "images/Santos2025awaylogo.png",
+    "images/Santos2025awaymarca.png"
+  ]
+},
+
+{
+  nome: "Camisa Santos 2025 Third",
+  preco: 129.90,
+  tipo: "clube",
+  pais: "Brasil",
+  imagens: [
+    "images/Santos2025third.png",
+    "images/Santos2025thirdback.png",
+    "images/Santos2025thirdlogo.png",
+    "images/Santos2025thirdmarca.png"
+  ]
 }
+
 ];
+<script>
+    // Re-renderiza produtos caso carrinho precise atualizar algo
+    function atualizarTela() {
+        mostrarProdutos(produtos);
+    }
 
-const container=document.getElementById("products");
+    // Exemplo de função para enviar pedido por WhatsApp
+    function enviarPedidoWhatsApp() {
+        if(carrinho.length === 0) {
+            alert("O carrinho está vazio!");
+            return;
+        }
 
-function render(){
-container.innerHTML=produtos.map(p=>`
-<div class="card" data-produto="${p.nome}" data-tipo="${p.tipo}" data-pais="${p.pais}" data-preco="${p.preco}">
-<div class="image-slider">
-${p.imagens.map((i,n)=>`<img src="${i}" class="slide-img ${n==0?'active':''}">`).join("")}
-<span class="arrow left">‹</span><span class="arrow right">›</span>
-</div>
-<h3>${p.nome}</h3>
-<div class="price">R$ ${p.preco.toFixed(2).replace(".",",")}</div>
-<select class="size"><option value="">Tamanho</option><option>P</option><option>M</option><option>G</option><option>GG</option><option>2XG</option></select>
-<select class="custom"><option value="">Personalizar?</option><option>Sim</option><option>Não</option></select>
-<div class="custom-fields">
-<input class="nome" placeholder="Nome">
-<input class="numero" placeholder="Número">
-</div>
-<button class="btn-measures" onclick="modal.style.display='block'">Ver Medidas</button>
-<button class="btn-add">Adicionar ao Carrinho</button>
-</div>
-`).join("");
-}
-render();
+        let mensagem = "Olá! Gostaria de comprar:\n\n";
+        carrinho.forEach(item => {
+            mensagem += `- ${item.nome} por R$ ${item.preco.toFixed(2)}\n`;
+        });
+        mensagem += "\nTotal: R$ " + carrinho.reduce((a,b) => a + b.preco, 0).toFixed(2);
 
-/* Eventos globais */
-document.addEventListener("click",e=>{
-if(e.target.classList.contains("arrow")){
-const card=e.target.closest(".card");
-const slides=card.querySelectorAll(".slide-img");
-let i=[...slides].findIndex(s=>s.classList.contains("active"));
-slides[i].classList.remove("active");
-i=e.target.classList.contains("right")?(i+1)%slides.length:(i-1+slides.length)%slides.length;
-slides[i].classList.add("active");
-}
-
-if(e.target.classList.contains("btn-add")){
-const card=e.target.closest(".card");
-const size=card.querySelector(".size").value;
-const custom=card.querySelector(".custom").value;
-if(!size||!custom)return alert("Preencha tudo");
-let preco=parseFloat(card.dataset.preco);
-if(size==="2XG")preco+=6.5;
-let nome="",numero="";
-if(custom==="Sim"){
-nome=card.querySelector(".nome").value;
-numero=card.querySelector(".numero").value;
-if(!nome||!numero)return alert("Nome e número obrigatórios");
-preco+=20;
-}
-cart.push({
-produto:card.dataset.produto,
-tamanho:size,
-custom,nome,numero,preco,
-imagem:card.querySelector(".slide-img.active").src
-});
-atualizarCarrinho();
-cartBox.style.display="block";
-}
-
-if(e.target.classList.contains("custom")){
-e.target.nextElementSibling.style.display=e.target.value==="Sim"?"block":"none";
-}
-});
-
-function atualizarCarrinho(){
-const box=document.getElementById("cart-items");
-let total=0;
-box.innerHTML="";
-cart.forEach((i,n)=>{
-total+=i.preco;
-box.innerHTML+=`
-<div class="cart-item">
-<img src="${i.imagem}">
-<div>
-<strong>${i.produto}</strong><br>
-${i.tamanho} | ${i.custom}<br>
-R$ ${i.preco.toFixed(2).replace(".",",")}
-</div>
-<span class="remove" onclick="cart.splice(${n},1);atualizarCarrinho()">✖</span>
-</div>`;
-});
-document.getElementById("cart-total").innerText="Total: R$ "+total.toFixed(2).replace(".",",");
-}
-
-function comprar(){
-if(!cart.length)return alert("Carrinho vazio");
-let msg="Olá! Gostaria de comprar:%0A";
-cart.forEach(i=>{
-msg+=`- ${i.produto} | ${i.tamanho} | R$${i.preco}%0A`;
-});
-window.open(`https://wa.me/${telefone}?text=${msg}`,"_blank");
-}
-
-/* Busca + filtro */
-document.getElementById("search").addEventListener("input",e=>{
-const t=e.target.value.toLowerCase();
-document.querySelectorAll(".card").forEach(c=>{
-c.style.display=c.dataset.produto.toLowerCase().includes(t)?"block":"none";
-});
-});
+        const url = `https://wa.me/SEUNUMERODOWHATSAPP?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, "_blank");
+    }
 </script>
+
+<footer>
+    <button onclick="enviarPedidoWhatsApp()">Finalizar Compra via WhatsApp</button>
+    <p>&copy; 2026 Loja de Camisas</p>
+</footer>
 
 </body>
 </html>

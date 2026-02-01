@@ -1,13 +1,18 @@
-<!-- =================================================== -->
-<!-- INÍCIO DO CÓDIGO DO SITE - PARTE SUPERIOR -->
-<!-- =================================================== -->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Loja de Camisas</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header { background: #222; color: #fff; padding: 20px; text-align: center; }
+        header input { padding: 5px; width: 200px; margin-top: 10px; }
+        main { padding: 20px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .produto { border: 1px solid #ccc; padding: 10px; width: 200px; text-align: center; }
+        .produto img { width: 100%; height: auto; margin-bottom: 5px; }
+        footer { background: #222; color: #fff; padding: 20px; text-align: center; }
+        footer button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
 </head>
 <body>
 
@@ -20,16 +25,33 @@
     <section id="produtos-container"></section>
 </main>
 
+<footer>
+    <button onclick="enviarPedidoWhatsApp()">Finalizar Compra via WhatsApp</button>
+    <p>&copy; 2026 Loja de Camisas</p>
+</footer>
+
 <script>
-    // Função para renderizar produtos
+    // ===================== PRODUTOS =====================
+    const produtos = [
+        { nome: "Camisa Brasil 2026", preco: 299.99, imagens: ["imagens/brasil1.jpg", "imagens/brasil2.jpg"], pais: "Brasil" },
+        { nome: "Camisa Argentina 2026", preco: 289.99, imagens: ["imagens/argentina1.jpg", "imagens/argentina2.jpg"], pais: "Argentina" },
+        { nome: "Camisa Alemanha 2026", preco: 279.99, imagens: ["imagens/alemanha1.jpg", "imagens/alemanha2.jpg"], pais: "Alemanha" },
+        { nome: "Camisa França 2026", preco: 289.99, imagens: ["imagens/franca1.jpg", "imagens/franca2.jpg"], pais: "França" },
+        { nome: "Camisa Inglaterra 2026", preco: 299.99, imagens: ["imagens/inglaterra1.jpg", "imagens/inglaterra2.jpg"], pais: "Inglaterra" },
+        { nome: "Camisa Espanha 2026", preco: 279.99, imagens: ["imagens/espanha1.jpg", "imagens/espanha2.jpg"], pais: "Espanha" },
+        { nome: "Camisa Portugal 2026", preco: 289.99, imagens: ["imagens/portugal1.jpg", "imagens/portugal2.jpg"], pais: "Portugal" },
+        { nome: "Camisa Itália 2026", preco: 279.99, imagens: ["imagens/italia1.jpg", "imagens/italia2.jpg"], pais: "Itália" },
+        { nome: "Camisa Holanda 2026", preco: 269.99, imagens: ["imagens/holanda1.jpg", "imagens/holanda2.jpg"], pais: "Holanda" },
+        { nome: "Camisa Bélgica 2026", preco: 269.99, imagens: ["imagens/belgica1.jpg", "imagens/belgica2.jpg"], pais: "Bélgica" }
+    ];
+
+    // ===================== FUNÇÕES =====================
     function mostrarProdutos(produtosFiltrados) {
         const container = document.getElementById("produtos-container");
-        container.innerHTML = ""; // limpa antes de adicionar
-
+        container.innerHTML = "";
         produtosFiltrados.forEach((produto, index) => {
             const card = document.createElement("div");
             card.classList.add("produto");
-
             card.innerHTML = `
                 <h3>${produto.nome}</h3>
                 <p>R$ ${produto.preco.toFixed(2)}</p>
@@ -38,12 +60,10 @@
                 </div>
                 <button onclick="adicionarAoCarrinho(${index})">Adicionar ao carrinho</button>
             `;
-
             container.appendChild(card);
         });
     }
 
-    // Função de busca
     document.getElementById("busca").addEventListener("input", function() {
         const termo = this.value.toLowerCase();
         const filtrados = produtos.filter(p => 
@@ -53,377 +73,14 @@
         mostrarProdutos(filtrados);
     });
 
-    // Inicializa mostrando todos os produtos
-    mostrarProdutos(produtos);
-
-    // Carrinho simples
+    // ===================== CARRINHO =====================
     let carrinho = [];
 
     function adicionarAoCarrinho(index) {
         carrinho.push(produtos[index]);
-
-const produtos = [
-
-/* ===================== SELEÇÕES ===================== */
-
-{
-  nome: "Camisa Brasil 2026 Home Jogador",
-  preco: 199.90,
-  tipo: "selecao",
-  pais: "Brasil",
-  imagens: [
-    "images/brasil2026homejogador.png.webp",
-    "images/brasil2026homejogadorback.png",
-    "images/brasil2026homejogadorlogo.png",
-    "images/brasil2026homejogadormarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Alemanha 2026 Home",
-  preco: 199.90,
-  tipo: "selecao",
-  pais: "Alemanha",
-  imagens: [
-    "images/Alemanha2026Home.png",
-    "images/Alemanha2026Homeback.png",
-    "images/Alemanha2026Homelogo.png",
-    "images/Alemanha2026Homemarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Alemanha 2026 Home Feminina",
-  preco: 199.90,
-  tipo: "selecao",
-  pais: "Alemanha",
-  imagens: [
-    "images/Alemanha2026HomeFeminina.png",
-    "images/Alemanha2026HomeFemininaback.png",
-    "images/Alemanha2026HomeFemininalogo.png",
-    "images/Alemanha2026HomeFemininamarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Alemanha 2026 Away",
-  preco: 199.90,
-  tipo: "selecao",
-  pais: "Alemanha",
-  imagens: [
-    "images/Alemanha2026Away.png",
-    "images/Alemanha2026Awayback.png",
-    "images/Alemanha2026Awaylogo.png",
-    "images/Alemanha2026Awaymarca.png"
-  ]
-},
-
-/* ===================== FLAMENGO ===================== */
-
-{
-  nome: "Camisa Flamengo 2026 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/flamengo2026home-torcedor.png.webp",
-    "images/flamengo2026home_back.png.webp"
-  ]
-},
-
-{
-  nome: "Camisa Flamengo 2026 Home Feminina",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/flamengo2026homefeminina.png.webp",
-    "images/flamengo2026homefemininaback.png.webp"
-  ]
-},
-
-{
-  nome: "Camisa Flamengo 2025 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/flamengo2025home.png.webp",
-    "images/flamengo2025home_back.png.webp"
-  ]
-},
-
-{
-  nome: "Camisa Flamengo 2025 Home Feminina",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Flamengo2025HomeFeminina.png",
-    "images/Flamengo2025HomeFemininaback.png",
-    "images/Flamengo2025HomeFemininalogo.png",
-    "images/Flamengo2025HomeFemininamarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Flamengo 2025 Away",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Flamengo2025away.png.png",
-    "images/Flamengo2025awayback.png",
-    "images/Flamengo2025awaylogo.png",
-    "images/Flamengo2025awaymarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Flamengo 2025 Away Feminina",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Flamengo2025AwayFeminina.png",
-    "images/Flamengo2025AwayFemininaback.png",
-    "images/Flamengo2025AwayFemininalogo.png",
-    "images/Flamengo2025AwayFemininamarca.png"
-  ]
-},
-
-/* ===================== PALMEIRAS ===================== */
-
-{
-  nome: "Camisa Palmeiras 2026 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2026home.png.webp",
-    "images/Palmeiras2026homeback.png"
-  ]
-},
-
-{
-  nome: "Camisa Palmeiras 2026 Away",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2026away.png.webp",
-    "images/Palmeiras2026awayback.png"
-  ]
-},
-
-{
-  nome: "Camisa Palmeiras 2025 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2025home.png.webp",
-    "images/Palmeiras2025homeback.png.webp",
-    "images/Palmeiras2025homelogo.png.jpg",
-    "images/Palmeiras2025homemarca.png.jpg"
-  ]
-},
-
-{
-  nome: "Camisa Palmeiras 2025 Away",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2025away.png.webp",
-    "images/Palmeiras2025awayback.png.webp",
-    "images/Palmeiras2025awaylogo.png.jpg",
-    "images/Palmeiras2025awaymarca.png.jpg"
-  ]
-},
-
-{
-  nome: "Camisa Palmeiras 2025 Third Copa do Mundo de Clubes",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2025ThirdCopadoMundodeClubes.png",
-    "images/Palmeiras2025ThirdCopadoMundodeClubesback.png"
-  ]
-},
-
-{
-  nome: "Camisa Palmeiras 2025 Avanti",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2025Avanti.png",
-    "images/Palmeiras2025Avantiback.png",
-    "images/Palmeiras2025Avantilogo.png",
-    "images/Palmeiras2025Avantimarca.png",
-    "images/Palmeiras2025Avantidetalhe.png"
-  ]
-},
-
-{
-  nome: "Camisa Palmeiras 2025 Avanti Feminina",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Palmeiras2025AvantiFeminina.png",
-    "images/Palmeiras2025AvantiFemininaback.png",
-    "images/Palmeiras2025AvantilogoFeminina.png",
-    "images/Palmeiras2025AvantimarcaFeminina.png"
-  ]
-},
-
-/* ===================== CORINTHIANS ===================== */
-
-{
-  nome: "Camisa Corinthians 2025 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Corinthians2025home.png",
-    "images/Corinthians2025homeback.png",
-    "images/Corinthians2025homelogo.png"
-  ]
-},
-
-{
-  nome: "Camisa Corinthians 2025 Away",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Corinthians2025Away.png",
-    "images/Corinthians2025Awayback.png",
-    "images/Corinthians2025Awaylogo.png"
-  ]
-},
-
-{
-  nome: "Camisa Corinthians 2025 Third",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Corinthians2025third.png",
-    "images/Corinthians2025thirdback.png",
-    "images/Corinthians2025thirdlogo.png",
-    "images/Corinthians2025thirdmarca.png"
-  ]
-},
-
-/* ===================== SÃO PAULO ===================== */
-
-{
-  nome: "Camisa São Paulo 2025 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/SãoPaulo2025home.png",
-    "images/SãoPaulo2025homeback.png",
-    "images/SãoPaulo2025homelogo.png",
-    "images/SãoPaulo2025homemarca.png"
-  ]
-},
-
-{
-  nome: "Camisa São Paulo 2025 Away",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/SãoPaulo2025away.png",
-    "images/SãoPaulo2025awayback.png",
-    "images/SãoPaulo2025awaylogo.png",
-    "images/SãoPaulo2025awaymarca.png"
-  ]
-},
-
-{
-  nome: "Camisa São Paulo 2025 Third",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/São Paulo2025Third.png",
-    "images/São Paulo2025Thirdback.png",
-    "images/São Paulo2025Thirdlogo.png",
-    "images/São Paulo2025Thirdmarca.png",
-    "images/São Paulo2025Thirddetalhe1.png",
-    "images/São Paulo2025Thirddetalhe2.png"
-  ]
-},
-
-/* ===================== SANTOS ===================== */
-
-{
-  nome: "Camisa Santos 2024 Charlie Brown Jr.",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.)pendurada.png",
-    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.).png",
-    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.)back.png",
-    "images/Santos2024EdiçãoEspecial(Charlie Brown Jr.)logoemarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Santos 2025 Home",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Santos2025home.png",
-    "images/Santos2025homeback.png",
-    "images/Santos2025homelogo.png",
-    "images/Santos2025homemarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Santos 2025 Away",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Santos2025away.png",
-    "images/Santos2025awayback.png",
-    "images/Santos2025awaylogo.png",
-    "images/Santos2025awaymarca.png"
-  ]
-},
-
-{
-  nome: "Camisa Santos 2025 Third",
-  preco: 129.90,
-  tipo: "clube",
-  pais: "Brasil",
-  imagens: [
-    "images/Santos2025third.png",
-    "images/Santos2025thirdback.png",
-    "images/Santos2025thirdlogo.png",
-    "images/Santos2025thirdmarca.png"
-  ]
-}
-
-];
-<script>
-    // Re-renderiza produtos caso carrinho precise atualizar algo
-    function atualizarTela() {
-        mostrarProdutos(produtos);
+        alert(`${produtos[index].nome} adicionado ao carrinho!`);
     }
 
-    // Exemplo de função para enviar pedido por WhatsApp
     function enviarPedidoWhatsApp() {
         if(carrinho.length === 0) {
             alert("O carrinho está vazio!");
@@ -439,12 +96,10 @@ const produtos = [
         const url = `https://wa.me/SEUNUMERODOWHATSAPP?text=${encodeURIComponent(mensagem)}`;
         window.open(url, "_blank");
     }
-</script>
 
-<footer>
-    <button onclick="enviarPedidoWhatsApp()">Finalizar Compra via WhatsApp</button>
-    <p>&copy; 2026 Loja de Camisas</p>
-</footer>
+    // ===================== INICIALIZAÇÃO =====================
+    mostrarProdutos(produtos);
+</script>
 
 </body>
 </html>

@@ -117,14 +117,19 @@ function atualizarCarrinho() {
   carrinho.forEach((item, index) => {
     total += item.preco;
 
-    lista.innerHTML += `
-      <div style="margin-bottom:10px;">
-        <strong>${item.produto}</strong><br>
-        Tamanho: ${item.tamanho}<br>
-        ${item.personalizar === 'Sim' ? `Personalizado: ${item.nome} #${item.numero}<br>` : ''}
-        Preço: R$ ${item.preco.toFixed(2)}
-      </div>
-    `;
+   lista.innerHTML += `
+  <div style="margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:8px;">
+    <strong>${item.produto}</strong><br>
+    Tamanho: ${item.tamanho}<br>
+    ${item.personalizar === 'Sim' ? `Personalizado: ${item.nome} #${item.numero}<br>` : ''}
+    Preço: R$ ${item.preco.toFixed(2)}<br>
+    <button onclick="removerItem(${index})"
+      style="margin-top:5px; background:red; color:white; border:none; padding:5px 8px; cursor:pointer;">
+      ❌ Remover
+    </button>
+  </div>
+`;
+
   });
 
   totalSpan.textContent = total.toFixed(2);
@@ -155,6 +160,12 @@ function comprarWhatsApp() {
   const telefone = '5511988857455'; // Ex: 5511999999999
   const url = `https://wa.me/${telefone}?text=${mensagem}`;
   window.open(url, '_blank');
+}
+</script>
+<script>
+function removerItem(index) {
+  carrinho.splice(index, 1);
+  atualizarCarrinho();
 }
 </script>
 

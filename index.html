@@ -8,7 +8,6 @@
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4;}
 header { background:#111; color:#fff; padding:15px; text-align:center; font-size:22px; font-weight:bold;}
-/* original filters rule kept for backward compatibility (we replace the HTML block) */
 .filters { display:flex; gap:10px; padding:15px; background:#fff;}
 .filters select { padding:8px; border-radius:5px;}
 .container { padding:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
@@ -26,7 +25,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 .image-slider { position:relative;}
 .slide-img { display:none; width:100%; border-radius:6px;}
 .slide-img.active { display:block;}
-.arrow { position:absolute; top:50%; transform:translateY(-50%); color:#111; background:rgba(255,255,255,.7); border-radius:50%; width:24px; height:24px; line-height:24px; text-align:center; cursor:pointer;}
+.arrow { position:absolute; top:50%; transform:translateY(-50%); color:#111; background:rgba(255,255,255,.7); border-radius:50%; width:24px; height:24px; line-height:24px; text-align:center; cursor:pointer; user-select:none;}
 .arrow.left { left:5px; }
 .arrow.right { right:5px; }
 
@@ -62,37 +61,6 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 .btn-measures:hover {
   background: #004999;
 }
-
-/* New: Botões de filtro centralizados (mantém estilo simples / responsivo) */
-.category-filters {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  padding: 12px 15px;
-  background: #fff;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.category-button {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-  color: #111;
-  font-weight: 600;
-  transition: background .15s, color .15s, border-color .15s;
-}
-.category-button:hover { background:#f0f0f0; }
-.category-button.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-}
-.category-button:focus {
-  outline: 2px solid #0066cc;
-  outline-offset: 2px;
-}
 </style>
 </head>
 
@@ -117,14 +85,18 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 </div>
 
 
-<!-- FILTROS: replaced selects with centralized buttons -->
-<div class="category-filters" aria-label="Filtros por categoria">
-  <button class="category-button active" data-filter="todos" aria-pressed="true">Todos</button>
-  <button class="category-button" data-filter="clubes-brasileiros">Clubes Brasileiros</button>
-  <button class="category-button" data-filter="clubes-internacionais">Clubes Internacionais</button>
-  <button class="category-button" data-filter="selecao">Seleções</button>
-  <button class="category-button" data-filter="feminina">Feminina</button>
-  <button class="category-button" data-filter="infantil">Infantil</button>
+<!-- FILTROS -->
+<div class="filters">
+  <select id="filter-type">
+    <option value="">Todos</option>
+    <option value="clube">Clubes</option>
+    <option value="selecao">Seleções</option>
+  </select>
+
+  <select id="filter-country">
+    <option value="">Todos os países</option>
+    <option value="Brasil">Brasil</option>
+  </select>
 </div>
 
 <div class="container">
@@ -162,7 +134,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 
 
 <!-- Alemanha Home -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Home" data-preco="199.90">
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Alemanha 2026 Home" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Home.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Homeback.png" alt="Costas">
@@ -191,7 +163,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 </div>
 
   <!-- Alemanha Home Feminina -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Home Feminina" data-preco="199.90">
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Alemanha 2026 Home Feminina" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026HomeFeminina.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026HomeFemininaback.png" alt="Costas">
@@ -221,7 +193,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 
 
   <!-- Alemanha Away -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Away.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Awayback.png" alt="Costas">
@@ -302,6 +274,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <button class="btn-add">Adicionar ao carrinho</button>
   <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
+
 
 <!-- Palmeiras Home -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
@@ -1219,87 +1192,208 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
 
-</div> <!-- end .container -->
-
-<footer>
-  © Peitas Store - Todos os direitos reservados
-</footer>
 
 
   
-  <!-- Filtering script: uses existing data attributes on cards (data-tipo, data-pais, data-produto)
-     Works together with the existing search input (id="search-input") -->
+
+</div>
+
+<footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="fecharModal()">✖</span>
+    <h3>Tabela de Medidas</h3>
+    <img src="images/TABELADEMEDIDASTORCEDOR.png.webp" alt="Tabela de Medidas" style="width:100%; border-radius:8px; margin-top:10px;">
+  </div>
+</div>
+
+<!-- CARRINHO -->
+<div class="cart-popup" id="cart">
+  <div class="cart-content">
+    <span class="close" onclick="fecharCarrinho()">✖</span>
+    <h3>Carrinho de Compras</h3>
+    <div id="cart-items"></div>
+    <div class="cart-total" id="cart-total"></div>
+    <button class="btn" id="cart-buy">Comprar no WhatsApp</button>
+  </div>
+</div>
+
 <script>
-(function(){
-  const buttons = document.querySelectorAll('.category-button');
-  const cards = document.querySelectorAll('.card');
-  const searchInput = document.getElementById('search-input');
+const telefone = "5511988857455";
+const modal = document.getElementById("modal");
+const cartPopup = document.getElementById("cart");
+let cart = [];
 
-  function applyFilter(filter){
-    const q = searchInput ? searchInput.value.trim().toLowerCase() : '';
-    cards.forEach(card => {
-      const tipo = (card.dataset.tipo || '').toLowerCase();
-      const pais = (card.dataset.pais || '').toLowerCase();
-      const produto = (card.dataset.produto || '').toLowerCase();
+// MODAL
+function abrirModal(){ modal.style.display="block"; }
+function fecharModal(){ modal.style.display="none"; }
 
-      let visible = false;
-      switch(filter){
-        case 'todos':
-          visible = true;
-          break;
-        case 'clubes-brasileiros':
-          visible = (tipo === 'clube' && pais === 'brasil');
-          break;
-        case 'clubes-internacionais':
-          visible = (tipo === 'clube' && pais && pais !== 'brasil');
-          break;
-        case 'selecao':
-          visible = (tipo === 'selecao');
-          break;
-        case 'feminina':
-          visible = produto.includes('feminina') || produto.includes('feminino');
-          break;
-        case 'infantil':
-          visible = produto.includes('infantil') || produto.includes('jr') || produto.includes('kids') || produto.includes('kid') || produto.includes('infant');
-          break;
-        default:
-          visible = true;
-      }
+// CARRINHO
+function abrirCarrinho(){ cartPopup.style.display="block"; }
+function fecharCarrinho(){ cartPopup.style.display="none"; }
 
-      if(visible && q){
-        const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
-        visible = produto.includes(q) || title.includes(q) || (card.dataset.pais || '').toLowerCase().includes(q);
-      }
+function atualizarCarrinho() {
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  cartItems.innerHTML = "";
+  let total = 0;
+  cart.forEach((item,index)=>{
+    total += parseFloat(item.preco)*item.quantidade;
+    const div = document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`
+      <img src="${item.imagem}" alt="${item.produto}">
+      <div class="cart-item-details">
+        <strong>${item.produto}</strong>
+        <small>Tamanho: ${item.tamanho}</small><br>
+        ${item.custom==="Sim"?<small>Personalizada: Sim</small><br><small>Nome: ${item.nome}</small><br><small>Número: ${item.numero}</small>:"<small>Personalizada: Não</small>"}<br>
+        <small>Preço unitário: R$ ${parseFloat(item.preco).toFixed(2).replace(".",",")}</small><br>
+        <input type="number" min="1" value="${item.quantidade}" class="quantity-input" onchange="alterarQuantidade(${index},this.value)">
+      </div>
+      <span class="remove" onclick="removerItem(${index})">✖</span>
+    `;
+    cartItems.appendChild(div);
+  });
+  cartTotal.innerText="Total: R$ "+total.toFixed(2).replace(".",",");
+}
 
-      card.style.display = visible ? '' : 'none';
+function removerItem(index){
+  cart.splice(index,1);
+  atualizarCarrinho();
+}
+
+function alterarQuantidade(index,value){
+  cart[index].quantidade = parseInt(value);
+  atualizarCarrinho();
+}
+
+// FILTROS
+document.querySelectorAll(".filters select").forEach(f=>{
+  f.addEventListener("change",()=>{
+    filtrarCards();
+  });
+});
+
+function filtrarCards(){
+  const tipo = document.getElementById("filter-type").value;
+  const pais = document.getElementById("filter-country").value;
+  document.querySelectorAll(".card").forEach(card=>{
+    let show = true;
+    if(tipo && card.dataset.tipo!==tipo) show = false;
+    if(pais && card.dataset.pais!==pais) show = false;
+    card.style.display = show ? "block" : "none";
+  });
+}
+
+// SLIDER DE IMAGENS
+document.querySelectorAll(".card").forEach(card=>{
+  const slides = card.querySelectorAll(".slide-img");
+  const left = card.querySelector(".arrow.left");
+  const right = card.querySelector(".arrow.right");
+  let current = 0;
+
+  function showSlide(i){
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[i].classList.add("active");
+  }
+
+  if(left && right){
+    left.addEventListener("click", ()=>{
+      current = (current-1+slides.length) % slides.length;
+      showSlide(current);
+    });
+    right.addEventListener("click", ()=>{
+      current = (current+1) % slides.length;
+      showSlide(current);
     });
   }
-<script>
-  buttons.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      buttons.forEach(b=>{
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed','false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed','true');
-      applyFilter(btn.dataset.filter);
-    });
+});
+
+// CARDS - customização e adicionar ao carrinho
+document.querySelectorAll(".card").forEach(card=>{
+  const custom = card.querySelector(".custom");
+  const fields = card.querySelector(".custom-fields");
+  const priceEl = card.querySelector(".price");
+  const base = parseFloat(card.dataset.preco);
+
+  custom.addEventListener("change",()=>{
+    fields.style.display = custom.value==="Sim"?"block":"none";
+    priceEl.innerText = "R$ "+(custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
   });
 
-  if(searchInput){
-    searchInput.addEventListener('input', ()=>{
-      const active = document.querySelector('.category-button.active');
-      const filter = active ? active.dataset.filter : 'todos';
-      applyFilter(filter);
-    });
-  }
+  card.querySelector(".btn-add").addEventListener("click",()=>{
+    const tamanho = card.querySelector(".size").value;
+    if(!tamanho || !custom.value){ alert("Preencha todas as opções"); return; }
+    let precoTotal = base;
 
-  // Inicializa mostrando todos (se o campo de busca já contiver texto, ele é aplicado também)
-  applyFilter('todos');
-})();
+    // Adiciona R$6,50 para tamanho 2XG
+    if(tamanho === "2XG") precoTotal += 6.50;
+
+    let nome = "", numero = "";
+
+    if(custom.value==="Sim"){
+      nome = card.querySelector(".nome").value;
+      numero = card.querySelector(".numero").value;
+      if(!nome || !numero){ alert("Preencha nome e número para personalização"); return; }
+      precoTotal += 20;
+    }
+
+    const produto = card.dataset.produto;
+    const imagem = card.querySelector(".slide-img.active").src;
+
+    cart.push({produto, tamanho, custom: custom.value, nome, numero, preco: precoTotal, quantidade:1, imagem});
+    atualizarCarrinho();
+    abrirCarrinho();
+  });
+});
+
+// BOTÃO COMPRAR WHATSAPP
+document.getElementById("cart-buy").addEventListener("click",()=>{
+  if(cart.length === 0){
+    alert("Seu carrinho está vazio.");
+    return;
+  }
+  let msg = "Olá! Gostaria de comprar:%0A";
+  cart.forEach(item=>{
+    msg += - ${item.produto} | Tamanho: ${item.tamanho} | Personalizada: ${item.custom};
+    if(item.custom === "Sim"){
+      msg += ` | Nome: ${item.nome} | Número: ${item.numero}`;
+    }
+    msg += ` | Quantidade: ${item.quantidade} | Preço unitário: R$${item.preco.toFixed(2).replace(".",",")}%0A`;
+  });
+  let total = cart.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+  msg += %0ATotal: R$${total.toFixed(2).replace(".",",")};
+  const url = https://wa.me/${telefone}?text=${msg};
+  window.open(url, "_blank");
+});
+
+ // PESQUISA DE CAMISAS
+const searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", () => {
+  const termo = searchInput.value.toLowerCase();
+
+  document.querySelectorAll(".card").forEach(card => {
+    const nomeProduto = card.dataset.produto.toLowerCase();
+    const tipo = card.dataset.tipo.toLowerCase();
+    const pais = card.dataset.pais.toLowerCase();
+
+    const encontrado =
+      nomeProduto.includes(termo) ||
+      tipo.includes(termo) ||
+      pais.includes(termo);
+
+    card.style.display = encontrado ? "block" : "none";
+  });
+});
+
+
   
-<script>
+</script>
+
  
+
 </body>
 </html>

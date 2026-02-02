@@ -34,7 +34,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 .modal-content, .cart-content { background:#fff; padding:20px; max-width:500px; margin:10% auto; border-radius:8px; max-height:80vh; overflow-y:auto;}
 .close { float:right; cursor:pointer; font-size:18px; }
 
-/* Carrinho */
+/* Carrinho visual moderno */
 .cart-item { border-bottom:1px solid #ccc; padding:10px; display:flex; align-items:center; position:relative;}
 .cart-item:last-child { border-bottom:none; }
 .cart-item img { width:60px; height:60px; object-fit:cover; border-radius:6px; margin-right:10px;}
@@ -68,7 +68,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 
 <header>Peitas Store ⚽ | Camisas de Time</header>
 
-<div style="background:#fff; padding:15px; text-align:center;">
+  <div style="background:#fff; padding:15px; text-align:center;">
   <input 
     type="text" 
     id="search-input"
@@ -83,6 +83,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
     "
   >
 </div>
+
 
 <!-- FILTROS -->
 <div class="filters">
@@ -133,7 +134,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 
 
 <!-- Alemanha Home -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Home" data-preco="199.90">
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Alemanha 2026 Home" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Home.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Homeback.png" alt="Costas">
@@ -162,7 +163,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 </div>
 
   <!-- Alemanha Home Feminina -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Home Feminina" data-preco="199.90">
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Alemanha 2026 Home Feminina" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026HomeFeminina.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026HomeFemininaback.png" alt="Costas">
@@ -192,7 +193,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 
 
   <!-- Alemanha Away -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
+<div class="card" data-tipo="selecao" data-pais="Brasil" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Away.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Awayback.png" alt="Costas">
@@ -273,6 +274,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   <button class="btn-add">Adicionar ao carrinho</button>
   <button class="btn-measures" onclick="abrirModal()">Visualizar medidas</button>
 </div>
+
 
 <!-- Palmeiras Home -->
 <div class="card" data-tipo="clube" data-pais="Brasil" data-produto="Camisa Palmeiras 2026 Home" data-preco="129.90">
@@ -1191,7 +1193,10 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 </div>
 
 
-</div> <!-- end .container -->
+
+  
+
+</div>
 
 <footer>© 2026 Payt Eric Store • Compra segura via WhatsApp</footer>
 
@@ -1238,15 +1243,12 @@ function atualizarCarrinho() {
     total += parseFloat(item.preco)*item.quantidade;
     const div = document.createElement("div");
     div.className="cart-item";
-    let customHTML = item.custom==="Sim" ? 
-      `<small>Personalizada: Sim</small><br><small>Nome: ${item.nome}</small><br><small>Número: ${item.numero}</small>` :
-      `<small>Personalizada: Não</small>`;
     div.innerHTML=`
       <img src="${item.imagem}" alt="${item.produto}">
       <div class="cart-item-details">
         <strong>${item.produto}</strong>
         <small>Tamanho: ${item.tamanho}</small><br>
-        ${customHTML}<br>
+        ${item.custom==="Sim"?<small>Personalizada: Sim</small><br><small>Nome: ${item.nome}</small><br><small>Número: ${item.numero}</small>:"<small>Personalizada: Não</small>"}<br>
         <small>Preço unitário: R$ ${parseFloat(item.preco).toFixed(2).replace(".",",")}</small><br>
         <input type="number" min="1" value="${item.quantidade}" class="quantity-input" onchange="alterarQuantidade(${index},this.value)">
       </div>
@@ -1269,7 +1271,9 @@ function alterarQuantidade(index,value){
 
 // FILTROS
 document.querySelectorAll(".filters select").forEach(f=>{
-  f.addEventListener("change",()=>{ filtrarCards(); });
+  f.addEventListener("change",()=>{
+    filtrarCards();
+  });
 });
 
 function filtrarCards(){
@@ -1283,68 +1287,53 @@ function filtrarCards(){
   });
 }
 
-// SLIDER DE IMAGENS (corrigido para múltiplos sliders)
-document.querySelectorAll(".image-slider").forEach(slider => {
-  const slides = slider.querySelectorAll(".slide-img");
-  const left = slider.querySelector(".arrow.left");
-  const right = slider.querySelector(".arrow.right");
-  let index = 0;
+// SLIDER DE IMAGENS
+document.querySelectorAll(".card").forEach(card=>{
+  const slides = card.querySelectorAll(".slide-img");
+  const left = card.querySelector(".arrow.left");
+  const right = card.querySelector(".arrow.right");
+  let current = 0;
 
   function showSlide(i){
     slides.forEach(s=>s.classList.remove("active"));
     slides[i].classList.add("active");
-    index = i;
   }
 
-  showSlide(0); // inicializa primeiro slide
-
-  if(left) left.addEventListener("click", e=>{
-    e.stopPropagation();
-    index = index === 0 ? slides.length - 1 : index - 1;
-    showSlide(index);
-  });
-
-  if(right) right.addEventListener("click", e=>{
-    e.stopPropagation();
-    index = index === slides.length - 1 ? 0 : index + 1;
-    showSlide(index);
-  });
+  if(left && right){
+    left.addEventListener("click", ()=>{
+      current = (current-1+slides.length) % slides.length;
+      showSlide(current);
+    });
+    right.addEventListener("click", ()=>{
+      current = (current+1) % slides.length;
+      showSlide(current);
+    });
+  }
 });
 
-// CARDS - customização, medidas e adicionar ao carrinho
+// CARDS - customização e adicionar ao carrinho
 document.querySelectorAll(".card").forEach(card=>{
   const custom = card.querySelector(".custom");
   const fields = card.querySelector(".custom-fields");
   const priceEl = card.querySelector(".price");
   const base = parseFloat(card.dataset.preco);
 
-  // Personalização
-  if(custom){
-    custom.addEventListener("change",()=>{
-      fields.style.display = custom.value==="Sim"?"block":"none";
-      priceEl.innerText = "R$ "+(custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
-    });
-  }
+  custom.addEventListener("change",()=>{
+    fields.style.display = custom.value==="Sim"?"block":"none";
+    priceEl.innerText = "R$ "+(custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
+  });
 
-  // Visualizar medidas
-  const btnMeasures = card.querySelector(".btn-measures");
-  if(btnMeasures) btnMeasures.addEventListener("click", abrirModal);
-
-  // Adicionar ao carrinho
-  const btnAdd = card.querySelector(".btn-add");
-  if(btnAdd) btnAdd.addEventListener("click", ()=>{
-    const tamanhoEl = card.querySelector(".size");
-    if(!tamanhoEl || !custom) { alert("Preencha todas as opções"); return; }
-    const tamanho = tamanhoEl.value;
-    const customVal = custom.value;
-
-    if(!tamanho || !customVal){ alert("Preencha todas as opções"); return; }
-
+  card.querySelector(".btn-add").addEventListener("click",()=>{
+    const tamanho = card.querySelector(".size").value;
+    if(!tamanho || !custom.value){ alert("Preencha todas as opções"); return; }
     let precoTotal = base;
+
+    // Adiciona R$6,50 para tamanho 2XG
     if(tamanho === "2XG") precoTotal += 6.50;
 
-    let nome="", numero="";
-    if(customVal==="Sim"){
+    let nome = "", numero = "";
+
+    if(custom.value==="Sim"){
       nome = card.querySelector(".nome").value;
       numero = card.querySelector(".numero").value;
       if(!nome || !numero){ alert("Preencha nome e número para personalização"); return; }
@@ -1352,42 +1341,59 @@ document.querySelectorAll(".card").forEach(card=>{
     }
 
     const produto = card.dataset.produto;
-    const imagemEl = card.querySelector(".slide-img.active");
-    const imagem = imagemEl ? imagemEl.src : "";
+    const imagem = card.querySelector(".slide-img.active").src;
 
-    cart.push({produto, tamanho, custom: customVal, nome, numero, preco: precoTotal, quantidade:1, imagem});
+    cart.push({produto, tamanho, custom: custom.value, nome, numero, preco: precoTotal, quantidade:1, imagem});
     atualizarCarrinho();
     abrirCarrinho();
   });
 });
 
 // BOTÃO COMPRAR WHATSAPP
-document.getElementById("cart-buy").addEventListener("click", ()=>{
-  if(cart.length === 0){ alert("Seu carrinho está vazio."); return; }
-
+document.getElementById("cart-buy").addEventListener("click",()=>{
+  if(cart.length === 0){
+    alert("Seu carrinho está vazio.");
+    return;
+  }
   let msg = "Olá! Gostaria de comprar:%0A";
   cart.forEach(item=>{
-    msg += `- ${item.produto} | Tamanho: ${item.tamanho} | Personalizada: ${item.custom}`;
-    if(item.custom==="Sim") msg += ` | Nome: ${item.nome} | Número: ${item.numero}`;
+    msg += - ${item.produto} | Tamanho: ${item.tamanho} | Personalizada: ${item.custom};
+    if(item.custom === "Sim"){
+      msg += ` | Nome: ${item.nome} | Número: ${item.numero}`;
+    }
     msg += ` | Quantidade: ${item.quantidade} | Preço unitário: R$${item.preco.toFixed(2).replace(".",",")}%0A`;
   });
-
-  const total = cart.reduce((acc,item)=>acc + item.preco*item.quantidade,0);
-  msg += `%0ATotal: R$${total.toFixed(2).replace(".",",")}`;
-  window.open(`https://wa.me/${telefone}?text=${msg}`, "_blank");
+  let total = cart.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+  msg += %0ATotal: R$${total.toFixed(2).replace(".",",")};
+  const url = https://wa.me/${telefone}?text=${msg};
+  window.open(url, "_blank");
 });
 
-// PESQUISA DE CAMISAS
-document.getElementById("search-input").addEventListener("input", ()=>{
+ // PESQUISA DE CAMISAS
+const searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", () => {
   const termo = searchInput.value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card=>{
+
+  document.querySelectorAll(".card").forEach(card => {
     const nomeProduto = card.dataset.produto.toLowerCase();
     const tipo = card.dataset.tipo.toLowerCase();
     const pais = card.dataset.pais.toLowerCase();
-    card.style.display = (nomeProduto.includes(termo) || tipo.includes(termo) || pais.includes(termo)) ? "block" : "none";
+
+    const encontrado =
+      nomeProduto.includes(termo) ||
+      tipo.includes(termo) ||
+      pais.includes(termo);
+
+    card.style.display = encontrado ? "block" : "none";
   });
 });
+
+
+  
 </script>
+
+ 
 
 </body>
 </html>

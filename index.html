@@ -1299,6 +1299,92 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   applyFilter('todos');
 })();
 
+  <!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="fecharModal()">✖</span>
+    <h3>Tabela de Medidas</h3>
+    <img src="images/TABELADEMEDIDASTORCEDOR.png.webp" alt="Tabela de Medidas" style="width:100%; border-radius:8px; margin-top:10px;">
+  </div>
+</div>
+
+<!-- CARRINHO -->
+<div class="cart-popup" id="cart">
+  <div class="cart-content">
+    <span class="close" onclick="fecharCarrinho()">✖</span>
+    <h3>Carrinho de Compras</h3>
+    <div id="cart-items"></div>
+    <div class="cart-total" id="cart-total"></div>
+    <button class="btn" id="cart-buy">Comprar no WhatsApp</button>
+  </div>
+</div>
+
+<script>
+const telefone = "5511988857455";
+const modal = document.getElementById("modal");
+const cartPopup = document.getElementById("cart");
+let cart = [];
+
+// MODAL
+function abrirModal(){ modal.style.display="block"; }
+function fecharModal(){ modal.style.display="none"; }
+
+// CARRINHO
+function abrirCarrinho(){ cartPopup.style.display="block"; }
+function fecharCarrinho(){ cartPopup.style.display="none"; }
+
+function atualizarCarrinho() {
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  cartItems.innerHTML = "";
+  let total = 0;
+  cart.forEach((item,index)=>{
+    total += parseFloat(item.preco)*item.quantidade;
+    const div = document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`
+      <img src="${item.imagem}" alt="${item.produto}">
+      <div class="cart-item-details">
+        <strong>${item.produto}</strong>
+        <small>Tamanho: ${item.tamanho}</small><br>
+        ${item.custom==="Sim"?<small>Personalizada: Sim</small><br><small>Nome: ${item.nome}</small><br><small>Número: ${item.numero}</small>:"<small>Personalizada: Não</small>"}<br>
+        <small>Preço unitário: R$ ${parseFloat(item.preco).toFixed(2).replace(".",",")}</small><br>
+        <input type="number" min="1" value="${item.quantidade}" class="quantity-input" onchange="alterarQuantidade(${index},this.value)">
+      </div>
+      <span class="remove" onclick="removerItem(${index})">✖</span>
+    `;
+    cartItems.appendChild(div);
+  });
+  cartTotal.innerText="Total: R$ "+total.toFixed(2).replace(".",",");
+}
+
+function removerItem(index){
+  cart.splice(index,1);
+  atualizarCarrinho();
+}
+
+function alterarQuantidade(index,value){
+  cart[index].quantidade = parseInt(value);
+  atualizarCarrinho();
+}
+
+// FILTROS
+document.querySelectorAll(".filters select").forEach(f=>{
+  f.addEventListener("change",()=>{
+    filtrarCards();
+  });
+});
+
+function filtrarCards(){
+  const tipo = document.getElementById("filter-type").value;
+  const pais = document.getElementById("filter-country").value;
+  document.querySelectorAll(".card").forEach(card=>{
+    let show = true;
+    if(tipo && card.dataset.tipo!==tipo) show = false;
+    if(pais && card.dataset.pais!==pais) show = false;
+    card.style.display = show ? "block" : "none";
+  });
+}
   // SLIDER DE IMAGENS
 document.querySelectorAll(".card").forEach(card=>{
   const slides = card.querySelectorAll(".slide-img");

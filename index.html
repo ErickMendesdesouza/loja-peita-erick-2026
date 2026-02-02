@@ -24,6 +24,15 @@
       padding:15px; border-radius:10px;
       display:none; max-height:80vh; overflow:auto;
     }
+
+    .slide-img {
+  display: none;
+}
+
+.slide-img.active {
+  display: block;
+}
+
   </style>
 </head>
 
@@ -1201,17 +1210,29 @@ function buyWhatsApp() {
   msg += `Total: R$ ${total.toFixed(2)}`;
   window.open(`https://wa.me/5511988857455?text=${msg}`);
 }
+document.querySelectorAll('.card').forEach(card => {
+  const images = card.querySelectorAll('.slide-img');
+  const nextBtn = card.querySelector('.arrow.right');
+  const prevBtn = card.querySelector('.arrow.left');
 
-// Slider
-document.addEventListener('click', e => {
-  if (e.target.classList.contains('arrow')) {
-    const imgs = e.target.closest('.slider').querySelectorAll('.slide-img');
-    let idx = [...imgs].findIndex(i => i.classList.contains('active'));
-    imgs[idx].classList.remove('active');
-    idx = e.target.classList.contains('right') ? (idx+1)%imgs.length : (idx-1+imgs.length)%imgs.length;
-    imgs[idx].classList.add('active');
+  let currentIndex = 0;
+
+  function showImage(index) {
+    images.forEach(img => img.classList.remove('active'));
+    images[index].classList.add('active');
   }
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  });
 });
+
 
 // Busca
 document.getElementById('search').addEventListener('input', e => {

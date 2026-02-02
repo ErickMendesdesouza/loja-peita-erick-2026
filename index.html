@@ -98,6 +98,28 @@ h2 {
   text-align: center;
   margin: 20px 0;
 }
+.filtros-botoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0 25px;
+  flex-wrap: wrap;
+}
+
+.filtros-botoes button {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.filtros-botoes button.ativo {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
 
   </style>
 </head>
@@ -199,6 +221,69 @@ if (searchInput) {
 
       card.style.display = texto.includes(termo) ? 'block' : 'none';
     });
+  });
+}
+</script>
+<div class="filtros-botoes">
+  <button data-filtro="tudo" class="ativo">Tudo</button>
+  <button data-filtro="brasileiros">Times Brasileiros</button>
+  <button data-filtro="internacionais">Times Internacionais</button>
+  <button data-filtro="feminina">Femininas</button>
+  <button data-filtro="infantil">Infantil</button>
+</div>
+<script>
+let filtroAtivo = 'tudo';
+
+document.querySelectorAll('.filtros-botoes button').forEach(botao => {
+  botao.addEventListener('click', () => {
+    document.querySelectorAll('.filtros-botoes button')
+      .forEach(b => b.classList.remove('ativo'));
+
+    botao.classList.add('ativo');
+    filtroAtivo = botao.dataset.filtro;
+
+    aplicarFiltroBotoes();
+  });
+});
+
+function aplicarFiltroBotoes() {
+  const termo = document.getElementById('search')
+    ? document.getElementById('search').value.toLowerCase()
+    : '';
+
+  document.querySelectorAll('.card').forEach(card => {
+    const produto = (card.dataset.produto || '').toLowerCase();
+    const tipo = (card.dataset.tipo || '').toLowerCase();
+    const pais = (card.dataset.pais || '').toLowerCase();
+
+    let mostrar = true;
+
+    switch (filtroAtivo) {
+      case 'brasileiros':
+        mostrar = pais === 'brasil' || produto.includes('brasil');
+        break;
+
+      case 'internacionais':
+        mostrar = pais && pais !== 'brasil';
+        break;
+
+      case 'feminina':
+        mostrar = produto.includes('feminina');
+        break;
+
+      case 'infantil':
+        mostrar = produto.includes('infantil');
+        break;
+
+      default:
+        mostrar = true;
+    }
+
+    if (termo && !produto.includes(termo)) {
+      mostrar = false;
+    }
+
+    card.style.display = mostrar ? 'block' : 'none';
   });
 }
 </script>

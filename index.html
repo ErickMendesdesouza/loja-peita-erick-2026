@@ -231,62 +231,6 @@ if (searchInput) {
   <button data-filtro="feminina">Femininas</button>
   <button data-filtro="infantil">Infantil</button>
 </div>
-<script>
-let filtroAtivo = 'tudo';
-
-document.querySelectorAll('.filtros-botoes button').forEach(botao => {
-  botao.addEventListener('click', () => {
-    document.querySelectorAll('.filtros-botoes button')
-      .forEach(b => b.classList.remove('ativo'));
-
-    botao.classList.add('ativo');
-    filtroAtivo = botao.dataset.filtro;
-
-    aplicarFiltroBotoes();
-  });
-});
-
-function aplicarFiltroBotoes() {
-  const termo = document.getElementById('search')
-    ? document.getElementById('search').value.toLowerCase()
-    : '';
-
-  document.querySelectorAll('.card').forEach(card => {
-    const produto = (card.dataset.produto || '').toLowerCase();
-    const tipo = (card.dataset.tipo || '').toLowerCase();
-    const pais = (card.dataset.pais || '').toLowerCase();
-
-    let mostrar = true;
-
-    switch (filtroAtivo) {
-      case 'brasileiros':
-        mostrar = pais === 'brasil' || produto.includes('brasil');
-        break;
-
-      case 'internacionais':
-        mostrar = pais && pais !== 'brasil';
-        break;
-
-      case 'feminina':
-        mostrar = produto.includes('feminina');
-        break;
-
-      case 'infantil':
-        mostrar = produto.includes('infantil');
-        break;
-
-      default:
-        mostrar = true;
-    }
-
-    if (termo && !produto.includes(termo)) {
-      mostrar = false;
-    }
-
-    card.style.display = mostrar ? 'block' : 'none';
-  });
-}
-</script>
 
   
 <body>
@@ -1588,6 +1532,63 @@ atualizarCarrinho();
 
 
 </script>
+<script>
+let filtroAtivo = 'tudo';
 
+document.querySelectorAll('.filtros-botoes button').forEach(botao => {
+  botao.addEventListener('click', () => {
+    document.querySelectorAll('.filtros-botoes button')
+      .forEach(b => b.classList.remove('ativo'));
+
+    botao.classList.add('ativo');
+    filtroAtivo = botao.dataset.filtro;
+
+    aplicarFiltroBotoes();
+  });
+});
+
+function aplicarFiltroBotoes() {
+  const termo = document.getElementById('search')
+    ? document.getElementById('search').value.toLowerCase()
+    : '';
+
+  document.querySelectorAll('.card').forEach(card => {
+    const produto = (card.dataset.produto || '').toLowerCase();
+    const tipo = (card.dataset.tipo || '').toLowerCase();
+    const pais = (card.dataset.pais || '').toLowerCase();
+
+    let mostrar = true;
+
+    switch (filtroAtivo) {
+      case 'brasileiros':
+        mostrar = pais === 'brasil' || produto.includes('brasil');
+        break;
+
+      case 'internacionais':
+        mostrar = pais && pais !== 'brasil';
+        break;
+
+      case 'feminina':
+        mostrar = produto.includes('feminina');
+        break;
+
+      case 'infantil':
+        mostrar = produto.includes('infantil');
+        break;
+
+      default:
+        mostrar = true;
+    }
+
+    if (termo && !produto.includes(termo)) {
+      mostrar = false;
+    }
+
+    card.style.display = mostrar ? 'block' : 'none';
+  });
+}
+</script>
+
+  
 </body>
 </html>

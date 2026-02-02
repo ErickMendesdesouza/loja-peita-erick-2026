@@ -1320,6 +1320,25 @@ document.getElementById('search').addEventListener('input', e => {
   });
 });
 </script>
+<script>
+document.querySelectorAll('.card').forEach(card => {
+  const selectCustom = card.querySelector('.select.custom');
+  const customFields = card.querySelector('.custom-fields');
+
+  /* começa escondido */
+  customFields.style.display = 'none';
+
+  selectCustom.addEventListener('change', () => {
+    if (selectCustom.value === 'Sim') {
+      customFields.style.display = 'block';
+    } else {
+      customFields.style.display = 'none';
+      card.querySelector('.input.nome').value = '';
+      card.querySelector('.input.numero').value = '';
+    }
+  });
+});
+</script>
 
 </body>
 </html>

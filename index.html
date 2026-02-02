@@ -1298,7 +1298,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   // Inicializa mostrando todos (se o campo de busca já contiver texto, ele é aplicado também)
   applyFilter('todos');
 })();
-
+<script>
   <!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
@@ -1367,6 +1367,7 @@ function alterarQuantidade(index,value){
   cart[index].quantidade = parseInt(value);
   atualizarCarrinho();
 }
+  <script>
 // SLIDER DE IMAGENS
 document.querySelectorAll(".card").forEach(card=>{
   const slides = card.querySelectorAll(".slide-img");
@@ -1390,7 +1391,7 @@ document.querySelectorAll(".card").forEach(card=>{
     });
   }
 });
-
+<script>
 // CARDS - customização e adicionar ao carrinho
 document.querySelectorAll(".card").forEach(card=>{
   const custom = card.querySelector(".custom");
@@ -1428,7 +1429,7 @@ document.querySelectorAll(".card").forEach(card=>{
     abrirCarrinho();
   });
 });
-
+<script>
 // BOTÃO COMPRAR WHATSAPP
 document.getElementById("cart-buy").addEventListener("click",()=>{
   if(cart.length === 0){

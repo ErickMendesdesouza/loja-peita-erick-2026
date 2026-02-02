@@ -33,6 +33,58 @@
   display: block;
 }
 
+    .image-container {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: white;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+    .image-slider {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+  border-radius: 50%;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
   </style>
 </head>
 
@@ -1233,6 +1285,32 @@ document.querySelectorAll('.card').forEach(card => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".card").forEach(card => {
+    const images = card.querySelectorAll(".slide-img");
+    const nextBtn = card.querySelector(".arrow.right");
+    const prevBtn = card.querySelector(".arrow.left");
+
+    if (!images.length || !nextBtn || !prevBtn) return;
+
+    let index = 0;
+
+    function update() {
+      images.forEach(img => img.classList.remove("active"));
+      images[index].classList.add("active");
+    }
+
+    nextBtn.onclick = () => {
+      index = (index + 1) % images.length;
+      update();
+    };
+
+    prevBtn.onclick = () => {
+      index = (index - 1 + images.length) % images.length;
+      update();
+    };
+  });
+});
 
 // Busca
 document.getElementById('search').addEventListener('input', e => {

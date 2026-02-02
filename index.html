@@ -1338,6 +1338,53 @@ document.querySelectorAll('.card').forEach(card => {
     }
   });
 });
+
+  <script>
+let carrinho = [];
+
+document.querySelectorAll('.btn-add').forEach(botao => {
+  botao.addEventListener('click', () => {
+    const card = botao.closest('.card');
+
+    const produto = card.dataset.produto;
+    const precoBase = parseFloat(card.dataset.preco);
+    const tamanho = card.querySelector('.select.size').value;
+    const personalizar = card.querySelector('.select.custom').value;
+    const nome = card.querySelector('.input.nome').value.trim();
+    const numero = card.querySelector('.input.numero').value.trim();
+
+    /* tamanho obrigatório */
+    if (!tamanho) {
+      alert('⚠️ Selecione um tamanho!');
+      return;
+    }
+
+    let precoFinal = precoBase;
+
+    /* valida personalização */
+    if (personalizar === 'Sim') {
+      if (!nome || !numero) {
+        alert('⚠️ Preencha nome e número da camisa!');
+        return;
+      }
+      precoFinal += 20;
+    }
+
+    carrinho.push({
+      produto,
+      tamanho,
+      personalizar,
+      nome,
+      numero,
+      preco: precoFinal
+    });
+
+    alert('✅ Produto adicionado ao carrinho!');
+    console.log(carrinho);
+  });
+});
+</script>
+
 </script>
 
 </body>

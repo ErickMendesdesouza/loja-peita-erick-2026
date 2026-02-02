@@ -1299,8 +1299,10 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   applyFilter('todos');
 })();
 <script>
+ 
   <!-- MODAL -->
-<div class="modal" id="modal">
+(function(){
+  <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close" onclick="fecharModal()">✖</span>
     <h3>Tabela de Medidas</h3>
@@ -1319,7 +1321,7 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   </div>
 </div>
 
-<script>
+
 const telefone = "5511988857455";
 const modal = document.getElementById("modal");
 const cartPopup = document.getElementById("cart");
@@ -1367,7 +1369,7 @@ function alterarQuantidade(index,value){
   cart[index].quantidade = parseInt(value);
   atualizarCarrinho();
 }
-  <script>
+  
 // SLIDER DE IMAGENS
 document.querySelectorAll(".card").forEach(card=>{
   const slides = card.querySelectorAll(".slide-img");
@@ -1391,7 +1393,7 @@ document.querySelectorAll(".card").forEach(card=>{
     });
   }
 });
-<script>
+
 // CARDS - customização e adicionar ao carrinho
 document.querySelectorAll(".card").forEach(card=>{
   const custom = card.querySelector(".custom");
@@ -1429,7 +1431,7 @@ document.querySelectorAll(".card").forEach(card=>{
     abrirCarrinho();
   });
 });
-<script>
+
 // BOTÃO COMPRAR WHATSAPP
 document.getElementById("cart-buy").addEventListener("click",()=>{
   if(cart.length === 0){

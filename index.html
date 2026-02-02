@@ -29,6 +29,14 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
 .arrow.left { left:5px; }
 .arrow.right { right:5px; }
 
+  .arrow {
+  z-index: 10;
+}
+
+.slide-img {
+  pointer-events: none;
+}
+
 /* Modal */
 .modal, .cart-popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1000;}
 .modal-content, .cart-content { background:#fff; padding:20px; max-width:500px; margin:10% auto; border-radius:8px; max-height:80vh; overflow-y:auto;}
@@ -1287,39 +1295,32 @@ function filtrarCards(){
   });
 }
 
-// SLIDER DE IMAGENS (CORRIGIDO DEFINITIVO)
+// SLIDER DE IMAGENS (CORRIGIDO)
 document.querySelectorAll(".image-slider").forEach(slider => {
   const slides = slider.querySelectorAll(".slide-img");
   const left = slider.querySelector(".arrow.left");
   const right = slider.querySelector(".arrow.right");
 
-  // índice salvo no próprio slider
-  slider.dataset.index = 0;
+  let index = 0;
 
-  function showSlide(index) {
+  function showSlide(i) {
     slides.forEach(s => s.classList.remove("active"));
-    slides[index].classList.add("active");
-    slider.dataset.index = index;
+    slides[i].classList.add("active");
+    index = i;
   }
 
   if (left) {
     left.addEventListener("click", (e) => {
-      e.preventDefault();
       e.stopPropagation();
-
-      let index = parseInt(slider.dataset.index);
-      index = index - 1 < 0 ? slides.length - 1 : index - 1;
+      index = index === 0 ? slides.length - 1 : index - 1;
       showSlide(index);
     });
   }
 
   if (right) {
     right.addEventListener("click", (e) => {
-      e.preventDefault();
       e.stopPropagation();
-
-      let index = parseInt(slider.dataset.index);
-      index = index + 1 >= slides.length ? 0 : index + 1;
+      index = index === slides.length - 1 ? 0 : index + 1;
       showSlide(index);
     });
   }

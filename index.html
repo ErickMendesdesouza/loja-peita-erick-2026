@@ -1225,7 +1225,9 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   © Peitas Store - Todos os direitos reservados
 </footer>
 
-<!-- Filtering script: uses existing data attributes on cards (data-tipo, data-pais, data-produto)
+
+  
+  <!-- Filtering script: uses existing data attributes on cards (data-tipo, data-pais, data-produto)
      Works together with the existing search input (id="search-input") -->
 <script>
 (function(){
@@ -1296,7 +1298,90 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   // Inicializa mostrando todos (se o campo de busca já contiver texto, ele é aplicado também)
   applyFilter('todos');
 })();
+
+  // SLIDER DE IMAGENS
+document.querySelectorAll(".card").forEach(card=>{
+  const slides = card.querySelectorAll(".slide-img");
+  const left = card.querySelector(".arrow.left");
+  const right = card.querySelector(".arrow.right");
+  let current = 0;
+
+  function showSlide(i){
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[i].classList.add("active");
+  }
+
+  if(left && right){
+    left.addEventListener("click", ()=>{
+      current = (current-1+slides.length) % slides.length;
+      showSlide(current);
+    });
+    right.addEventListener("click", ()=>{
+      current = (current+1) % slides.length;
+      showSlide(current);
+    });
+  }
+});
+
+// CARDS - customização e adicionar ao carrinho
+document.querySelectorAll(".card").forEach(card=>{
+  const custom = card.querySelector(".custom");
+  const fields = card.querySelector(".custom-fields");
+  const priceEl = card.querySelector(".price");
+  const base = parseFloat(card.dataset.preco);
+
+  custom.addEventListener("change",()=>{
+    fields.style.display = custom.value==="Sim"?"block":"none";
+    priceEl.innerText = "R$ "+(custom.value==="Sim"?base+20:base).toFixed(2).replace(".",",");
+  });
+
+  card.querySelector(".btn-add").addEventListener("click",()=>{
+    const tamanho = card.querySelector(".size").value;
+    if(!tamanho || !custom.value){ alert("Preencha todas as opções"); return; }
+    let precoTotal = base;
+
+    // Adiciona R$6,50 para tamanho 2XG
+    if(tamanho === "2XG") precoTotal += 6.50;
+
+    let nome = "", numero = "";
+
+    if(custom.value==="Sim"){
+      nome = card.querySelector(".nome").value;
+      numero = card.querySelector(".numero").value;
+      if(!nome || !numero){ alert("Preencha nome e número para personalização"); return; }
+      precoTotal += 20;
+    }
+
+    const produto = card.dataset.produto;
+    const imagem = card.querySelector(".slide-img.active").src;
+
+    cart.push({produto, tamanho, custom: custom.value, nome, numero, preco: precoTotal, quantidade:1, imagem});
+    atualizarCarrinho();
+    abrirCarrinho();
+  });
+});
+
+// BOTÃO COMPRAR WHATSAPP
+document.getElementById("cart-buy").addEventListener("click",()=>{
+  if(cart.length === 0){
+    alert("Seu carrinho está vazio.");
+    return;
+  }
+  let msg = "Olá! Gostaria de comprar:%0A";
+  cart.forEach(item=>{
+    msg += - ${item.produto} | Tamanho: ${item.tamanho} | Personalizada: ${item.custom};
+    if(item.custom === "Sim"){
+      msg += ` | Nome: ${item.nome} | Número: ${item.numero}`;
+    }
+    msg += ` | Quantidade: ${item.quantidade} | Preço unitário: R$${item.preco.toFixed(2).replace(".",",")}%0A`;
+  });
+  let total = cart.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+  msg += %0ATotal: R$${total.toFixed(2).replace(".",",")};
+  const url = https://wa.me/${telefone}?text=${msg};
+  window.open(url, "_blank");
+});
 </script>
+
 
 </body>
 </html>

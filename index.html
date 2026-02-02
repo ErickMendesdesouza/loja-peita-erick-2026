@@ -1368,23 +1368,7 @@ function alterarQuantidade(index,value){
   atualizarCarrinho();
 }
 
-// FILTROS
-document.querySelectorAll(".filters select").forEach(f=>{
-  f.addEventListener("change",()=>{
-    filtrarCards();
-  });
-});
 
-function filtrarCards(){
-  const tipo = document.getElementById("filter-type").value;
-  const pais = document.getElementById("filter-country").value;
-  document.querySelectorAll(".card").forEach(card=>{
-    let show = true;
-    if(tipo && card.dataset.tipo!==tipo) show = false;
-    if(pais && card.dataset.pais!==pais) show = false;
-    card.style.display = show ? "block" : "none";
-  });
-}
   // SLIDER DE IMAGENS
 document.querySelectorAll(".card").forEach(card=>{
   const slides = card.querySelectorAll(".slide-img");

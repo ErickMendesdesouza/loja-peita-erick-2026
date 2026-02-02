@@ -5,64 +5,108 @@
 <title>Peitas Store | Camisas de Time</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4;}
-header { background:#111; color:#fff; padding:15px; text-align:center; font-size:22px; font-weight:bold;}
-.filters { display:flex; gap:10px; padding:15px; background:#fff;}
-.filters select { padding:8px; border-radius:5px;}
-.container { padding:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
-.card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); text-align:center; padding:15px; position:relative;}
-.card img { width:100%; border-radius:6px;}
-.card h3 { font-size:16px;}
-.price { color:#2e7d32; font-size:20px; font-weight:bold;}
-.select, .input { width:100%; margin:6px 0; padding:8px;}
-.custom-fields { display:none;}
-.btn, .btn-add { width:100%; padding:10px; margin-top:8px; background:#111; color:#fff; border:none; cursor:pointer;}
-.link { font-size:13px; color:#0066cc; cursor:pointer; display:block; margin-top:5px;}
-footer { background:#111; color:#aaa; text-align:center; padding:15px;}
+<script>
+/* =========================
+   SLIDER DE IMAGENS
+========================= */
+document.querySelectorAll('.card').forEach(card => {
+  const imgs = card.querySelectorAll('.slide-img');
+  let index = 0;
 
-/* Slider */
-.image-slider { position:relative;}
-.slide-img { display:none; width:100%; border-radius:6px;}
-.slide-img.active { display:block;}
-.arrow { position:absolute; top:50%; transform:translateY(-50%); color:#111; background:rgba(255,255,255,.7); border-radius:50%; width:24px; height:24px; line-height:24px; text-align:center; cursor:pointer; user-select:none;}
-.arrow.left { left:5px; }
-.arrow.right { right:5px; }
+  const showImage = i => {
+    imgs.forEach(img => img.classList.remove('active'));
+    imgs[i].classList.add('active');
+  };
 
-/* Modal */
-.modal, .cart-popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1000;}
-.modal-content, .cart-content { background:#fff; padding:20px; max-width:500px; margin:10% auto; border-radius:8px; max-height:80vh; overflow-y:auto;}
-.close { float:right; cursor:pointer; font-size:18px; }
+  card.querySelector('.arrow.left').onclick = () => {
+    index = (index - 1 + imgs.length) % imgs.length;
+    showImage(index);
+  };
 
-/* Carrinho visual moderno */
-.cart-item { border-bottom:1px solid #ccc; padding:10px; display:flex; align-items:center; position:relative;}
-.cart-item:last-child { border-bottom:none; }
-.cart-item img { width:60px; height:60px; object-fit:cover; border-radius:6px; margin-right:10px;}
-.cart-item-details { flex:1;}
-.cart-item-details strong { display:block; margin-bottom:4px;}
-.cart-item-details small { color:#555;}
-.cart-item .remove { position:absolute; right:0; top:10px; cursor:pointer; color:red; font-weight:bold;}
-.cart-total { font-weight:bold; margin-top:10px; font-size:18px;}
-.quantity-input { width:40px; padding:4px; text-align:center; margin-top:4px;}
+  card.querySelector('.arrow.right').onclick = () => {
+    index = (index + 1) % imgs.length;
+    showImage(index);
+  };
+});
 
-/* Botão Visualizar medidas */
-.btn-measures {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  background: #0066cc;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
+/* =========================
+   PERSONALIZAÇÃO
+========================= */
+document.querySelectorAll('.custom').forEach(select => {
+  select.addEventListener('change', () => {
+    const fields = select.closest('.card').querySelector('.custom-fields');
+    fields.style.display = select.value === 'Sim' ? 'block' : 'none';
+  });
+});
+
+/* =========================
+   BUSCA + FILTROS
+========================= */
+const searchInput = document.getElementById('search-input');
+const filterType = document.getElementById('filter-type');
+const filterCountry = document.getElementById('filter-country');
+const cards = document.querySelectorAll('.card');
+
+function filtrar() {
+  const busca = searchInput.value.toLowerCase();
+  const tipo = filterType.value;
+  const pais = filterCountry.value;
+
+  cards.forEach(card => {
+    const nome = card.dataset.produto.toLowerCase();
+    const cTipo = card.dataset.tipo;
+    const cPais = card.dataset.pais;
+
+    const okBusca = nome.includes(busca);
+    const okTipo = !tipo || tipo === cTipo;
+    const okPais = !pais || pais === cPais;
+
+    card.style.display = (okBusca && okTipo && okPais) ? 'block' : 'none';
+  });
 }
 
-.btn-measures:hover {
-  background: #004999;
+searchInput.oninput = filtrar;
+filterType.onchange = filtrar;
+filterCountry.onchange = filtrar;
+
+/* =========================
+   CARRINHO
+========================= */
+let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+function salvarCarrinho() {
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
 }
-</style>
-</head>
+
+document.querySelectorAll('.btn-add').forEach(btn => {
+  btn.onclick = () => {
+    const card = btn.closest('.card');
+    const tamanho = card.querySelector('.size').value;
+    if (!tamanho) {
+      alert('Selecione um tamanho!');
+      return;
+    }
+
+    const produto = {
+      nome: card.dataset.produto,
+      preco: parseFloat(card.dataset.preco),
+      tamanho,
+      img: card.querySelector('.slide-img').src,
+      qtd: 1
+    };
+
+    const existente = carrinho.find(
+      p => p.nome === produto.nome && p.tamanho === produto.tamanho
+    );
+
+    if (existente) existente.qtd++;
+    else carrinho.push(produto);
+
+    salvarCarrinho();
+    alert('Produto adicionado ao carrinho 🛒');
+  };
+});
+</script>
 
 <body>
 

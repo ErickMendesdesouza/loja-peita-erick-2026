@@ -1287,37 +1287,44 @@ function filtrarCards(){
   });
 }
 
-// SLIDER DE IMAGENS
-document.querySelectorAll(".card").forEach(card=>{
-  const slides = card.querySelectorAll(".slide-img");
-  const left = card.querySelector(".arrow.left");
-  const right = card.querySelector(".arrow.right");
+// SLIDER DE IMAGENS (CORRIGIDO DEFINITIVO)
+document.querySelectorAll(".image-slider").forEach(slider => {
+  const slides = slider.querySelectorAll(".slide-img");
+  const left = slider.querySelector(".arrow.left");
+  const right = slider.querySelector(".arrow.right");
 
-  function getCurrentIndex(){
-    return [...slides].findIndex(s => s.classList.contains("active"));
-  }
+  // índice salvo no próprio slider
+  slider.dataset.index = 0;
 
-  function showSlide(index){
+  function showSlide(index) {
     slides.forEach(s => s.classList.remove("active"));
     slides[index].classList.add("active");
+    slider.dataset.index = index;
   }
 
-  if(left){
-    left.addEventListener("click", ()=>{
-      let current = getCurrentIndex();
-      let next = current - 1 < 0 ? slides.length - 1 : current - 1;
-      showSlide(next);
+  if (left) {
+    left.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      let index = parseInt(slider.dataset.index);
+      index = index - 1 < 0 ? slides.length - 1 : index - 1;
+      showSlide(index);
     });
   }
 
-  if(right){
-    right.addEventListener("click", ()=>{
-      let current = getCurrentIndex();
-      let next = current + 1 >= slides.length ? 0 : current + 1;
-      showSlide(next);
+  if (right) {
+    right.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      let index = parseInt(slider.dataset.index);
+      index = index + 1 >= slides.length ? 0 : index + 1;
+      showSlide(index);
     });
   }
 });
+
 
 // CARDS - customização e adicionar ao carrinho
 document.querySelectorAll(".card").forEach(card=>{

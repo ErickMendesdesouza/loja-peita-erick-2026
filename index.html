@@ -121,6 +121,29 @@ h2 {
   border-color: #000;
 }
 
+.filtros-botoes {
+  text-align: center;       /* centraliza horizontalmente */
+  margin: 20px 0;           /* espaçamento acima e abaixo */
+}
+
+.filtros-botoes button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.filtros-botoes button:hover,
+.filtros-botoes button.ativo {
+  background-color: #ff0000;  /* destaque ao passar o mouse ou botão ativo */
+}
+
+    
   </style>
 </head>
 
@@ -224,13 +247,7 @@ if (searchInput) {
   });
 }
 </script>
-<div class="filtros-botoes">
-  <button data-filtro="tudo" class="ativo">Tudo</button>
-  <button data-filtro="brasileiros">Times Brasileiros</button>
-  <button data-filtro="internacionais">Times Internacionais</button>
-  <button data-filtro="feminina">Femininas</button>
-  <button data-filtro="infantil">Infantil</button>
-</div>
+
 
   
 <body>
@@ -240,6 +257,13 @@ if (searchInput) {
   <input type="text" id="search" placeholder="Buscar camisa...">
   <button onclick="toggleCart()">🛒 Carrinho</button>
 </header>
+<div class="filtros-botoes">
+  <button data-filtro="tudo" class="ativo">Tudo</button>
+  <button data-filtro="brasileiros">Times Brasileiros</button>
+  <button data-filtro="internacionais">Times Internacionais</button>
+  <button data-filtro="feminina">Femininas</button>
+  <button data-filtro="infantil">Infantil</button>
+</div>
 
 <div class="container" id="products">
 

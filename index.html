@@ -88,6 +88,77 @@
   </style>
 </head>
 
+  <div id="cart" style="display:none; position:fixed; right:20px; top:80px; width:320px; background:#fff; border:1px solid #ccc; padding:15px; z-index:9999;">
+  <h3>🛒 Carrinho</h3>
+  <div id="cart-items"></div>
+  <p><strong>Total:</strong> R$ <span id="cart-total">0.00</span></p>
+  <button onclick="comprarWhatsApp()" style="width:100%; padding:10px; background:green; color:#fff; border:none; cursor:pointer;">
+    Comprar no WhatsApp
+  </button>
+</div>
+
+<button onclick="toggleCart()" style="position:fixed; right:20px; top:20px; z-index:9999;">
+  🛒 Carrinho
+</button>
+
+  <script>
+function toggleCart() {
+  const cart = document.getElementById('cart');
+  cart.style.display = cart.style.display === 'none' ? 'block' : 'none';
+}
+
+function atualizarCarrinho() {
+  const lista = document.getElementById('cart-items');
+  const totalSpan = document.getElementById('cart-total');
+  lista.innerHTML = '';
+
+  let total = 0;
+
+  carrinho.forEach((item, index) => {
+    total += item.preco;
+
+    lista.innerHTML += `
+      <div style="margin-bottom:10px;">
+        <strong>${item.produto}</strong><br>
+        Tamanho: ${item.tamanho}<br>
+        ${item.personalizar === 'Sim' ? `Personalizado: ${item.nome} #${item.numero}<br>` : ''}
+        Preço: R$ ${item.preco.toFixed(2)}
+      </div>
+    `;
+  });
+
+  totalSpan.textContent = total.toFixed(2);
+}
+</script>
+<script>
+function comprarWhatsApp() {
+  if (carrinho.length === 0) {
+    alert('Seu carrinho está vazio!');
+    return;
+  }
+
+  let mensagem = '🛒 *Pedido de Camisas*%0A%0A';
+  let total = 0;
+
+  carrinho.forEach((item, i) => {
+    mensagem += `👕 ${item.produto}%0A`;
+    mensagem += `Tamanho: ${item.tamanho}%0A`;
+    if (item.personalizar === 'Sim') {
+      mensagem += `Personalização: ${item.nome} #${item.numero}%0A`;
+    }
+    mensagem += `Preço: R$ ${item.preco.toFixed(2)}%0A%0A`;
+    total += item.preco;
+  });
+
+  mensagem += `💰 *Total: R$ ${total.toFixed(2)}*`;
+
+  const telefone = '5511988857455'; // Ex: 5511999999999
+  const url = `https://wa.me/${telefone}?text=${mensagem}`;
+  window.open(url, '_blank');
+}
+</script>
+
+  
 <body>
 
 <header>
@@ -1378,7 +1449,8 @@ document.querySelectorAll('.btn-add').forEach(botao => {
       numero,
       preco: precoFinal
     });
-
+    
+atualizarCarrinho();
     alert('✅ Produto adicionado ao carrinho!');
     console.log(carrinho);
   });

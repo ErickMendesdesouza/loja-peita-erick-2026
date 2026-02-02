@@ -33,9 +33,15 @@ footer { background:#111; color:#aaa; text-align:center; padding:15px;}
   z-index: 10;
 }
 
-.slide-img {
-  pointer-events: none;
+.image-slider {
+  position: relative;
 }
+
+.arrow {
+  z-index: 20;
+  pointer-events: auto;
+}
+
 
 /* Modal */
 .modal, .cart-popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1000;}

@@ -168,6 +168,26 @@ function removerItem(index) {
   atualizarCarrinho();
 }
 </script>
+<script>
+const searchInput = document.getElementById('search');
+
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const termo = searchInput.value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      const texto = `
+        ${card.dataset.produto}
+        ${card.dataset.pais}
+        ${card.dataset.tipo}
+      `.toLowerCase();
+
+      card.style.display = texto.includes(termo) ? 'block' : 'none';
+    });
+  });
+}
+</script>
 
   
 <body>

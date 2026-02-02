@@ -1449,25 +1449,7 @@ document.getElementById("cart-buy").addEventListener("click",()=>{
   window.open(url, "_blank");
 });
 
- // PESQUISA DE CAMISAS
-const searchInput = document.getElementById("search-input");
-
-searchInput.addEventListener("input", () => {
-  const termo = searchInput.value.toLowerCase();
-
-  document.querySelectorAll(".card").forEach(card => {
-    const nomeProduto = card.dataset.produto.toLowerCase();
-    const tipo = card.dataset.tipo.toLowerCase();
-    const pais = card.dataset.pais.toLowerCase();
-
-    const encontrado =
-      nomeProduto.includes(termo) ||
-      tipo.includes(termo) ||
-      pais.includes(termo);
-
-    card.style.display = encontrado ? "block" : "none";
-  });
-});
+ 
 
 
 

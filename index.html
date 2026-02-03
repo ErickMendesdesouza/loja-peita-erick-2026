@@ -288,9 +288,9 @@ if (searchInput) {
   });
 }
 </script>
+
 <!-- Título da loja -->
 <h2 style="text-align: center;">Loja de Camisas</h2>
-
 
 <!-- Barra de pesquisa -->
 <div class="barra-pesquisa" style="text-align: center; margin-top: 20px;">
@@ -306,6 +306,38 @@ if (searchInput) {
   <button data-filtro="infantil">Infantil</button>
   <button data-filtro="selecoes">Seleções</button>
 </div>
+
+<!-- Cards de produtos -->
+<div class="produtos" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+  <!-- Exemplo de card -->
+  <div class="produto" data-categoria="brasileiros">
+    <img src="imagens/flamengo.png" alt="Flamengo">
+    <h3>Flamengo 2026</h3>
+  </div>
+  <div class="produto" data-categoria="selecoes">
+    <img src="imagens/brasil.png" alt="Seleção Brasil">
+    <h3>Brasil 2026</h3>
+  </div>
+  <!-- Repita os cards para cada camisa, sempre usando data-categoria correto -->
+</div>
+
+  
+<body>
+
+<header>
+  <h2>Loja de Camisas</h2>
+  <input type="text" id="search" placeholder="Buscar camisa...">
+  <button onclick="toggleCart()">🛒 Carrinho</button>
+</header>
+<div class="filtros-botoes">
+  <button data-filtro="tudo" class="ativo">Tudo</button>
+  <button data-filtro="brasileiros">Times Brasileiros</button>
+  <button data-filtro="internacionais">Times Internacionais</button>
+  <button data-filtro="seleções">Seleções</button>
+  <button data-filtro="feminina">Femininas</button>
+  <button data-filtro="infantil">Infantil</button>
+</div>
+
 
 <!-- Cards de produtos -->
 <div class="produtos" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">

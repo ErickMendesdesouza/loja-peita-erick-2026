@@ -1628,7 +1628,7 @@ function aplicarFiltroBotoes() {
 
     switch (filtroAtivo) {
       case 'brasileiros':
-        mostrar = pais === 'brasil' ||  produto.includes('brasil');
+        mostrar = pais === 'brasil' ||  tipo && tipo !== 'selecoes'  ||  produto.includes('brasil');
         break;
 
       case 'internacionais':

@@ -303,7 +303,7 @@ if (searchInput) {
   <button data-filtro="tudo" class="ativo">Tudo</button>
   <button data-filtro="brasileiros">Times Brasileiros</button>
   <button data-filtro="internacionais">Times Internacionais</button>
-  <button data-filtro="selecao">Seleções</button>
+  <button data-filtro="Seleções">Seleções</button>
   <button data-filtro="feminina">Femininas</button>
   <button data-filtro="infantil">Infantil</button>
 </div>
@@ -315,7 +315,7 @@ if (searchInput) {
 <!-- Camisas -->
 
 <!-- Brasil Home -->
-<div class="card" data-tipo="selecao" data-pais="Brasil" data-categoria="seleções" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
+<div class="card" data-tipo="Seleções" data-pais="Brasil" data-categoria="Seleções" data-produto="Camisa Brasil 2026 Home Jogador" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/brasil2026homejogador.png.webp" alt="Frente">
     <img class="slide-img" src="images/brasil2026homejogadorback.png" alt="Costas">
@@ -345,7 +345,7 @@ if (searchInput) {
 
 
 <!-- Alemanha Home -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-categoria="seleções" data-produto="Camisa Alemanha 2026 Home" data-preco="199.90">
+<div class="card" data-tipo="Seleções" data-pais="Alemanha" data-categoria="Seleções" data-produto="Camisa Alemanha 2026 Home" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Home.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Homeback.png" alt="Costas">
@@ -404,7 +404,7 @@ if (searchInput) {
 
 
   <!-- Alemanha Away -->
-<div class="card" data-tipo="selecao" data-pais="Alemanha" data-categoria="seleções" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
+<div class="card" data-tipo="Seleções" data-pais="Alemanha" data-categoria="Seleções" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Away.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Awayback.png" alt="Costas">
@@ -1635,8 +1635,8 @@ function aplicarFiltroBotoes() {
         mostrar = pais && pais !== 'brasil';
         break;
 
- case 'selecao':
-        mostrar = produto.includes('selecao');
+ case 'Seleções':
+        mostrar = produto.includes('Seleções');
         break;
         
       case 'feminina':

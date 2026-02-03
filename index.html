@@ -1635,6 +1635,10 @@ function aplicarFiltroBotoes() {
         mostrar = pais && pais !== 'brasil';
         break;
 
+ case 'seleções':
+        mostrar = produto.includes('seleções');
+        break;
+        
       case 'feminina':
         mostrar = produto.includes('feminina');
         break;

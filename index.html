@@ -301,6 +301,7 @@ if (searchInput) {
 </header>
 <div class="filtros-botoes">
   <button data-filtro="tudo" class="ativo">Tudo</button>
+  <button data-filtro="lancamentos">Lançamentos</button>
   <button data-filtro="brasileiros">Times Brasileiros</button>
   <button data-filtro="internacionais">Times Internacionais</button>
   <button data-filtro="selecoes">Seleções</button>
@@ -315,7 +316,7 @@ if (searchInput) {
 <!-- Camisas -->
 
 <!-- Brasil Home -->
-<div class="card" data-tipo="Seleções" data-pais="Brasil" data-produto="Camisa Brasil 2026 Home Jogador selecoes" data-preco="199.90">
+<div class="card" data-tipo="Seleções" data-lancamento="lancamento" data-pais="Brasil" data-produto="Camisa Brasil 2026 Home Jogador selecoes" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/brasil2026homejogador.png.webp" alt="Frente">
     <img class="slide-img" src="images/brasil2026homejogadorback.png" alt="Costas">
@@ -1627,6 +1628,11 @@ function aplicarFiltroBotoes() {
     let mostrar = true;
 
     switch (filtroAtivo) {
+     
+       case 'lancamento':
+        mostrar = lancamento === 'lancamento';
+        break;
+      
       case 'brasileiros':
         mostrar = tipo === 'clubebr';
         break;

@@ -303,7 +303,7 @@ if (searchInput) {
   <button data-filtro="tudo" class="ativo">Tudo</button>
   <button data-filtro="brasileiros">Times Brasileiros</button>
   <button data-filtro="internacionais">Times Internacionais</button>
-  <button data-filtro="Seleções">Seleções</button>
+  <button data-filtro="selecoes">Seleções</button>
   <button data-filtro="feminina">Femininas</button>
   <button data-filtro="infantil">Infantil</button>
 </div>
@@ -354,7 +354,7 @@ if (searchInput) {
     <div class="arrow left">&#10094;</div>
     <div class="arrow right">&#10095;</div>
   </div>
-  <h3>Camisa Alemanha 2026 Home Seleções </h3>
+  <h3>Camisa Alemanha 2026 Home</h3>
   <div class="price">R$ 199,90</div>
   <select class="select size">
     <option value="">Selecionar tamanho</option>
@@ -404,7 +404,7 @@ if (searchInput) {
 
 
   <!-- Alemanha Away -->
-<div class="card" data-tipo="Seleções" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
+<div class="card" data-tipo="selecoes" data-pais="Alemanha" data-produto="Camisa Alemanha 2026 Away" data-preco="199.90">
   <div class="image-slider">
     <img class="slide-img active" src="images/Alemanha2026Away.png" alt="Frente">
     <img class="slide-img" src="images/Alemanha2026Awayback.png" alt="Costas">
@@ -1635,8 +1635,8 @@ function aplicarFiltroBotoes() {
         mostrar = pais && pais !== 'brasil';
         break;
 
- case 'Seleções':
-        mostrar = produto.includes('Seleções');
+      case 'selecoes':
+        mostrar = produto.includes('selecoes');
         break;
         
       case 'feminina':

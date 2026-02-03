@@ -187,7 +187,8 @@ h2 {
 
   </style>
 </head>
- <div id="cart" style="display:none; position:fixed; right:20px; top:80px; width:320px; background:#fff; border:1px solid #ccc; padding:15px; z-index:9999;">
+
+  <div id="cart" style="display:none; position:fixed; right:20px; top:80px; width:320px; background:#fff; border:1px solid #ccc; padding:15px; z-index:9999;">
   <h3>🛒 Carrinho</h3>
   <div id="cart-items"></div>
   <p><strong>Total:</strong> R$ <span id="cart-total">0.00</span></p>
@@ -199,7 +200,6 @@ h2 {
 <button onclick="toggleCart()" style="position:fixed; right:20px; top:20px; z-index:9999;">
   🛒 Carrinho
 </button>
- 
 
   <script>
 function toggleCart() {
@@ -289,7 +289,37 @@ if (searchInput) {
 }
 </script>
 
+<!-- Título da loja -->
+<h2 style="text-align: center;">Loja de Camisas</h2>
 
+<!-- Barra de pesquisa -->
+<div class="barra-pesquisa" style="text-align: center; margin-top: 20px;">
+  <input type="text" placeholder="Buscar camisa..." style="padding: 10px 20px; width: 300px; border-radius: 5px; border: 1px solid #ccc;">
+</div>
+
+<!-- Botões de filtro -->
+<div class="filtros-botoes" style="text-align: center; margin: 20px 0;">
+  <button data-filtro="tudo">Tudo</button>
+  <button data-filtro="brasileiros">Times Brasileiros</button>
+  <button data-filtro="internacionais">Times Internacionais</button>
+  <button data-filtro="femininas">Femininas</button>
+  <button data-filtro="infantil">Infantil</button>
+  <button data-filtro="selecoes">Seleções</button>
+</div>
+
+<!-- Cards de produtos -->
+<div class="produtos" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+  <!-- Exemplo de card -->
+  <div class="produto" data-categoria="brasileiros">
+    <img src="imagens/flamengo.png" alt="Flamengo">
+    <h3>Flamengo 2026</h3>
+  </div>
+  <div class="produto" data-categoria="selecoes">
+    <img src="imagens/brasil.png" alt="Seleção Brasil">
+    <h3>Brasil 2026</h3>
+  </div>
+  <!-- Repita os cards para cada camisa, sempre usando data-categoria correto -->
+</div>
 
   
 <body>
@@ -301,22 +331,13 @@ if (searchInput) {
 </header>
 <div class="filtros-botoes">
   <button data-filtro="tudo" class="ativo">Tudo</button>
-  <button data-filtro="brasileiros">Clubes Brasileiros</button>
-  <button data-filtro="internacionais">Clubes Internacionais</button>
+  <button data-filtro="brasileiros">Times Brasileiros</button>
+  <button data-filtro="internacionais">Times Internacionais</button>
   <button data-filtro="seleções">Seleções</button>
   <button data-filtro="feminina">Femininas</button>
   <button data-filtro="infantil">Infantil</button>
 </div>
 
-
-<!-- Cards de produtos -->
-<div class="produtos" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
- 
-
-  
-<body>
-
-<header>
  
 
 <div class="container" id="products">

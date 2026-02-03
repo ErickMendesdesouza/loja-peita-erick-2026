@@ -7,59 +7,299 @@
 
   <style>
     body { font-family: Arial, sans-serif; margin: 0; background:#f5f5f5; }
-    input, button { padding:8px; margin:5px 0; }
+    header { padding: 15px; background:#111; color:#fff; }
+    input, select, button { padding:8px; margin:5px 0; }
     .container { display:flex; flex-wrap:wrap; gap:20px; padding:20px; }
-    .card, .produto { background:#fff; padding:10px; border-radius:8px; text-align:center; }
-    
-    /* Slider */
-    .slide-img { display: none; width:100%; }
+    .card { background:#fff; padding:10px; width:260px; border-radius:8px; }
+    .slider { position:relative; }
+    .slide-img { width:100%; display:none; }
     .slide-img.active { display:block; }
-    .arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:28px; color:#fff; background:rgba(0,0,0,0.6); padding:8px 12px; cursor:pointer; border-radius:50%; z-index:20; }
-    .arrow.left { left:10px; }
-    .arrow.right { right:10px; }
+    .arrow { position:absolute; top:45%; background:#000; color:#fff; padding:5px; cursor:pointer; }
+    .left { left:5px; }
+    .right { right:5px; }
 
-    /* Barra de pesquisa */
-    #search { display:block; margin:20px auto; width:300px; padding:10px; font-size:16px; border-radius:6px; border:1px solid #ccc; }
-
-    /* Título */
-    h2 { text-align:center; margin:20px 0; }
-
-    /* Botões de filtro */
-    .filtros-botoes { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:20px 0; }
-    .filtros-botoes button {
-      padding:10px 15px;
-      border:none;
-      border-radius:5px;
-      background-color:#111;
-      color:#fff;
-      cursor:pointer;
-      font-size:14px;
-      transition:0.3s;
-    }
-    .filtros-botoes button:hover,
-    .filtros-botoes button.ativo {
-      background-color:#ff0000;
+    .cart-popup {
+      position:fixed; right:20px; top:20px;
+      background:#fff; width:320px;
+      padding:15px; border-radius:10px;
+      display:none; max-height:80vh; overflow:auto;
     }
 
-    /* Cards de produtos */
-    .produto { width:180px; transition: transform 0.3s, box-shadow 0.3s; }
-    .produto img { width:100%; border-radius:10px; }
-    .produto h3 { margin-top:10px; font-size:16px; }
-    .produto:hover { transform:translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+    .slide-img {
+  display: none;
+}
+
+.slide-img.active {
+  display: block;
+}
+
+    .image-container {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: white;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+    .image-slider {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+  border-radius: 50%;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+    #search {
+  display: block;
+  margin: 20px auto; /* centraliza */
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+h2 {
+  text-align: center;
+  margin: 20px 0;
+}
+.filtros-botoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0 25px;
+  flex-wrap: wrap;
+}
+
+.filtros-botoes button {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.filtros-botoes button.ativo {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.filtros-botoes {
+  text-align: center;       /* centraliza horizontalmente */
+  margin: 20px 0;           /* espaçamento acima e abaixo */
+}
+
+.filtros-botoes button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.filtros-botoes button:hover,
+.filtros-botoes button.ativo {
+  background-color: #ff0000;  /* destaque ao passar o mouse ou botão ativo */
+}
+
+    <style>
+/* Botões */
+.filtros-botoes button {
+  background-color: #FF4500;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.filtros-botoes button:hover {
+  background-color: #FF6347;
+  transform: scale(1.05);
+}
+
+/* Cards de produtos */
+.produto {
+  width: 180px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fff;
+}
+.produto img {
+  width: 100%;
+  border-radius: 10px;
+}
+.produto h3 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+.produto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+</style>
+
   </style>
 </head>
 
-<body>
+  <div id="cart" style="display:none; position:fixed; right:20px; top:80px; width:320px; background:#fff; border:1px solid #ccc; padding:15px; z-index:9999;">
+  <h3>🛒 Carrinho</h3>
+  <div id="cart-items"></div>
+  <p><strong>Total:</strong> R$ <span id="cart-total">0.00</span></p>
+  <button onclick="comprarWhatsApp()" style="width:100%; padding:10px; background:green; color:#fff; border:none; cursor:pointer;">
+    Comprar no WhatsApp
+  </button>
+</div>
+
+<button onclick="toggleCart()" style="position:fixed; right:20px; top:20px; z-index:9999;">
+  🛒 Carrinho
+</button>
+
+  <script>
+function toggleCart() {
+  const cart = document.getElementById('cart');
+  cart.style.display = cart.style.display === 'none' ? 'block' : 'none';
+}
+
+function atualizarCarrinho() {
+  const lista = document.getElementById('cart-items');
+  const totalSpan = document.getElementById('cart-total');
+  lista.innerHTML = '';
+
+  let total = 0;
+
+  carrinho.forEach((item, index) => {
+    total += item.preco;
+
+   lista.innerHTML += `
+  <div style="margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:8px;">
+    <strong>${item.produto}</strong><br>
+    Tamanho: ${item.tamanho}<br>
+    ${item.personalizar === 'Sim' ? `Personalizado: ${item.nome} #${item.numero}<br>` : ''}
+    Preço: R$ ${item.preco.toFixed(2)}<br>
+    <button onclick="removerItem(${index})"
+      style="margin-top:5px; background:red; color:white; border:none; padding:5px 8px; cursor:pointer;">
+      ❌ Remover
+    </button>
+  </div>
+`;
+
+  });
+
+  totalSpan.textContent = total.toFixed(2);
+}
+</script>
+<script>
+function comprarWhatsApp() {
+  if (carrinho.length === 0) {
+    alert('Seu carrinho está vazio!');
+    return;
+  }
+
+  let mensagem = '🛒 *Pedido de Camisas*%0A%0A';
+  let total = 0;
+
+  carrinho.forEach((item, i) => {
+    mensagem += `👕 ${item.produto}%0A`;
+    mensagem += `Tamanho: ${item.tamanho}%0A`;
+    if (item.personalizar === 'Sim') {
+      mensagem += `Personalização: ${item.nome} #${item.numero}%0A`;
+    }
+    mensagem += `Preço: R$ ${item.preco.toFixed(2)}%0A%0A`;
+    total += item.preco;
+  });
+
+  mensagem += `💰 *Total: R$ ${total.toFixed(2)}*`;
+
+  const telefone = '5511988857455'; // Ex: 5511999999999
+  const url = `https://wa.me/${telefone}?text=${mensagem}`;
+  window.open(url, '_blank');
+}
+</script>
+<script>
+function removerItem(index) {
+  carrinho.splice(index, 1);
+  atualizarCarrinho();
+}
+</script>
+<script>
+const searchInput = document.getElementById('search');
+
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const termo = searchInput.value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      const texto = `
+        ${card.dataset.produto}
+        ${card.dataset.pais}
+        ${card.dataset.tipo}
+      `.toLowerCase();
+
+      card.style.display = texto.includes(termo) ? 'block' : 'none';
+    });
+  });
+}
+</script>
 
 <!-- Título da loja -->
-<h2>Loja de Camisas</h2>
+<h2 style="text-align: center;">Loja de Camisas</h2>
 
 <!-- Barra de pesquisa -->
-<input type="text" id="search" placeholder="Buscar camisa...">
+<div class="barra-pesquisa" style="text-align: center; margin-top: 20px;">
+  <input type="text" placeholder="Buscar camisa..." style="padding: 10px 20px; width: 300px; border-radius: 5px; border: 1px solid #ccc;">
+</div>
 
 <!-- Botões de filtro -->
-<div class="filtros-botoes">
-  <button data-filtro="tudo" class="ativo">Tudo</button>
+<div class="filtros-botoes" style="text-align: center; margin: 20px 0;">
+  <button data-filtro="tudo">Tudo</button>
   <button data-filtro="brasileiros">Times Brasileiros</button>
   <button data-filtro="internacionais">Times Internacionais</button>
   <button data-filtro="femininas">Femininas</button>
@@ -67,43 +307,37 @@
   <button data-filtro="selecoes">Seleções</button>
 </div>
 
-<script>
-  // Filtro de produtos
-  const filtros = document.querySelectorAll('.filtros-botoes button');
-  const produtos = document.querySelectorAll('.produto');
+<!-- Cards de produtos -->
+<div class="produtos" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+  <!-- Exemplo de card -->
+  <div class="produto" data-categoria="brasileiros">
+    <img src="imagens/flamengo.png" alt="Flamengo">
+    <h3>Flamengo 2026</h3>
+  </div>
+  <div class="produto" data-categoria="selecoes">
+    <img src="imagens/brasil.png" alt="Seleção Brasil">
+    <h3>Brasil 2026</h3>
+  </div>
+  <!-- Repita os cards para cada camisa, sempre usando data-categoria correto -->
+</div>
 
-  filtros.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filtros.forEach(b => b.classList.remove('ativo'));
-      btn.classList.add('ativo');
-      const filtro = btn.dataset.filtro;
+  
+<body>
 
-      produtos.forEach(p => {
-        if(filtro === 'tudo') {
-          p.style.display = 'block';
-        } else {
-          // corrige acentos
-          const categoria = p.dataset.categoria.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-          const filtroNormalizado = filtro.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-          p.style.display = categoria === filtroNormalizado ? 'block' : 'none';
-        }
-      });
-    });
-  });
+<header>
+  <h2>Loja de Camisas</h2>
+  <input type="text" id="search" placeholder="Buscar camisa...">
+  <button onclick="toggleCart()">🛒 Carrinho</button>
+</header>
+<div class="filtros-botoes">
+  <button data-filtro="tudo" class="ativo">Tudo</button>
+  <button data-filtro="brasileiros">Times Brasileiros</button>
+  <button data-filtro="internacionais">Times Internacionais</button>
+  <button data-filtro="seleções">Seleções</button>
+  <button data-filtro="feminina">Femininas</button>
+  <button data-filtro="infantil">Infantil</button>
+</div>
 
-  // Pesquisa de produtos
-  const searchInput = document.getElementById('search');
-  searchInput.addEventListener('input', () => {
-    const termo = searchInput.value.toLowerCase();
-    produtos.forEach(p => {
-      const texto = p.querySelector('h3').textContent.toLowerCase();
-      p.style.display = texto.includes(termo) ? 'block' : 'none';
-    });
-  });
-</script>
-
-<!-- Aqui começam os cards -->
-<div class="container" id="products">
 
 <div class="container" id="products">
 

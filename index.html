@@ -1625,7 +1625,8 @@ function aplicarFiltroBotoes() {
     const produto = (card.dataset.produto || '').toLowerCase();
     const tipo = (card.dataset.tipo || '').toLowerCase();
     const pais = (card.dataset.pais || '').toLowerCase();
-
+    const lancamento = (card.dataset.lancamento || '').toLowerCase();
+    
     let mostrar = true;
 
     switch (filtroAtivo) {
